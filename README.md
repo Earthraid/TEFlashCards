@@ -4,7 +4,6 @@
 
 - **Capstone.Web** - ASP.NET MVC Project
 - **Capstone.Web.Tests** - Unit Tests and Integration Tests
-- **Capstone.UITests** - Cucumber Tests
 
 ## Database Folder
 
@@ -25,9 +24,3 @@ The database folder contains two files: `schema.sql` and `data.sql`.
 
 - **Capstone.Web.Tests**
     - Moq
-
-- **Capstone.UITests**
-    - Selenium.WebDriver
-    - Selenium.WebDriver.ChromeDriver
-    - Selenium.Support
-    - SpecRun.SpecFlow
