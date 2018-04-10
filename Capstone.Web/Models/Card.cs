@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Capstone.Web.Models
 {
-    public class Cards
+    public class Card
     {
         public int CardID { get; set; }
         public string Front { get; set; }
