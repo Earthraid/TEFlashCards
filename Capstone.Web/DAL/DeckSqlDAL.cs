@@ -15,6 +15,10 @@ namespace Capstone.Web.DAL
         private string GetAllDecksSQL = "SELECT * FROM decks WHERE UserID = @userIDValue ORDER BY DeckID ASC";
         private string GetDecksByNameSQL = "SELECT * FROM decks WHERE UserID = @userIDValue and Name = @nameValue ORDER BY DeckID ASC";
 
+        private string GetDecksByTagSQL = "SELECT * FROM decks " +
+            "JOIN deck_tag ON decks.DeckID = deck_tag.DeckID " +
+            "WHERE decks.UserID = @userIDValue and deck_tag.TagID = @tagValue ORDER BY decks.DeckID ASC";
+
         public DeckSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -48,6 +52,25 @@ namespace Capstone.Web.DAL
                     conn.Open();
 
                     var result = conn.Query<Deck>(GetDecksByNameSQL, new { userIDValue = userID, nameValue = searchName });
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public List<Deck> SearchDecksByTag(string userID, string searchName)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Query<Deck>(GetDecksByTagSQL, new { userIDValue = userID, tagValue = searchName });
                     return result.ToList();
                 }
             }
