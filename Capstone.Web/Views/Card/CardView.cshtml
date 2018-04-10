@@ -7,20 +7,23 @@
 
 <h2>View all cards</h2>
 
-<div class="container-fluid">
+<div class="container-fluid card_container">
+    <div class="row">
 
-    @{
-        foreach (Card thisCard in Model)
-        {
-            <div class="card_bothsides col-sm-4">
-                <div class="card_front">@thisCard.Front</div>
-                <div class="card_back">@thisCard.Back</div>
-                @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
-            </div>
+        @{
+            foreach (Card thisCard in Model)
+            {
+                <div class="col-sm-4">
+                    <div class="card_bothsides col-sm-12">
+                        <div class="card_front">@thisCard.Front</div>
+                        <div class="card_back">@thisCard.Back</div>
+                        @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+                    </div>
+                </div>
 
+            }
         }
-    }
+
+    </div>
 
 </div>
-
-
