@@ -2,6 +2,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Capstone.Web.Models
+@model List<Card>
+
 <h2>View all cards</h2>
 
-@Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+<div class="container-fluid">
+
+    @{
+        foreach (Card thisCard in Model)
+        {
+            <div class="card_bothsides col-sm-4">
+                <div class="card_front">@thisCard.Front</div>
+                <div class="card_back">@thisCard.Back</div>
+                @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+            </div>
+
+        }
+    }
+
+</div>
+
+

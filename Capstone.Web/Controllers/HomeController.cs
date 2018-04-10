@@ -11,6 +11,7 @@ namespace Capstone.Web.Controllers
 {
     public class HomeController : Controller
     {
+
         private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
         // GET: Home
         public ActionResult Index()

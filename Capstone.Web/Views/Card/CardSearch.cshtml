@@ -7,18 +7,21 @@
 
 <h2>Card search results</h2>
 
+<div class="container-fluid">
 
     @{
         foreach (Card thisCard in Model)
         {
-            <div class="card_searchview">
+            <div class="card_bothsides col-sm-4">
                 <div class="card_front">@thisCard.Front</div>
                 <div class="card_back">@thisCard.Back</div>
+                @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
             </div>
 
         }
     }
 
+</div>
 
 
-@Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+
