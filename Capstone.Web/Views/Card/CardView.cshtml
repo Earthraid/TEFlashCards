@@ -13,11 +13,13 @@
         @{
             foreach (Card thisCard in Model)
             {
-                <div class="col-sm-4">
-                    <div class="card_bothsides col-sm-12">
-                        <div class="card_front">@thisCard.Front</div>
-                        <div class="card_back">@thisCard.Back</div>
-                        @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <div class="card_bothsides">
+                            <div class="card_front">@thisCard.Front</div>
+                            <div class="card_back">@thisCard.Back</div>
+                            @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+                        </div>
                     </div>
                 </div>
 

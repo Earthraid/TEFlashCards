@@ -50,11 +50,11 @@ namespace Capstone.Web.Controllers
         public ActionResult CardView()
         {
             //temporary user ID
-            string userID = "2";
+            string user_id = "2";
 
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
-            List<Card> allCards = cDal.ViewCards(userID);
+            List<Card> allCards = cDal.ViewCards(user_id);
 
             return View("CardView", allCards);
 

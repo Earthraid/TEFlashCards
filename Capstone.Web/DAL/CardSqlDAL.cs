@@ -12,9 +12,9 @@ namespace Capstone.Web.DAL
     {
         private string connectionString;
 
-        private string view_cards = "SELECT * FROM [cards]";
+        private string view_cards = "SELECT * FROM [cards] WHERE UserID = @user_id";
 
-        private string view_cards_in_deck = "SELECT Front, Back FROM [cards]";
+        private string view_cards_in_deck = "SELECT * FROM [cards] WHERE DeckID = @deck_id";
 
         private string create_Card = "INSERT INTO [cards] (CardID, Front, Back)" +
            "VALUES (@cardid, @front, @back);";
@@ -26,7 +26,7 @@ namespace Capstone.Web.DAL
         //    "JOIN card_tag ON cards.CardID = card_tag.CardID" +
         //    "JOIN tags on card_tag.TagID = tags.TagID WHERE [TagName] = @TagName;";
 
-        private string search_Card = "SELECT * FROM[cards] JOIN card_tag ON cards.CardID = card_tag.CardID JOIN tags on card_tag.TagID = tags.TagID WHERE[TagName] = 'html'";
+        private string search_Card = "SELECT * FROM[cards] JOIN card_tag ON cards.CardID = card_tag.CardID JOIN tags on card_tag.TagID = tags.TagID WHERE[TagName] = @TagName";
 
         public CardSqlDAL(string connectionString)
         {
@@ -44,6 +44,7 @@ namespace Capstone.Web.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(view_cards, conn);
+                    cmd.Parameters.AddWithValue("@user_id", userID);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
