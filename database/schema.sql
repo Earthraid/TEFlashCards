@@ -5,7 +5,7 @@
 BEGIN;
 
 -- CREATE statements go here
-CREATE DATABASE [HotelFlashcards]
+CREATE DATABASE [HotelFlashcards1]
  CONTAINMENT = NONE
  ON  PRIMARY 
 ( NAME = N'HotelFlashcards', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.SQLEXPRESS\MSSQL\DATA\HotelFlashcards.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
