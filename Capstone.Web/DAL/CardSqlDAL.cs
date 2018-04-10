@@ -12,7 +12,7 @@ namespace Capstone.Web.DAL
     {
         private string connectionString;
 
-        private string view_cards = "SELECT Front, Back FROM [cards]";
+        private string view_cards = "SELECT * FROM [cards]";
 
         private string view_cards_in_deck = "SELECT Front, Back FROM [cards]";
 
@@ -34,7 +34,7 @@ namespace Capstone.Web.DAL
         }
 
         //List all cards that a user has
-        public List<Card> ViewCards(int userID)
+        public List<Card> ViewCards(string userID)
         {
             List<Card> result = new List<Card>();
             try
@@ -62,7 +62,7 @@ namespace Capstone.Web.DAL
         }
 
         //List all cards in a deck
-        public List<Card> ViewCardsInDeck(int deckID)
+        public List<Card> ViewCardsInDeck(string deckID)
         {
             List<Card> result = new List<Card>();
             try
@@ -135,6 +135,7 @@ namespace Capstone.Web.DAL
             return (result > 0);
         }
 
+
         public List<Card> SearchCard(string tagName)
         {
             List<Card> matchingCards = new List<Card>();
@@ -153,9 +154,7 @@ namespace Capstone.Web.DAL
 
                     while (reader.Read())
                     {
-                        Card c = new Card();
-                        c = ConvertFields(reader);
-                        matchingCards.Add(c);
+                        matchingCards.Add(ConvertFields(reader));
                     }
                 }
             }
