@@ -2,6 +2,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Capstone.Web.Models;
+@model Card
+
+
 <h2>Create a card</h2>
 
-@Html.ActionLink("Submit card", "CardSubmit", "Card")
+@using (Html.BeginForm("CardSubmit", "Card", new { newCard = Model }, FormMethod.Post))
+{
+    <p>front of card:</p>
+    @Html.TextBoxFor(m => m.Front);
+
+    <p>back of card:</p>
+    @Html.TextBoxFor(m => m.Back);
+
+
+    <button type="submit">Submit card</button>
+}
+

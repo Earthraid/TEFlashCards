@@ -28,11 +28,12 @@ namespace Capstone.Web.Controllers
             return View("CardCreate");
         }
 
-        public ActionResult CardSubmit()
+        public ActionResult CardSubmit(Card newCard)
         {
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
-            //cDal.CreateCard()
+            //cDal.CreateCard(newCard);
+            //CardSqlDAL throws error: missing cardid
 
             return View("CardView");
         }
@@ -52,7 +53,7 @@ namespace Capstone.Web.Controllers
         {
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
-            //cDal.ViewAllCards
+            //List<Card> allCards = cDal.ViewCards(int userID);
 
             //List<Card> as model
 
@@ -64,7 +65,7 @@ namespace Capstone.Web.Controllers
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
 
-            //cDal.ModifyCard
+            //cDal.EditCard
 
             return View();
         }

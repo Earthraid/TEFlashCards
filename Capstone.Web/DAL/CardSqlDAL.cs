@@ -25,7 +25,7 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
-        public List<Card> viewCards(int deckID)
+        public List<Card> ViewCards(int deckID)
         {
             List<Card> result = new List<Card>();
             try
@@ -52,7 +52,7 @@ namespace Capstone.Web.DAL
             return result;
         }
 
-        public bool createCard(Card card)
+        public bool CreateCard(Card card)
         {
             int result = 0;
             try
@@ -75,7 +75,7 @@ namespace Capstone.Web.DAL
             return (result > 0);
         }
 
-        public bool editCard(Card card)
+        public bool EditCard(Card card)
         {
             int result = 0;
             try
