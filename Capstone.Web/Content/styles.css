@@ -8,11 +8,8 @@
 .list_item {
     text-decoration-style: none;
     background-color: yellow;
-
+    color: black;
 }
-    .list_item a {
-        color: black;
-    }
 
 
 

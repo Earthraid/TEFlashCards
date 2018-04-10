@@ -16,12 +16,12 @@
     <div class="container">
         <div>
             <div class="nav navbar">
-                <div class="list_item btn">@Html.ActionLink("Home", "Index", "Home")</div>
-                <div class="list_item btn">@Html.ActionLink("Decks", "Index", "Deck")</div>
-                <div class="list_item btn">@Html.ActionLink("Cards", "Index", "Card")</div>
-                <div class="list_item btn">@Html.ActionLink("Register", "Register", "Home")</div>
-                <div class="list_item btn">@Html.ActionLink("Login", "Login", "Home")</div>
-                <div class="list_item btn">@Html.ActionLink("Logout", "Logout", "Home")</div>
+                <div>@Html.ActionLink("Home", "Index", "Home", new {@class="list_item btn" })</div>
+                <div>@Html.ActionLink("Decks", "Index", "Deck", new { @class = "list_item btn" })</div>
+                <div>@Html.ActionLink("Cards", "Index", "Card", new { @class = "list_item btn" })</div>
+                <div>@Html.ActionLink("Register", "Register", "Home", new { @class = "list_item btn" })</div>
+                <div>@Html.ActionLink("Login", "Login", "Home", new { @class = "list_item btn" })</div>
+                <div>@Html.ActionLink("Logout", "Logout", "Home", new { @class = "list_item btn" })</div>
             </div>
         </div>
     </div>
