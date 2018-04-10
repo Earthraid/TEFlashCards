@@ -63,5 +63,18 @@ namespace Capstone.Web.Tests.DAL
             //Assert
             Assert.AreEqual(numDecks + 1, deckList.Count);
         }
+
+        [TestMethod]
+        public void GetDecksByNameTest()
+        {
+            //Arrange
+            DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+
+            //Act
+            List<Deck> deckList = deckSql.SearchDecksByName("2", "SQL Test");
+
+            //Assert
+            Assert.AreEqual(1, deckList.Count);
+        }
     }
 }
