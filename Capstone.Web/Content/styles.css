@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     border: 0;
-
 }
 /*layout*/
 .list_item {
@@ -33,22 +32,34 @@
 }
 
 .card_bothsides {
-    clear: both;
+    background: #ddd;
     display: inline-block;
     overflow: auto;
-    border: 1px solid black;
+    border: 1px solid #aaa;
     padding: 20px;
     margin-top: 20px;
+    min-height: 25vh;
+    width: 100%;
 }
 
 .card_front {
     top: 0;
-    border: 1px solid black;
+    border: 1px solid #aaa;
+    background: #eee;
     margin: 10px;
 }
 
 .card_back {
     bottom: 0;
-    border: 1px solid black;
+    border: 1px solid #aaa;
+    background: #eee;
     margin: 10px;
+}
+
+.index_option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20vh;
+    font-size: 1.5em;
 }
