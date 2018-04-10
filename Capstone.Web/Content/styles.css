@@ -4,6 +4,22 @@
     border: 0;
 
 }
+/*layout*/
+.list_item {
+    text-decoration-style: none;
+    background-color: yellow;
+
+}
+    .list_item a {
+        color: black;
+    }
+
+
+
+/*decks*/
+
+
+
 
 /*cards*/
 .card_searchview {
