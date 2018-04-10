@@ -22,9 +22,11 @@ namespace Capstone.Web.DAL
         private string edit_Card = "INSERT INTO [cards] (Front, Back)" +
            "VALUES (@front, @back);";
 
-        private string search_Card = "SELECT * FROM [cards]" +
-            "JOIN card_tag ON cards.CardID = card_tag.CardID" +
-            "JOIN tags on card_tag.TagID = tags.TagID WHERE [Tag Name] = @TagName;";
+        //private string search_Card = "SELECT * FROM [cards]" +
+        //    "JOIN card_tag ON cards.CardID = card_tag.CardID" +
+        //    "JOIN tags on card_tag.TagID = tags.TagID WHERE [TagName] = @TagName;";
+
+        private string search_Card = "SELECT * FROM[cards] JOIN card_tag ON cards.CardID = card_tag.CardID JOIN tags on card_tag.TagID = tags.TagID WHERE[TagName] = 'html'";
 
         public CardSqlDAL(string connectionString)
         {
@@ -153,6 +155,7 @@ namespace Capstone.Web.DAL
                     {
                         Card c = new Card();
                         c = ConvertFields(reader);
+                        matchingCards.Add(c);
                     }
                 }
             }
@@ -168,9 +171,9 @@ namespace Capstone.Web.DAL
         private Card ConvertFields(SqlDataReader reader)
         {
             Card card = new Card();
-            card.CardID = Convert.ToInt32(reader["id"]);
-            card.Front = Convert.ToString(reader["front"]);
-            card.Back = Convert.ToString(reader["back"]);
+            card.CardID = Convert.ToInt32(reader["CardID"]);
+            card.Front = Convert.ToString(reader["Front"]);
+            card.Back = Convert.ToString(reader["Back"]);
 
             return card;
         }
