@@ -7,10 +7,18 @@
 /*layout*/
 .list_item {
     text-decoration-style: none;
-    background-color: yellow;
-    color: black;
+    background-color: dodgerblue;
+    color: white;
 }
-
+.list_item:hover{
+    background-color:white;
+    color:blue;
+    text-decoration-style: none;
+    border: 1px solid dodgerblue;
+}
+.top_links{
+   
+}
 
 
 /*decks*/
