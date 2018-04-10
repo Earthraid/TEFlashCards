@@ -12,13 +12,11 @@
     <div class="formValidationGroup">
         @Html.LabelFor(m => m.Email)
         @Html.EditorFor(m => m.Email)
-        @Html.ValidationMessageFor(m => m.Email)
     </div>
 
     <div class="formValidationGroup">
         @Html.LabelFor(m => m.Password)
         @Html.PasswordFor(m => m.Password)
-        @Html.ValidationMessageFor(m => m.Password)
     </div>
    
     <button class="formSubmitButton">Flash Forward</button>

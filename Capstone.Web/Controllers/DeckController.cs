@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Capstone.Web.DAL;
 using System.Configuration;
+using Capstone.Web.Models;
 
 namespace Capstone.Web.Controllers
 {
@@ -13,19 +14,26 @@ namespace Capstone.Web.Controllers
         private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
 
         // GET: Deck
-        public ActionResult Index()
-        {
-            //DeckSqlDAL dDAL = new DeckSqlDAL();
-            //List<Deck> decks = dDAL.GetDecks(user_id);
-            return View("DeckView"/*, decks*/);
+        public ActionResult Index(string user_id)
+        {   
+            if(user_id == null)
+            {
+                user_id = "2";
+            }
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            List<Deck> decks = dDAL.GetDecks(user_id);
+            return View("DeckView", decks);
         }
-        public ActionResult DeckSearch(string search)
+        public ActionResult DeckSearch(string user_id, string search)
         {
-            //dal.SearchDecks
+            if (user_id == null || user_id == "")
+            {
+                user_id = "2";
+            }
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            List<Deck> decks = dDAL.SearchDecksByName(user_id, search);
 
-            //List<Deck>
-
-            return View("DeckView"/*, search*/);
+            return View("DeckView", decks);
         }
         //Edit deck
         public ActionResult EditDeck(string deck_id)
