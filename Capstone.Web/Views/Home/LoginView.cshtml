@@ -2,4 +2,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Capstone.Web.Models;
+@model User
 
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post))
+{
+    <div class="formValidationGroup">
+        @Html.LabelFor(m => m.Email)
+        @Html.EditorFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+
+    <div class="formValidationGroup">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+   
+    <button class="formSubmitButton">Flash Forward</button>
+
+}

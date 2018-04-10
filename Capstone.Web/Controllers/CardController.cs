@@ -42,11 +42,9 @@ namespace Capstone.Web.Controllers
         {
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
-            //cDal.SearchCards()
+            List<Card> matchingCards = cDal.SearchCard(searchString);
 
-            //List<Card> as model
-
-            return View("CardSearch");
+            return View("CardSearch", matchingCards);
         }
 
         public ActionResult CardView()
