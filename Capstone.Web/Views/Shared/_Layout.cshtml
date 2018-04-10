@@ -4,7 +4,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title - Flash Cards</title>
-    <link rel="stylesheet" src="~/Content/styles.css"/>
+    <link rel="stylesheet" href="~/Content/styles.css">
+    <link rel="stylesheet" href="~/Content/bootstrap.css">
 
 
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
@@ -12,24 +13,15 @@
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Decks", "Index", "Deck")</li>
-                    <li>@Html.ActionLink("Cards", "Index", "Card")</li>
-                    <li>@Html.ActionLink("Register", "Register", "Home")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Home")</li>
-                    <li>@Html.ActionLink("Logout", "Logout", "Home")</li>
-                </ul>
+    <div class="container">
+        <div>
+            <div class="nav navbar">
+                <div class="list_item">@Html.ActionLink("Home", "Index", "Home")</div>
+                <div class="list_item">@Html.ActionLink("Decks", "Index", "Deck")</div>
+                <div class="list_item">@Html.ActionLink("Cards", "Index", "Card")</div>
+                <div class="list_item">@Html.ActionLink("Register", "Register", "Home")</div>
+                <div class="list_item">@Html.ActionLink("Login", "Login", "Home")</div>
+                <div class="list_item">@Html.ActionLink("Logout", "Logout", "Home")</div>
             </div>
         </div>
     </div>

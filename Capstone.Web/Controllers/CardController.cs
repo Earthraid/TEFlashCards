@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Capstone.Web.DAL;
+using Capstone.Web.Models;
 
 namespace Capstone.Web.Controllers
 {
@@ -14,23 +16,27 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
-        public ActionResult CardCreate()
+        public ActionResult CardConstruct()
         {
-            //dal.CreateCard
 
-            return View();
+
+            return View("CardCreate");
         }
 
         public ActionResult CardSubmit()
         {
-            //dal.CreateCard
+            CardsSqlDAL cDal = new CardsSqlDAL();
+
+            //cDal.CreateCard()
 
             return View("CardView");
         }
 
         public ActionResult CardSearch(string searchString)
         {
-            //dal.SearchCards
+            CardsSqlDAL cDal = new CardsSqlDAL();
+
+            //cDal.SearchCards()
 
             //List<Card> as model
 
@@ -39,7 +45,9 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardView()
         {
-            //dal.ViewAllCards
+            CardsSqlDAL cDal = new CardsSqlDAL();
+
+            //cDal.ViewAllCards
 
             //List<Card> as model
 
@@ -48,14 +56,19 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardModify()
         {
-            //dal.ModifyCard
+            CardsSqlDAL cDal = new CardsSqlDAL();
+
+
+            //cDal.ModifyCard
 
             return View();
         }
 
         public ActionResult CardToDeck()
         {
-            //dal.AddCardToDeck
+            CardsSqlDAL cDal = new CardsSqlDAL();
+
+            //cDal.AddCardToDeck
 
             return View("CardView");
         }

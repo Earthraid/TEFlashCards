@@ -2,29 +2,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using Capstone.Web.Models;
+@model User
 
-@*
+        <h2>Register</h2>
+
     @using (Html.BeginForm("Register", "Home", FormMethod.Post))
     {
-        <div>
-            @Html.Label("UserName", "User Name: ")
+        <div class="formValidationGroup">
+            @Html.LabelFor(m => m.UserName)
             @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
         </div>
 
-        <div>
-            @Html.Label("Email", "Email")
-            @Html.TextBoxFor(m => m.Email)
+        <div class="formValidationGroup">
+            @Html.LabelFor(m => m.Email)
+            @Html.EditorFor(m => m.Email)
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+        <div class="formValidationGroup">
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div class="formValidationGroup">
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword)
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
         </div>
 
-        <div>
-            @Html.Label("Password", "Password: ")
-            @Html.TextBoxFor(m => m.Password)
-        </div>
+        <button class="formSubmitButton">Flash Forward</button>
 
-        <div>
-            @Html.Label("Password", "Confirm Password: ")
-            @Html.TextBoxFor(m => m.Password)
-        </div>
-
-        <button>Submit</button>
-    }*@
+    }
