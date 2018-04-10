@@ -13,5 +13,15 @@ namespace Capstone.Web.Controllers
         {
             return View("DeckView");
         }
+        
+        public ActionResult EditDeck(DeckController model)
+        {
+            return View("EditDeckView");
+        }
+
+        public ActionResult NewDeck()
+        {
+            return View("NewDeckView");
+        }
     }
 }
