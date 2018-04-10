@@ -5,11 +5,16 @@ using System.Web;
 using System.Web.Mvc;
 using Capstone.Web.DAL;
 using Capstone.Web.Models;
+using System.Configuration;
 
 namespace Capstone.Web.Controllers
 {
+
+
     public class CardController : Controller
     {
+        private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
+
         // GET: Card
         public ActionResult Index()
         {
@@ -25,7 +30,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardSubmit()
         {
-            CardsSqlDAL cDal = new CardsSqlDAL();
+            CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
             //cDal.CreateCard()
 
@@ -34,7 +39,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardSearch(string searchString)
         {
-            CardsSqlDAL cDal = new CardsSqlDAL();
+            CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
             //cDal.SearchCards()
 
@@ -45,7 +50,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardView()
         {
-            CardsSqlDAL cDal = new CardsSqlDAL();
+            CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
             //cDal.ViewAllCards
 
@@ -56,7 +61,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardModify()
         {
-            CardsSqlDAL cDal = new CardsSqlDAL();
+            CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
 
             //cDal.ModifyCard
@@ -66,7 +71,7 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardToDeck()
         {
-            CardsSqlDAL cDal = new CardsSqlDAL();
+            CardSqlDAL cDal = new CardSqlDAL(connectionString);
 
             //cDal.AddCardToDeck
 
