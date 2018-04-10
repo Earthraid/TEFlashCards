@@ -6,21 +6,28 @@
 }
 
 /*cards*/
+
+.card_container {
+    width: 100vw;
+}
+
 .card_bothsides {
     clear: both;
+    display: inline-block;
     overflow: auto;
     border: 1px solid black;
     padding: 20px;
+    margin-top: 20px;
 }
 
 .card_front {
-    float: left;
     top: 0;
     border: 1px solid black;
+    margin: 10px;
 }
 
 .card_back {
-    float: right;
     bottom: 0;
     border: 1px solid black;
+    margin: 10px;
 }
