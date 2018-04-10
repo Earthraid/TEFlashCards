@@ -18,14 +18,15 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardConstruct()
         {
-     
+
 
             return View("CardCreate");
         }
 
-        public ActionResult CardCreate()
+        public ActionResult CardSubmit()
         {
             CardsSqlDAL cDal = new CardsSqlDAL();
+
             //cDal.CreateCard()
 
             return View("CardView");
@@ -33,7 +34,9 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardSearch(string searchString)
         {
-            //cDal.SearchCards
+            CardsSqlDAL cDal = new CardsSqlDAL();
+
+            //cDal.SearchCards()
 
             //List<Card> as model
 
@@ -42,7 +45,9 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardView()
         {
-            //dal.ViewAllCards
+            CardsSqlDAL cDal = new CardsSqlDAL();
+
+            //cDal.ViewAllCards
 
             //List<Card> as model
 
@@ -51,14 +56,19 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardModify()
         {
-            //dal.ModifyCard
+            CardsSqlDAL cDal = new CardsSqlDAL();
+
+
+            //cDal.ModifyCard
 
             return View();
         }
 
         public ActionResult CardToDeck()
         {
-            //dal.AddCardToDeck
+            CardsSqlDAL cDal = new CardsSqlDAL();
+
+            //cDal.AddCardToDeck
 
             return View("CardView");
         }
