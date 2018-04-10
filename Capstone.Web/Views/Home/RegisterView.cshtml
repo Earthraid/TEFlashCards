@@ -3,3 +3,28 @@
 }
 
 
+@*
+    @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+    {
+        <div>
+            @Html.Label("UserName", "User Name: ")
+            @Html.TextBoxFor(m => m.UserName)
+        </div>
+
+        <div>
+            @Html.Label("Email", "Email")
+            @Html.TextBoxFor(m => m.Email)
+        </div>
+
+        <div>
+            @Html.Label("Password", "Password: ")
+            @Html.TextBoxFor(m => m.Password)
+        </div>
+
+        <div>
+            @Html.Label("Password", "Confirm Password: ")
+            @Html.TextBoxFor(m => m.Password)
+        </div>
+
+        <button>Submit</button>
+    }*@

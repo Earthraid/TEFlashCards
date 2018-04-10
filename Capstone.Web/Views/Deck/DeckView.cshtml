@@ -1,24 +1,31 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using Capstone.Web.Models
-@model List<Deck>
+@*@using Capstone.Web.Models
+    @model List<Deck>*@
 
 <h2>Your Decks</h2>
 
-<div>
-    @foreach (var deck in Model)
+    @using(Html.BeginForm("DeckSearch", "Deck", FormMethod.Get))
     {
-    <hr />
-        <div>
-            <div><h3>@deck.Name</h3></div>
-            <div>Topic: @deck.Topic</div>
-            <div class="navbar-collapse collapse">
-                <div class="nav navbar-nav">
-                    <div>@Html.ActionLink("Edit", "EditDeck", "Deck")</div>
+        @Html.TextBox("SearchString")
+
+        <button type="submit">Search Decks</button>
+    }
+@*
+    <div>
+        @foreach (var deck in Model)
+        {
+        <hr />
+            <div>
+                <div><h3>@deck.Name</h3></div>
+                <div>Topic: @deck.Topic</div>
+                <div class="navbar-collapse collapse">
+                    <div class="nav navbar-nav">
+                        <div>@Html.ActionLink("Edit", "EditDeck", "Deck")</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    <hr />
-    }
-</div>
+        <hr />
+        }
+    </div>*@

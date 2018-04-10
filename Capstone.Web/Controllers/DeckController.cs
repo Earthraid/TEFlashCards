@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Capstone.Web.DAL;
+//using Capstone.Web.DAL;
 using System.Configuration;
 
 namespace Capstone.Web.Controllers
@@ -13,19 +13,26 @@ namespace Capstone.Web.Controllers
         private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
 
         // GET: Deck
-        public ActionResult Decks(string user_id)
+        public ActionResult Index()
         {
-            DeckSqlDAL dDAL = new DeckSqlDAL();
-            List<Deck> decks = dDAL.GetDecks(user_id);
-            return View("DeckView", decks);
+            //DeckSqlDAL dDAL = new DeckSqlDAL();
+            //List<Deck> decks = dDAL.GetDecks(user_id);
+            return View("DeckView"/*, decks*/);
         }
-        
+        public ActionResult DeckSearch(string search)
+        {
+            //dal.SearchDecks
+
+            //List<Deck>
+
+            return View("DeckView"/*, search*/);
+        }
         //Edit deck
         public ActionResult EditDeck(string deck_id)
         {
-            DeckSqlDAL dDAL = new DeckSqlDAL();
-            Deck deck = dDAL.GetDeck(deck_id);
-            return View("EditDeck", deck);
+            //DeckSqlDAL dDAL = new DeckSqlDAL();
+            //Deck deck = dDAL.GetDeck(deck_id);
+            return View("EditDeck"/*, deck*/);
         }
 
         //New deck form
@@ -38,16 +45,16 @@ namespace Capstone.Web.Controllers
         [HttpGet]
         public ActionResult AddDeck(string user_id)
         {
-            DeckSqlDAL dDAL = new DeckSqlDAL();
-            List<Deck> decks = dDAL.GetDecks(user_id);
-            return View("DeckView", decks);
+            //DeckSqlDAL dDAL = new DeckSqlDAL();
+            //List<Deck> decks = dDAL.GetDecks(user_id);
+            return View("DeckView"/*, decks*/);
         }
         [HttpPost]
-        public ActionResult AddDeck(Deck deck)
+        public ActionResult AddDeck(/*Deck deck*/)
         {
-            DeckSqlDAL dDAL = new DeckSqlDAL();
-            dDAL.AddDeck(deck);
-            List<Deck> decks = dDAL.GetDecks();
+            //DeckSqlDAL dDAL = new DeckSqlDAL();
+            //dDAL.AddDeck(deck);
+            //List<Deck> decks = dDAL.GetDecks();
             return RedirectToAction("DeckView");
         }
     

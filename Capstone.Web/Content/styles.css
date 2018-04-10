@@ -1,2 +1,5 @@
 ﻿body {
 }
+ul.nav.navbar-nav{
+    display: inline-block;
+}
