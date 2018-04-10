@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Capstone.Web.Models;
 
 namespace Capstone.Web.Controllers
 {
@@ -23,6 +24,18 @@ namespace Capstone.Web.Controllers
         public ActionResult Register()
         {
             return View("RegisterView");
+        }
+
+        
+        [HttpPost]
+        public ActionResult Register(User model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("RegisterView", model);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
     }
