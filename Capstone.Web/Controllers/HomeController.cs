@@ -12,7 +12,18 @@ namespace Capstone.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View("Index");
+            return View();
         }
+
+        public ActionResult Login()
+        {
+            return View("LoginView");
+        }
+
+        public ActionResult Register()
+        {
+            return View("RegisterView");
+        }
+
     }
 }

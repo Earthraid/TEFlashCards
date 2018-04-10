@@ -160,6 +160,8 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CardController.cs" />
+    <Compile Include="Controllers\DeckController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\CardsSqlDAL.cs" />
     <Compile Include="DAL\UserSqlDAL.cs" />
@@ -187,6 +189,16 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Deck\DeckView.cshtml" />
+    <Content Include="Views\Deck\EditDeckView.cshtml" />
+    <Content Include="Views\Deck\NewDeckView.cshtml" />
+    <Content Include="Views\Home\LoginView.cshtml" />
+    <Content Include="Views\Home\RegisterView.cshtml" />
+    <Content Include="Views\Card\Index.cshtml" />
+    <Content Include="Views\Card\CardSearch.cshtml" />
+    <Content Include="Views\Card\CardCreate.cshtml" />
+    <Content Include="Views\Card\CardModify.cshtml" />
+    <Content Include="Views\Card\CardView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
