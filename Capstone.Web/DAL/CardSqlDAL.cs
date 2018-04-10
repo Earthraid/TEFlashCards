@@ -14,18 +14,25 @@ namespace Capstone.Web.DAL
 
         private string view_cards = "SELECT Front, Back FROM [cards]";
 
+        private string view_cards_in_deck = "SELECT Front, Back FROM [cards]";
+
         private string create_Card = "INSERT INTO [cards] (CardID, Front, Back)" +
            "VALUES (@cardid, @front, @back);";
 
         private string edit_Card = "INSERT INTO [cards] (Front, Back)" +
            "VALUES (@front, @back);";
 
+        private string search_Card = "SELECT * FROM [cards]" +
+            "JOIN card_tag ON cards.CardID = card_tag.CardID" +
+            "JOIN tags on card_tag.TagID = tags.TagID WHERE [Tag Name] = @TagName;";
+
         public CardSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
-        public List<Card> viewCards(int deckID)
+        //List all cards that a user has
+        public List<Card> ViewCards(int userID)
         {
             List<Card> result = new List<Card>();
             try
@@ -52,7 +59,35 @@ namespace Capstone.Web.DAL
             return result;
         }
 
-        public bool createCard(Card card)
+        //List all cards in a deck
+        public List<Card> ViewCardsInDeck(int deckID)
+        {
+            List<Card> result = new List<Card>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(view_cards_in_deck, conn);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        result.Add(ConvertFields(reader));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public bool CreateCard(Card card)
         {
             int result = 0;
             try
@@ -75,7 +110,7 @@ namespace Capstone.Web.DAL
             return (result > 0);
         }
 
-        public bool editCard(Card card)
+        public bool EditCard(Card card)
         {
             int result = 0;
             try
@@ -97,6 +132,37 @@ namespace Capstone.Web.DAL
 
             return (result > 0);
         }
+
+        public Card SearchCard(string tagName)
+        {
+            Card card = new Card();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(search_Card, conn);
+
+                    cmd.Parameters.AddWithValue("@TagName", tagName);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        card = ConvertFields(reader);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return card;
+        }
+
 
         private Card ConvertFields(SqlDataReader reader)
         {
