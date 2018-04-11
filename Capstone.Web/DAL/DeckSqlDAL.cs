@@ -149,8 +149,31 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
 
-                    var result = conn.Query<int>(ModifyDeckNameSQL, new { deckIDValue = deckID, nameValue = deckName });
-                    if (result.Count() == 1)
+                    var result = conn.Execute(ModifyDeckNameSQL, new { deckIDValue = deckID, nameValue = deckName });
+                    if (result == 1)
+                    {
+                        return true;
+                    }
+                    else return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public bool ModifyDeckIsPublic(string deckID, bool isPublic)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Execute(ModifyDeckPublicSQL, new { deckIDValue = deckID, publicValue = isPublic });
+                    if (result == 1)
                     {
                         return true;
                     }
