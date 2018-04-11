@@ -26,9 +26,11 @@
     <div class="index_option">
         @using (Html.BeginForm("CardSearch", "Card", FormMethod.Get))
         {
-            @Html.TextBox("SearchString")
+            <div>
+                @Html.TextBox("SearchString")
+            </div>
 
-            <button type="submit" class="search_button">Search cards</button>
+            <button type="submit" class="search_button">Search cards by tag</button>
         }
     </div>
 
