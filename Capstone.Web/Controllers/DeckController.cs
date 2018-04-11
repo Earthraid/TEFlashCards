@@ -52,8 +52,8 @@ namespace Capstone.Web.Controllers
         //Edit deck
         public ActionResult EditDeck(string deck_id)
         {
-            //DeckSqlDAL dDAL = new DeckSqlDAL();
-            //Deck deck = dDAL.GetDeck(deck_id);
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+           // Deck deck = dDAL.EditDeck(deck_id);
             return View("EditDeck"/*, deck*/);
         }
 
@@ -68,7 +68,7 @@ namespace Capstone.Web.Controllers
         public ActionResult AddDeck(string user_id)
         {
             //DeckSqlDAL dDAL = new DeckSqlDAL();
-            //List<Deck> decks = dDAL.GetDecks(user_id);
+            //List<Deck> decks = dDAL.AddDeck(user_id);
             return View("DeckView"/*, decks*/);
         }
         [HttpPost]

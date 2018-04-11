@@ -12,28 +12,34 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </head>
+
 <body>
     <div class="container">
-        <div>
-            <div class="row top_links">
-                <div class="col-sm-1"></div>
-                @Html.ActionLink("Home", "Index", "Home", null, new { @class = "list_item btn col-sm-2" })
-                @Html.ActionLink("Decks", "Index", "Deck", null, new { @class = "list_item btn col-sm-2" })
-                @Html.ActionLink("Cards", "Index", "Card", null, new { @class = "list_item btn col-sm-2" })
-                @Html.ActionLink("Register", "Register", "Home", null, new { @class = "list_item btn col-sm-2" })
-                @if (Session["user_id"] == null)
-                {
-                @Html.ActionLink("Login", "Login", "Home", null, new { @class = "list_item btn col-sm-2" })
-                }
-                @if (Session["user_id"] != null)
-                {
-                @Html.ActionLink("Logout", "Logout", "Home", null, new { @class = "list_item btn col-sm-2" })
-                }
+        <div class="top">
+            <header>Flash Forward</header>
+            <div>
+                <div class="row top_links">
+                    <div class="col-sm-3"></div>
+                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "list_item btn col-sm-1" })
+                    @Html.ActionLink("Decks", "Index", "Deck", null, new { @class = "list_item btn col-sm-1" })
+                    @Html.ActionLink("Cards", "Index", "Card", null, new { @class = "list_item btn col-sm-1" })
+                    @Html.ActionLink("Register", "Register", "Home", null, new { @class = "list_item btn col-sm-1" })
+                    @if (Session["user_id"] == null)
+                    {
+                        @Html.ActionLink("Login", "Login", "Home", null, new { @class = "list_item btn col-sm-1" })
+                    }
+                    @if (Session["user_id"] != null)
+                    {
+                        @Html.ActionLink("Logout", "Logout", "Home", null, new { @class = "list_item btn col-sm-1" })
+                    }
+                </div>
             </div>
         </div>
     </div>
-    <div>
-        @RenderBody()
-    </div>
+    <section class="centeredPanel">
+        <div class="main_body">
+            @RenderBody()
+        </div>
+    </section>
 </body>
 </html>

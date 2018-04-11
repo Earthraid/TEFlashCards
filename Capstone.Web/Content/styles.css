@@ -2,12 +2,27 @@
     margin: 0;
     padding: 0;
     border: 0;
+    background: url('background.jpg') no-repeat;
+    margin: 0;
+    background-attachment: fixed;
+    background-size: cover;
 }
+
+header{
+    text-align:center;
+}
+
+.top{
+    font-size:400%;
+    color:white;
+}
+
 /*layout*/
 .list_item {
     text-decoration-style: none;
     background-color: dodgerblue;
     color: white;
+    margin:1%;
 }
 .list_item:hover{
     background-color:white;
@@ -18,10 +33,24 @@
 .top_links{
    
 }
+.main_body {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 10px;
+    width: 90%;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    padding: 3%;
+    color: white;
+    font-weight: 500;
+}
 
 
 /*decks*/
-
+.search{
+    float:right;
+    padding:1%;
+}
 
 
 
