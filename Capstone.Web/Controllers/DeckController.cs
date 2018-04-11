@@ -55,7 +55,7 @@ namespace Capstone.Web.Controllers
         {
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
             Deck deck = dDAL.GetDeckByDeckID(deck_id);
-            return View("EditDeck", deck);
+            return View("EditDeck"/*, deck*/);
         }
 
         //Deck Name
