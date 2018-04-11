@@ -1,6 +1,6 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    //List<Card> cards = Model.DeckCards(Model.DeckID);
+    List<Card> cards = Model.DeckCards(Model.DeckID);
 }
 @using Capstone.Web.Models;
 @model Deck
@@ -26,7 +26,7 @@
 
         <button>Add Tag</button>
     }*@
-@*@if (cards.Count != 0)
+@if (cards.Count != 0)
 {
     foreach (var card in cards)
     {
@@ -35,4 +35,4 @@
         </div>
         <div>Button Here to remove card form deck</div>
     }
-}*@
+}

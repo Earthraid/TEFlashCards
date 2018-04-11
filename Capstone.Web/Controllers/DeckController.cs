@@ -30,9 +30,7 @@ namespace Capstone.Web.Controllers
             user_id = CheckSession(user_id);
 
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            List<Deck> decks = new List<Deck>();
-
-            decks = dDAL.SearchDecksByName(user_id, searchString);
+            List<Deck> decks = dDAL.SearchDecksByName(user_id, searchString);
 
             return View("Deck", decks);
         }
@@ -80,16 +78,22 @@ namespace Capstone.Web.Controllers
 
         //Add new deck
         [HttpGet]
-        public ActionResult AddDeck(string user_id)
+        public ActionResult AddDeck()
         {
             return View("NewDeck");
         }
+
         [HttpPost]
-        public ActionResult AddDeck(/*Deck deck*/)
+        public ActionResult AddDeck(string user_id, Deck model)
         {
-            //DeckSqlDAL dDAL = new DeckSqlDAL();
-            //dDAL.AddDeck(deck);
-            return RedirectToAction("Deck");
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            user_id = CheckSession(user_id);
+            if (CheckSession(user_id) != null)
+            {
+                dDAL.AddDeck(user_id, model.Name);
+            }
+            List<Deck> decks = dDAL.GetDecks(user_id);
+            return RedirectToAction("Deck", decks);
         }
 
         private string CheckSession(string user_id)
