@@ -104,5 +104,20 @@ namespace Capstone.Web.Tests.DAL
             Assert.IsTrue(success);
             Assert.AreEqual(1, deckList.Count);
         }
+
+        [TestMethod]
+        public void ModifyDeckPublicTest()
+        {
+            //Arrange
+            DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+
+            //Act
+            bool success = deckSql.ModifyDeckIsPublic(deckID.ToString(), true);
+            Deck deckTest = deckSql.GetDeckByDeckID(deckID.ToString());
+
+            //Assert
+            Assert.IsTrue(success);
+            Assert.AreEqual(true, deckTest.IsPublic);
+        }
     }
 }
