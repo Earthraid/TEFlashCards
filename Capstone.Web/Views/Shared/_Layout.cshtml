@@ -23,9 +23,9 @@
                     @Html.ActionLink("Home", "Index", "Home", null, new { @class = "list_item btn col-sm-1" })
                     @Html.ActionLink("Decks", "Index", "Deck", null, new { @class = "list_item btn col-sm-1" })
                     @Html.ActionLink("Cards", "Index", "Card", null, new { @class = "list_item btn col-sm-1" })
-                    @Html.ActionLink("Register", "Register", "Home", null, new { @class = "list_item btn col-sm-1" })
                     @if (Session["user_id"] == null)
                     {
+                        @Html.ActionLink("Register", "Register", "Home", null, new { @class = "list_item btn col-sm-1" })
                         @Html.ActionLink("Login", "Login", "Home", null, new { @class = "list_item btn col-sm-1" })
                     }
                     @if (Session["user_id"] != null)

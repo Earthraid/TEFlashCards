@@ -57,26 +57,17 @@ namespace Capstone.Web.Controllers
             return View("EditDeck"/*, deck*/);
         }
 
-        //New deck form
-        public ActionResult NewDeck()
-        {
-            return View("NewDeckView");
-        }
-
         //Add new deck
         [HttpGet]
         public ActionResult AddDeck(string user_id)
         {
-            //DeckSqlDAL dDAL = new DeckSqlDAL();
-            //List<Deck> decks = dDAL.AddDeck(user_id);
-            return View("NewDeckView"/*, decks*/);
+            return View("NewDeckView");
         }
         [HttpPost]
         public ActionResult AddDeck(/*Deck deck*/)
         {
             //DeckSqlDAL dDAL = new DeckSqlDAL();
             //dDAL.AddDeck(deck);
-            //List<Deck> decks = dDAL.GetDecks();
             return RedirectToAction("DeckView");
         }
 
