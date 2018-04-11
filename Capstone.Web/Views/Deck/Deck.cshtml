@@ -22,15 +22,16 @@
         }
     </div>
     <div>
-    @Html.ActionLink("New Deck", "AddDeck", "Deck", null, new { @class = "list_item btn col-sm-1" })
+        @Html.ActionLink("New Deck", "AddDeck", "Deck", null, new { @class = "list_item btn col-sm-1" })
     </div>
-        <h2>Your Decks</h2>
+    <h2>Your Decks</h2>
     <div>
         @foreach (var deck in Model)
         {
+            string deckLink = "../Deck/EditDeck/" + deck.DeckID;
             <hr />
             <div>
-                <div><h3>@deck.Name</h3></div>
+                <div><a href="@deckLink"><h3>@deck.Name</h3></a></div>
                 @*<div>Topic: @deck.Topic</div>
                     <div class="navbar-collapse collapse">
                         <div class="nav navbar-nav">

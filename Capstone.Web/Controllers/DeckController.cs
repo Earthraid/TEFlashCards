@@ -22,7 +22,7 @@ namespace Capstone.Web.Controllers
             List<Deck> decks = dDAL.GetDecks(user_id);
 
 
-            return View("DeckView", decks);
+            return View("Deck", decks);
         }
 
         public ActionResult DeckSearchByName(string user_id, string searchString)
@@ -34,7 +34,7 @@ namespace Capstone.Web.Controllers
 
             decks = dDAL.SearchDecksByName(user_id, searchString);
 
-            return View("DeckView", decks);
+            return View("Deck", decks);
         }
 
         public ActionResult DeckSearchByTag(string user_id, string searchString)
@@ -46,29 +46,50 @@ namespace Capstone.Web.Controllers
 
             decks = dDAL.SearchDecksByTag(user_id, searchString);
 
-            return View("DeckView", decks);
+            return View("Deck", decks);
         }
 
-        //Edit deck
+        //EDIT DECK
+        [HttpGet]
         public ActionResult EditDeck(string deck_id)
         {
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-           // Deck deck = dDAL.EditDeck(deck_id);
-            return View("EditDeck"/*, deck*/);
+            Deck deck = dDAL.GetDeckByDeckID(deck_id);
+            return View("EditDeck", deck);
         }
+
+        //Deck Name
+        [HttpPost]
+        public ActionResult EditDeckName(string deck_id, string deck_name)
+        {
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            // Deck deck = dDAL.EditDeckName(deck_id);
+            // or Deck deck = dDAL.GetDeckByDeckID(deck_id);
+            return View("EditDeck", deck_id);
+        }
+
+        //Deck Tags
+        [HttpPost]
+        public ActionResult EditDeckTags(string deck_id, string deck_tag)
+        {
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            // Deck deck = dDAL.AddTag(deck_id);
+            return View("EditDeck", deck_id);
+        }
+
 
         //Add new deck
         [HttpGet]
         public ActionResult AddDeck(string user_id)
         {
-            return View("NewDeckView");
+            return View("NewDeck");
         }
         [HttpPost]
         public ActionResult AddDeck(/*Deck deck*/)
         {
             //DeckSqlDAL dDAL = new DeckSqlDAL();
             //dDAL.AddDeck(deck);
-            return RedirectToAction("DeckView");
+            return RedirectToAction("Deck");
         }
 
         private string CheckSession(string user_id)
