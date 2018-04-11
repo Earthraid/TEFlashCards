@@ -51,7 +51,7 @@ namespace Capstone.Web.DAL
             }
         }
 
-        public List<Deck> GetDeckByDeckID(string deckID)
+        public Deck GetDeckByDeckID(string deckID)
         {
             try
             {
@@ -59,8 +59,18 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
 
-                    var result = conn.Query<Deck>(GetDeckByDeckIDSQL, new { userIDValue = deckID });
-                    return result.ToList();
+                    SqlCommand cmd = new SqlCommand(GetDeckByDeckIDSQL, conn);
+                    cmd.Parameters.AddWithValue("deckIDValue", deckID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    Deck result = new Deck
+                    {
+                        DeckID = Convert.ToString("DeckID"),
+                        UserID = Convert.ToString("UserID"),
+                        Name = Convert.ToString("Name"),
+                        IsPublic = Convert.ToBoolean("IsPublic"),
+                    };
+
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -131,27 +141,27 @@ namespace Capstone.Web.DAL
             }
         }
 
-        //public bool ModifyDeckName(string deckID, string deckName)
-        //{
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
+        public bool ModifyDeckName(string deckID, string deckName)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-        //            var result = conn.Query<int>(ModifyDeckNameSQL, new { deckIDValue = deckID, nameValue = deckName });
-        //            if (result.Count() == 1)
-        //            {
-        //                return true;
-        //            }
-        //            else return false;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
+                    var result = conn.Query<int>(ModifyDeckNameSQL, new { deckIDValue = deckID, nameValue = deckName });
+                    if (result.Count() == 1)
+                    {
+                        return true;
+                    }
+                    else return false;
+                }
+            }
+            catch (Exception ex)
+            {
 
-        //        throw;
-        //    }
-        //}
+                throw;
+            }
+        }
     }
 }
