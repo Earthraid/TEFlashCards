@@ -62,14 +62,14 @@ namespace Capstone.Web.DAL
                     SqlCommand cmd = new SqlCommand(GetDeckByDeckIDSQL, conn);
                     cmd.Parameters.AddWithValue("deckIDValue", deckID);
                     SqlDataReader reader = cmd.ExecuteReader();
-                    Deck result = new Deck
+                    Deck result = new Deck();
+                    while (reader.Read())
                     {
-                        DeckID = Convert.ToString(reader["DeckID"]),
-                        UserID = Convert.ToString(reader["UserID"]),
-                        Name = Convert.ToString(reader["Name"]),
-                        IsPublic = Convert.ToBoolean(reader["IsPublic"]),
-                    };
-
+                        result.DeckID = Convert.ToString(reader["DeckID"]);
+                        result.UserID = Convert.ToString(reader["UserID"]);
+                        result.Name = Convert.ToString(reader["Name"]);
+                        result.IsPublic = Convert.ToBoolean(reader["IsPublic"]);
+                    }
                     return result;
                 }
             }
