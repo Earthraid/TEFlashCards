@@ -69,6 +69,7 @@ header{
     margin-top: 20px;
     min-height: 25vh;
     width: 100%;
+    color: black;
 }
 
 .card_front {
@@ -92,3 +93,29 @@ header{
     min-height: 20vh;
     font-size: 1.5em;
 }
+
+    .index_option a {
+        color: #fff;
+    }
+
+    .index_option form {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+        .index_option a:hover {
+            color: #c0d0e0;
+        }
+
+        .search_button {
+            font-size: .8em;
+            margin: 10px;
+            background: dodgerblue;
+            color: white;
+            border: none;
+        }
+
+        .search_button:hover {
+            cursor: pointer;
+        }
