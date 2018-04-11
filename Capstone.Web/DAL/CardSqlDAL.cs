@@ -12,9 +12,9 @@ namespace Capstone.Web.DAL
     {
         private string connectionString;
 
-        private string view_cards = "SELECT * FROM [cards]";
+        private string view_cards = "SELECT * FROM [cards] ORDER BY CardID";
 
-        private string view_cards_in_deck = "SELECT Front, Back FROM [cards]";
+        private string view_cards_in_deck = "SELECT Front, Back FROM [cards] ORDER BY CardID";
 
         private string create_Card = "INSERT INTO [cards] (CardID, Front, Back)" +
            "VALUES (@cardid, @front, @back);";
@@ -33,7 +33,7 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
-        //List all cards that a user has
+        //List all cards that a user has in order
         public List<Card> ViewCards(string userID)
         {
             List<Card> result = new List<Card>();
@@ -61,7 +61,7 @@ namespace Capstone.Web.DAL
             return result;
         }
 
-        //List all cards in a deck
+        //List all cards in a deck in order
         public List<Card> ViewCardsInDeck(string deckID)
         {
             List<Card> result = new List<Card>();
