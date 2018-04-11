@@ -197,9 +197,9 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Deck\DeckView.cshtml" />
-    <Content Include="Views\Deck\EditDeckView.cshtml" />
-    <Content Include="Views\Deck\NewDeckView.cshtml" />
+    <Content Include="Views\Deck\Deck.cshtml" />
+    <Content Include="Views\Deck\EditDeck.cshtml" />
+    <Content Include="Views\Deck\NewDeck.cshtml" />
     <Content Include="Views\Home\LoginView.cshtml" />
     <Content Include="Views\Home\RegisterView.cshtml" />
     <Content Include="Views\Card\Index.cshtml" />
