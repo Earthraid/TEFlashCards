@@ -21,7 +21,10 @@
             <button type="submit">Search Tag</button>
         }
     </div>
-    <h2>Your Decks</h2>
+    <div>
+    @Html.ActionLink("New Deck", "AddDeck", "Deck", null, new { @class = "list_item btn col-sm-1" })
+    </div>
+        <h2>Your Decks</h2>
     <div>
         @foreach (var deck in Model)
         {

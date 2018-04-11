@@ -69,7 +69,7 @@ namespace Capstone.Web.Controllers
         {
             //DeckSqlDAL dDAL = new DeckSqlDAL();
             //List<Deck> decks = dDAL.AddDeck(user_id);
-            return View("DeckView"/*, decks*/);
+            return View("NewDeckView"/*, decks*/);
         }
         [HttpPost]
         public ActionResult AddDeck(/*Deck deck*/)
