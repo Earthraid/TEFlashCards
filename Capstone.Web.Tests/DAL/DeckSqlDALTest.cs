@@ -76,5 +76,33 @@ namespace Capstone.Web.Tests.DAL
             //Assert
             Assert.AreEqual(1, deckList.Count);
         }
+
+        [TestMethod]
+        public void AddDeckTest()
+        {
+            //Arrange
+            DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+
+            //Act
+            int newDeckID = int.Parse(deckSql.AddDeck("2", "SQL Test Add"));
+
+            //Assert
+            Assert.AreEqual(deckID + 1, newDeckID);
+        }
+
+        [TestMethod]
+        public void ModifyDeckNameTest()
+        {
+            //Arrange
+            DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+
+            //Act
+            bool success = deckSql.ModifyDeckName(deckID.ToString(), "SQL Test Changed");
+            List<Deck> deckList = deckSql.SearchDecksByName("2", "SQL Test Changed");
+
+            //Assert
+            Assert.IsTrue(success);
+            Assert.AreEqual(1, deckList.Count);
+        }
     }
 }
