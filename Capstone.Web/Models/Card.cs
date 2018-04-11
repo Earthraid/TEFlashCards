@@ -7,8 +7,9 @@ namespace Capstone.Web.Models
 {
     public class Card
     {
-        public int CardID { get; set; }
+        public string CardID { get; set; }
         public string Front { get; set; }
         public string Back { get; set; }
+        public string UserID { get; set; }
     }
 }

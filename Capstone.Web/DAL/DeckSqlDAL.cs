@@ -64,10 +64,10 @@ namespace Capstone.Web.DAL
                     SqlDataReader reader = cmd.ExecuteReader();
                     Deck result = new Deck
                     {
-                        DeckID = Convert.ToString("DeckID"),
-                        UserID = Convert.ToString("UserID"),
-                        Name = Convert.ToString("Name"),
-                        IsPublic = Convert.ToBoolean("IsPublic"),
+                        DeckID = Convert.ToString(reader["DeckID"]),
+                        UserID = Convert.ToString(reader["UserID"]),
+                        Name = Convert.ToString(reader["Name"]),
+                        IsPublic = Convert.ToBoolean(reader["IsPublic"]),
                     };
 
                     return result;

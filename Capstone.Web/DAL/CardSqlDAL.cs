@@ -16,8 +16,8 @@ namespace Capstone.Web.DAL
 
         private string view_cards_in_deck = "SELECT * FROM [cards] WHERE DeckID = @deck_id";
 
-        private string create_Card = "INSERT INTO [cards] (CardID, Front, Back)" +
-           "VALUES (@cardid, @front, @back);";
+        private string create_Card = "INSERT INTO [cards] (Front, Back, UserID)" +
+           "VALUES (@front, @back, @user_id);";
 
         private string edit_Card = "INSERT INTO [cards] (Front, Back)" +
            "VALUES (@front, @back);";
@@ -90,7 +90,7 @@ namespace Capstone.Web.DAL
             return result;
         }
 
-        public bool CreateCard(Card card)
+        public bool CreateCard(Card card, string user_id)
         {
             int result = 0;
             try
@@ -101,6 +101,7 @@ namespace Capstone.Web.DAL
                     SqlCommand cmd = new SqlCommand(create_Card, conn);
                     cmd.Parameters.AddWithValue("@front", card.Front);
                     cmd.Parameters.AddWithValue("@back", card.Back);
+                    cmd.Parameters.AddWithValue("@user_id", user_id);
 
                     result = cmd.ExecuteNonQuery();
                 }
@@ -171,7 +172,7 @@ namespace Capstone.Web.DAL
         private Card ConvertFields(SqlDataReader reader)
         {
             Card card = new Card();
-            card.CardID = Convert.ToInt32(reader["CardID"]);
+            card.CardID = Convert.ToString(reader["CardID"]);
             card.Front = Convert.ToString(reader["Front"]);
             card.Back = Convert.ToString(reader["Back"]);
 
