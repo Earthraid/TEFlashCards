@@ -51,10 +51,10 @@ namespace Capstone.Web.Controllers
 
         //EDIT DECK
         [HttpGet]
-        public ActionResult EditDeck(string deck_id)
+        public ActionResult EditDeck(int deck_id)
         {
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            Deck deck = dDAL.GetDeckByDeckID(deck_id);
+            Deck deck = dDAL.GetDeckByDeckID(deck_id.ToString());
             return View("EditDeck", deck);
         }
 
