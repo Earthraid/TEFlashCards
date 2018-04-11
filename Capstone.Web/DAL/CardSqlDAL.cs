@@ -73,6 +73,7 @@ namespace Capstone.Web.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(view_cards_in_deck, conn);
+                    cmd.Parameters.AddWithValue("deck_id", deckID);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
