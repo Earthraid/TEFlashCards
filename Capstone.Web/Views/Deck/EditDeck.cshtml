@@ -7,15 +7,15 @@
 
 <h2>Edit Deck</h2>
 
-    @using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
-    {
-        <div>
-            @Html.Label("Name", "Deck Name: ")
-            @Html.TextBoxFor(m => m.Name)
-        </div>
+@using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
+{
+    <div>
+        @Html.Label("Name", "Deck Name: ")
+        @Html.TextBoxFor(m => m.Name)
+    </div>
 
-        <button>Submit</button>
-    }
+    <button>Submit</button>
+}
 @*
     @using (Html.BeginForm("EditDeckTags", "Deck", FormMethod.Post))
     {
@@ -33,6 +33,13 @@
         <div>
             <div>@card.Front</div>
         </div>
-        <div>Button Here to remove card form deck</div>
+        using (Html.BeginForm("RemoveCard", "Deck", FormMethod.Post))
+        {
+            <div>
+                @Html.Label("card.CardID", "Remove Card: ")
+                @Html.HiddenFor(card => card.CardID)
+            </div>
+
+            <button>Submit</button>
+        }
     }
-}
