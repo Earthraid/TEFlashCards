@@ -62,9 +62,14 @@ namespace Capstone.Web.Models
             tagsDAL.AddTagToDeck(DeckID, tagName);
         }
 
-        public void AddCardToDeck(string cardID)
+        public bool AddCardToDeck(string cardID)
         {
-            deckDAL.AddCardToDeck(cardID, DeckID);
+            return deckDAL.AddCardToDeck(cardID, DeckID);
+        }
+
+        public bool RemoveCardFromDeck(string cardID)
+        {
+            return deckDAL.RemoveCardFromDeck(cardID, DeckID);
         }
     }
 }
