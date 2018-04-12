@@ -12,11 +12,16 @@ namespace Capstone.Web.DAL
     {
         private string connectionString;
 
+
+        //private string view_cards = "SELECT * FROM [cards] ORDER BY CardID";
+
+        //private string view_cards_in_deck = "SELECT Front, Back FROM [cards] ORDER BY CardID";
+
         private string view_cards = "SELECT * FROM [cards] WHERE UserID = @user_id";
 
-        private string view_cards_in_deck = "SELECT * FROM [cards] JOIN card_tag ON cards.CardID = card_tag.CardID JOIN tags on card_tag.TagID = tags.TagID " +
-           "JOIN deck_tag ON tags.TagID = deck_tag.TagID JOIN decks ON deck_id WHERE card_deck.DeckID = decks.DeckID WHERE DeckID = @deck_id";
-
+        private string view_cards_in_deck = "SELECT * FROM [cards] JOIN card_tag ON cards.CardID = card_tag.CardID" +
+            "JOIN tags on card_tag.TagID = tags.TagID JOIN deck_tag ON tags.TagID = deck_tag.TagID JOIN decks ON deck_tag.DeckID = decks.DeckID WHERE DeckID = @deck_id ";
+        
         private string create_Card = "INSERT INTO [cards] (Front, Back, UserID)" +
            "VALUES (@front, @back, @user_id);";
 
@@ -34,7 +39,7 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
-        //List all cards that a user has
+        //List all cards that a user has in order
         public List<Card> ViewCards(string userID)
         {
             List<Card> result = new List<Card>();
@@ -63,7 +68,7 @@ namespace Capstone.Web.DAL
             return result;
         }
 
-        //List all cards in a deck
+        //List all cards in a deck in order
         public List<Card> ViewCardsInDeck(string deckID)
         {
             List<Card> result = new List<Card>();
@@ -74,7 +79,8 @@ namespace Capstone.Web.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(view_cards_in_deck, conn);
-                    cmd.Parameters.AddWithValue("deck_id", deckID);
+
+                    cmd.Parameters.AddWithValue("@deck_id", deckID);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
