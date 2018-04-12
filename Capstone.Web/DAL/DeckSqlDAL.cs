@@ -13,11 +13,20 @@ namespace Capstone.Web.DAL
         private string connectionString;
 
         private string GetAllDecksSQL = "SELECT * FROM decks WHERE UserID = @userIDValue ORDER BY DeckID ASC";
+
+        private string GetDeckByDeckIDSQL = "SELECT * FROM decks WHERE DeckID = @deckIDValue ORDER BY DeckID ASC";
+
         private string GetDecksByNameSQL = "SELECT * FROM decks WHERE UserID = @userIDValue and Name = @nameValue ORDER BY DeckID ASC";
 
         private string GetDecksByTagSQL = "SELECT * FROM decks " +
             "JOIN deck_tag ON decks.DeckID = deck_tag.DeckID " +
             "WHERE decks.UserID = @userIDValue and deck_tag.TagID = @tagValue ORDER BY decks.DeckID ASC";
+
+        private string AddDeckSQL = "INSERT INTO decks (UserID, Name) VALUES (@userIDValue, @nameValue); SELECT CAST(SCOPE_IDENTITY() as int);";
+
+        private string ModifyDeckNameSQL = "UPDATE decks SET Name = @nameValue WHERE DeckID = @deckIDValue;";
+
+        private string ModifyDeckPublicSQL = "UPDATE decks SET IsPublic = @publicValue WHERE DeckID = @deckIDValue;";
 
         public DeckSqlDAL(string connectionString)
         {
@@ -38,7 +47,34 @@ namespace Capstone.Web.DAL
             }
             catch (Exception ex)
             {
+                throw;
+            }
+        }
 
+        public Deck GetDeckByDeckID(string deckID)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(GetDeckByDeckIDSQL, conn);
+                    cmd.Parameters.AddWithValue("deckIDValue", deckID);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    Deck result = new Deck();
+                    while (reader.Read())
+                    {
+                        result.DeckID = Convert.ToString(reader["DeckID"]);
+                        result.UserID = Convert.ToString(reader["UserID"]);
+                        result.Name = Convert.ToString(reader["Name"]);
+                        result.IsPublic = Convert.ToBoolean(reader["IsPublic"]);
+                    }
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
                 throw;
             }
         }
@@ -57,7 +93,6 @@ namespace Capstone.Web.DAL
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }
@@ -76,9 +111,82 @@ namespace Capstone.Web.DAL
             }
             catch (Exception ex)
             {
+                throw;
+            }
+        }
+
+        public string AddDeck(string userID, string deckName)
+        {
+            string newDeckID = "";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.ExecuteScalar<int>(AddDeckSQL, new { userIDValue = userID, nameValue = deckName });
+                    if (result.ToString() != null)
+                    {
+                        newDeckID = result.ToString();
+                    }
+
+                    return newDeckID;
+                }
+            }
+            catch (Exception ex)
+            {
 
                 throw;
             }
         }
+
+        public bool ModifyDeckName(string deckID, string deckName)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Execute(ModifyDeckNameSQL, new { deckIDValue = deckID, nameValue = deckName });
+                    if (result == 1)
+                    {
+                        return true;
+                    }
+                    else return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public bool ModifyDeckIsPublic(string deckID, bool isPublic)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Execute(ModifyDeckPublicSQL, new { deckIDValue = deckID, publicValue = isPublic });
+                    if (result == 1)
+                    {
+                        return true;
+                    }
+                    else return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        
     }
 }

@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Card> cards = Model.DeckCards(Model.DeckID);
+}
+@using Capstone.Web.Models;
+@model Deck
+
+<h2>Edit Deck</h2>
+
+    @using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
+    {
+        <div>
+            @Html.Label("Name", "Deck Name: ")
+            @Html.TextBoxFor(m => m.Name)
+        </div>
+
+        <button>Submit</button>
+    }
+@*
+    @using (Html.BeginForm("EditDeckTags", "Deck", FormMethod.Post))
+    {
+        <div>
+            @Html.Label("Tag", "Tag: ")
+            @Html.TextBoxFor(Tag)
+        </div>
+
+        <button>Add Tag</button>
+    }*@
+@if (cards.Count != 0)
+{
+    foreach (var card in cards)
+    {
+        <div>
+            <div>@card.Front</div>
+        </div>
+        <div>Button Here to remove card form deck</div>
+    }
+}

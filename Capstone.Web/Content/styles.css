@@ -51,8 +51,16 @@ header{
     float:right;
     padding:1%;
 }
-
-
+.deck_name{
+    color:white;
+    text-decoration:none;
+}
+    .deck_name:hover {
+        text-decoration: none;
+    }
+.new_deck{
+    margin-bottom:2%;
+}
 
 /*cards*/
 

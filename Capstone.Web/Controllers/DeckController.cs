@@ -22,7 +22,7 @@ namespace Capstone.Web.Controllers
             List<Deck> decks = dDAL.GetDecks(user_id);
 
 
-            return View("DeckView", decks);
+            return View("Deck", decks);
         }
 
         public ActionResult DeckSearchByName(string user_id, string searchString)
@@ -30,11 +30,9 @@ namespace Capstone.Web.Controllers
             user_id = CheckSession(user_id);
 
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            List<Deck> decks = new List<Deck>();
+            List<Deck> decks = dDAL.SearchDecksByName(user_id, searchString);
 
-            decks = dDAL.SearchDecksByName(user_id, searchString);
-
-            return View("DeckView", decks);
+            return View("Deck", decks);
         }
 
         public ActionResult DeckSearchByTag(string user_id, string searchString)
@@ -46,29 +44,56 @@ namespace Capstone.Web.Controllers
 
             decks = dDAL.SearchDecksByTag(user_id, searchString);
 
-            return View("DeckView", decks);
+            return View("Deck", decks);
         }
 
-        //Edit deck
-        public ActionResult EditDeck(string deck_id)
+        //EDIT DECK
+        [HttpGet]
+        public ActionResult EditDeck(int id)
         {
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-           // Deck deck = dDAL.EditDeck(deck_id);
-            return View("EditDeck"/*, deck*/);
+            Deck deck = dDAL.GetDeckByDeckID(id.ToString());
+            return View(deck);
         }
+
+        //Deck Name
+        [HttpPost]
+        public ActionResult EditDeckName(string deck_id, string deck_name)
+        {
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            // Deck deck = dDAL.EditDeckName(deck_id);
+            // or Deck deck = dDAL.GetDeckByDeckID(deck_id);
+            return View("EditDeck", deck_id);
+        }
+
+        //Deck Tags
+        [HttpPost]
+        public ActionResult EditDeckTags(string deck_id, string deck_tag)
+        {
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            // Deck deck = dDAL.AddTag(deck_id);
+            return View("EditDeck", deck_id);
+        }
+
 
         //Add new deck
         [HttpGet]
-        public ActionResult AddDeck(string user_id)
+        public ActionResult AddDeck()
         {
-            return View("NewDeckView");
+            return View("NewDeck");
         }
+
         [HttpPost]
-        public ActionResult AddDeck(/*Deck deck*/)
+        public ActionResult AddDeck(string user_id, Deck model)
         {
-            //DeckSqlDAL dDAL = new DeckSqlDAL();
-            //dDAL.AddDeck(deck);
-            return RedirectToAction("DeckView");
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            user_id = CheckSession(user_id);
+            if (CheckSession(user_id) != null)
+            {
+                dDAL.AddDeck(user_id, model.Name);
+            }
+            List<Deck> decks = dDAL.GetDecks(user_id);
+            return RedirectToAction("Deck", decks);
         }
 
         private string CheckSession(string user_id)

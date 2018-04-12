@@ -20,10 +20,11 @@ namespace Capstone.Web.DAL
         private string view_cards = "SELECT * FROM [cards] WHERE UserID = @user_id";
 
         private string view_cards_in_deck = "SELECT * FROM [cards] JOIN card_tag ON cards.CardID = card_tag.CardID JOIN tags on card_tag.TagID = tags.TagID " +
-            "JOIN deck_tag ON tags.TagID = deck_tag.TagID JOIN decks where deck_tag.DeckID = decks.DeckID WHERE DeckID = @deck_id";
+         "JOIN deck_tag ON tags.TagID = deck_tag.TagID JOIN decks ON deck_id WHERE card_deck.DeckID = decks.DeckID WHERE DeckID = @deck_id";
 
-        private string create_Card = "INSERT INTO [cards] (CardID, Front, Back)" +
-           "VALUES (@cardid, @front, @back);";
+
+        private string create_Card = "INSERT INTO [cards] (Front, Back, UserID)" +
+           "VALUES (@front, @back, @user_id);";
 
         private string edit_Card = "INSERT INTO [cards] (Front, Back)" +
            "VALUES (@front, @back);";
@@ -79,7 +80,11 @@ namespace Capstone.Web.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand(view_cards_in_deck, conn);
+<<<<<<< HEAD
                     cmd.Parameters.AddWithValue("@deck_id", deckID);
+=======
+                    cmd.Parameters.AddWithValue("deck_id", deckID);
+>>>>>>> 39f1d39e28e72ff4c3dea3857c4457a8c7f1a406
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -97,7 +102,7 @@ namespace Capstone.Web.DAL
             return result;
         }
 
-        public bool CreateCard(Card card)
+        public bool CreateCard(Card card, string user_id)
         {
             int result = 0;
             try
@@ -108,6 +113,7 @@ namespace Capstone.Web.DAL
                     SqlCommand cmd = new SqlCommand(create_Card, conn);
                     cmd.Parameters.AddWithValue("@front", card.Front);
                     cmd.Parameters.AddWithValue("@back", card.Back);
+                    cmd.Parameters.AddWithValue("@user_id", user_id);
 
                     result = cmd.ExecuteNonQuery();
                 }
@@ -178,7 +184,7 @@ namespace Capstone.Web.DAL
         private Card ConvertFields(SqlDataReader reader)
         {
             Card card = new Card();
-            card.CardID = Convert.ToInt32(reader["CardID"]);
+            card.CardID = Convert.ToString(reader["CardID"]);
             card.Front = Convert.ToString(reader["Front"]);
             card.Back = Convert.ToString(reader["Back"]);
 

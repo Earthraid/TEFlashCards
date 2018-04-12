@@ -18,6 +18,11 @@ namespace Capstone.Web
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            //routes.MapRoute(
+            //    name: "EditDeck",
+            //    url: "{controller}/{action}/{deck_id}",
+            //    defaults: new { controller = "Deck", action = "EditDeck", deck_id = UrlParameter.Optional }
+            //);
         }
     }
 }
