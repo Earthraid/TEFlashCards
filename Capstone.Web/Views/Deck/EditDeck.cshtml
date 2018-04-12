@@ -15,16 +15,27 @@
 
     <button>Submit</button>
 }
-@*
-    @using (Html.BeginForm("EditDeckTags", "Deck", FormMethod.Post))
+<div class="row">
+    <p>Tags: </p> 
+@if (Model.ThisDeckTags.Count != 0)
+{
+    foreach (var tag in Model.ThisDeckTags)
     {
+    <div>
+        @tag
+        @using (Html.BeginForm("RemoveDeckTag", "Deck", FormMethod.Post))
+        {
         <div>
-            @Html.Label("Tag", "Tag: ")
-            @Html.TextBoxFor(Tag)
+            @Html.HiddenFor(m => tag)
         </div>
 
-        <button>Add Tag</button>
-    }*@
+        <button>X</button>
+        }
+    </div>
+    }
+}
+<hr />
+</div>
 @if (Model.DeckCards.Count != 0)
 {
     foreach (var card in Model.DeckCards)
