@@ -19,10 +19,9 @@ namespace Capstone.Web.DAL
 
         private string view_cards = "SELECT * FROM [cards] WHERE UserID = @user_id";
 
-        private string view_cards_in_deck = "SELECT * FROM [cards] JOIN card_tag ON cards.CardID = card_tag.CardID JOIN tags on card_tag.TagID = tags.TagID " +
-         "JOIN deck_tag ON tags.TagID = deck_tag.TagID JOIN decks ON deck_id WHERE card_deck.DeckID = decks.DeckID WHERE DeckID = @deck_id";
-
-
+        private string view_cards_in_deck = "SELECT * FROM [cards] JOIN card_tag ON cards.CardID = card_tag.CardID" +
+            "JOIN tags on card_tag.TagID = tags.TagID JOIN deck_tag ON tags.TagID = deck_tag.TagID JOIN decks ON deck_tag.DeckID = decks.DeckID WHERE DeckID = @deck_id ";
+        
         private string create_Card = "INSERT INTO [cards] (Front, Back, UserID)" +
            "VALUES (@front, @back, @user_id);";
 
