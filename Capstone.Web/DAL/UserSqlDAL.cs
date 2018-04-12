@@ -51,7 +51,7 @@ namespace Capstone.Web.DAL
             {
                 throw;
             }
-
+            //add message to tell user that email already exists
             return result;
         }
 
