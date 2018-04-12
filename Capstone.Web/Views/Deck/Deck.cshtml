@@ -20,12 +20,12 @@
             }
         </div>
         <div class="col-lg-4">
-            @using (Html.BeginForm("DeckSearchByTag", "Deck", FormMethod.Get))
+            @*@using (Html.BeginForm("DeckSearchByTag", "Deck", FormMethod.Get))
             {
                 TagsSqlDAL tagsSql = new TagsSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
                 @Html.DropDownList("SearchString", tagsSql.TagList);
                 <button type="submit" class="list_item btn">Search Tag</button>
-            }
+            }*@
         </div>
         <hr />
     </div>
