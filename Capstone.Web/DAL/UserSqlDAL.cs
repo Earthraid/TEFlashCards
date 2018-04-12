@@ -13,7 +13,9 @@ namespace Capstone.Web.DAL
 
         private string connectionString;
 
-        private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users];";
+        private string getUser = "SELECT Email, Password, IsAdmin, UserName FROM [users];";
+
+        private string getEmails = "SELECT Email FROM [users];";
 
         private string registerUser = "INSERT INTO [users] (Email, Password, IsAdmin, UserName)" +
             "VALUES (@email, @password, @isadmin, @username);";
@@ -31,12 +33,17 @@ namespace Capstone.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(getUser, conn);
+                    SqlCommand cmd = new SqlCommand(getEmails, conn);
                     cmd.Parameters.AddWithValue("@email", email);
                     SqlDataReader reader = cmd.ExecuteReader();
+
+
                     while (reader.Read())
                     {
-                        result = ConvertFields(reader);
+                        if (Convert.ToString(reader["Email"]) != "")
+                        {
+                            result.Email = Convert.ToString(reader["Email"]);
+                        }
                     }
                 }
             }
@@ -44,7 +51,7 @@ namespace Capstone.Web.DAL
             {
                 throw;
             }
-
+            //add message to tell user that email already exists
             return result;
         }
 
@@ -77,11 +84,11 @@ namespace Capstone.Web.DAL
         private User ConvertFields(SqlDataReader reader)
         {
             User user = new User();
-            user.Id = Convert.ToInt32(reader["id"]);
-            user.Email = Convert.ToString(reader["email"]);
-            user.Password = Convert.ToString(reader["password"]);
-            user.IsAdmin = Convert.ToBoolean(reader["is_admin"]);
-            user.UserName = Convert.ToString(reader["user_name"]);
+            user.Id = Convert.ToInt32(reader["UserID"]);
+            user.Email = Convert.ToString(reader["Email"]);
+            user.Password = Convert.ToString(reader["Password"]);
+            user.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
+            user.UserName = Convert.ToString(reader["UserName"]);
             
             return user;
         }
