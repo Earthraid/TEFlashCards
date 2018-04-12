@@ -18,6 +18,7 @@ namespace Capstone.Web.Tests.DAL
         private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
         private int numDecks = 0;
         private int deckID = 0;
+        private int cardID = 0;
 
         [TestInitialize]
         public void TestInitialize()
@@ -41,6 +42,11 @@ namespace Capstone.Web.Tests.DAL
                 cmd = new SqlCommand(@"INSERT INTO decks ([UserID], [Name], [IsPublic]) VALUES ('2', 'SQL Test', '1');SELECT CAST(SCOPE_IDENTITY() as int);", conn);
                 deckID = (int)cmd.ExecuteScalar();
 
+                //Insert a Dummy Record for Card
+                // SELECT CAST(SCOPE_IDENTITY() as int) as a work-around
+                // This will get the newest identity value generated for the record most recently inserted
+                cmd = new SqlCommand(@"INSERT INTO cards ([UserID], [Front], [Back]) VALUES ('2', 'SQL Test', '1');SELECT CAST(SCOPE_IDENTITY() as int);", conn);
+                cardID = (int)cmd.ExecuteScalar();
             }
         }
 
@@ -118,6 +124,19 @@ namespace Capstone.Web.Tests.DAL
             //Assert
             Assert.IsTrue(success);
             Assert.AreEqual(true, deckTest.IsPublic);
+        }
+
+        [TestMethod]
+        public void AddCardToDeckTest()
+        {
+            //Arrange
+            DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+
+            //Act
+            bool success = deckSql.AddCardToDeck(cardID.ToString(), deckID.ToString());
+
+            //Assert
+            Assert.IsTrue(success);
         }
     }
 }

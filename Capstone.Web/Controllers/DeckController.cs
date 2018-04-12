@@ -12,37 +12,36 @@ namespace Capstone.Web.Controllers
     public class DeckController : Controller
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
+        private DeckSqlDAL deckDAL = new DeckSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
 
         // GET: Deck
         public ActionResult Index(string user_id)
         {
             user_id = CheckSession(user_id);
 
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            List<Deck> decks = dDAL.GetDecks(user_id);
-
+            List<Deck> decks = deckDAL.GetDecks(user_id);
 
             return View("Deck", decks);
         }
 
+        //Search for decks by name
         public ActionResult DeckSearchByName(string user_id, string searchString)
         {
             user_id = CheckSession(user_id);
 
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            List<Deck> decks = dDAL.SearchDecksByName(user_id, searchString);
+            List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchString);
 
             return View("Deck", decks);
         }
 
+        //Search for decks by tag
         public ActionResult DeckSearchByTag(string user_id, string searchString)
         {
             user_id = CheckSession(user_id);
 
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
             List<Deck> decks = new List<Deck>();
 
-            decks = dDAL.SearchDecksByTag(user_id, searchString);
+            decks = deckDAL.SearchDecksByTag(user_id, searchString);
 
             return View("Deck", decks);
         }
@@ -51,8 +50,7 @@ namespace Capstone.Web.Controllers
         [HttpGet]
         public ActionResult EditDeck(int id)
         {
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            Deck deck = dDAL.GetDeckByDeckID(id.ToString());
+            Deck deck = deckDAL.GetDeckByDeckID(id.ToString());
             return View(deck);
         }
 
@@ -60,9 +58,11 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult EditDeckName(string deck_id, string deck_name)
         {
+
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            // Deck deck = dDAL.EditDeckName(deck_id);
-            // or Deck deck = dDAL.GetDeckByDeckID(deck_id);
+
+            // Deck deck = deckDAL.EditDeckName(deck_id);
+            // or Deck deck = deckDAL.GetDeckByDeckID(deck_id);
             return View("EditDeck", deck_id);
         }
 
@@ -70,9 +70,25 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult EditDeckTags(string deck_id, string deck_tag)
         {
+
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            // Deck deck = dDAL.AddTag(deck_id);
+
+            // Deck deck = deckDAL.AddTag(deck_id);
             return View("EditDeck", deck_id);
+        }
+
+        [HttpGet]
+        public ActionResult RemoveCard()
+        {
+            return View("EditDeck");
+        }
+
+        [HttpPost]
+        public ActionResult RemoveCard(string card_id, string deck_id)
+        {
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            //Deck deck = dDAL.RemoveCardFromDeck(card_id, deck_id);
+            return RedirectToAction("EditDeck", deck_id);
         }
 
         //Add new deck
@@ -85,13 +101,12 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddDeck(string user_id, Deck model)
         {
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
             user_id = CheckSession(user_id);
             if (CheckSession(user_id) != null)
             {
-                dDAL.AddDeck(user_id, model.Name);
+                deckDAL.AddDeck(user_id, model.Name);
             }
-            List<Deck> decks = dDAL.GetDecks(user_id);
+            List<Deck> decks = deckDAL.GetDecks(user_id);
             return RedirectToAction("Deck", decks);
         }
 

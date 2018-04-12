@@ -23,6 +23,7 @@ namespace Capstone.Web.Tests.Models
         [TestInitialize]
         public void TestInitialize()
         {
+            
             // Initialize a new transaction scope. This automatically begins the transaction.
             tran = new TransactionScope();
 
@@ -70,6 +71,7 @@ namespace Capstone.Web.Tests.Models
         {
             //Arrange
             DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+            TagsSqlDAL tagsDAL = new TagsSqlDAL(connectionString);
             Deck testDeck = deckSql.GetDeckByDeckID(deckID.ToString());
 
             //Act
