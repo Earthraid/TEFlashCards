@@ -28,10 +28,6 @@ namespace Capstone.Web.DAL
         private string edit_Card = "INSERT INTO [cards] (Front, Back)" +
            "VALUES (@front, @back);";
 
-        //private string search_Card = "SELECT * FROM [cards]" +
-        //    "JOIN card_tag ON cards.CardID = card_tag.CardID" +
-        //    "JOIN tags on card_tag.TagID = tags.TagID WHERE [TagName] = @TagName;";
-
         private string search_Card = "SELECT * FROM[cards] JOIN card_tag ON cards.CardID = card_tag.CardID JOIN tags on card_tag.TagID = tags.TagID WHERE[TagName] = @TagName";
 
         public CardSqlDAL(string connectionString)

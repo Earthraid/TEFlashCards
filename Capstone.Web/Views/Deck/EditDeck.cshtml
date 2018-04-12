@@ -7,15 +7,15 @@
 
 <h2>Edit Deck</h2>
 
-    @using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
-    {
-        <div>
-            @Html.Label("Name", "Deck Name: ")
-            @Html.TextBoxFor(m => m.Name)
-        </div>
+@using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
+{
+    <div>
+        @Html.Label("Name", "Deck Name: ")
+        @Html.TextBoxFor(m => m.Name)
+    </div>
 
-        <button>Submit</button>
-    }
+    <button>Submit</button>
+}
 @*
     @using (Html.BeginForm("EditDeckTags", "Deck", FormMethod.Post))
     {
@@ -26,13 +26,19 @@
 
         <button>Add Tag</button>
     }*@
-@if (cards.Count != 0)
+@using (Html.BeginForm("AddOrRemoveCard", "Deck", FormMethod.Post))
 {
-    foreach (var card in cards)
+    if (cards.Count != 0)
     {
-        <div>
-            <div>@card.Front</div>
-        </div>
-        <div>Button Here to remove card form deck</div>
+        foreach (var card in cards)
+        {
+            <div>
+                <div>@card.Front</div>
+            </div>
+            <button>Add Card</button>
+            <button>Remove Card</button>
+        }
     }
 }
+
+

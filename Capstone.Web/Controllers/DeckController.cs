@@ -75,7 +75,6 @@ namespace Capstone.Web.Controllers
             return View("EditDeck", deck_id);
         }
 
-
         //Add new deck
         [HttpGet]
         public ActionResult AddDeck()
