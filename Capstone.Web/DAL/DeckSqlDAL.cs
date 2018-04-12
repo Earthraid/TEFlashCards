@@ -75,7 +75,7 @@ namespace Capstone.Web.DAL
                     {
                         result.DeckID = Convert.ToString(reader["DeckID"]);
                         result.UserID = Convert.ToString(reader["UserID"]);
-                        result.Name = Convert.ToString(reader["Name"]);
+                        result.Name = Convert.ToString(reader["Name"]).Trim();
                         result.IsPublic = Convert.ToBoolean(reader["IsPublic"]);
                     }
                     return result;
