@@ -31,13 +31,6 @@ namespace Capstone.Web.Models
             }
         }
 
-        //public List<Card> DeckCards(string deck_id)
-        //{
-        //    List<Card> cards = cardDAL.ViewCardsInDeck(deck_id);
-
-        //    return cards;
-        //}
-
         /// <summary>
         /// Returns a list of all available Tags.
         /// </summary>
