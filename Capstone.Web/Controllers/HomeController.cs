@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.Mvc;
 using Capstone.Web.Models;
 using Capstone.Web.DAL;
@@ -68,6 +69,15 @@ namespace Capstone.Web.Controllers
             {
                 return View("RegisterView", model);
             }
+
+            UserSqlDAL newUserDAL = new UserSqlDAL(connectionString);
+            User newUser = newUserDAL.GetUser(model.Email);
+
+                    newUser.Email = model.Email;
+                    newUser.UserName = model.UserName;
+                    newUser.Password = model.Password;
+
+                    newUserDAL.Register(newUser);
 
             return RedirectToAction("Index", "Home");
         }

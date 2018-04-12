@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Web.Mvc;
 using System.Linq;
 using System.Web;
 
@@ -29,7 +30,7 @@ namespace Capstone.Web.DAL
                     SqlCommand cmd = new SqlCommand(GetAllTagsSQL, conn);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         string resultKey = Convert.ToString(reader["TagID"]);
                         string resultValue = Convert.ToString(reader["TagName"]);
@@ -47,5 +48,24 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public List<SelectListItem> TagList
+        {
+            get
+            {
+                //TagsSqlDAL tagDAL = new TagsSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashcardsDB"].ConnectionString);
+                Dictionary<string, string> tags = GetAllTags();
+
+                List<SelectListItem> tagList = new List<SelectListItem>();
+
+                foreach (KeyValuePair<string, string> item in tags)
+                {
+                    tagList.Add(new SelectListItem { Text = item.Value, Value = item.Key });
+                }
+
+                return tagList;
+            }
+
+        }
     }
+
 }

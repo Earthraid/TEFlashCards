@@ -2,24 +2,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@*@using Capstone.Web.Models;
+@using Capstone.Web.Models;
 @model Deck
 
 
 <h2>New Deck</h2>
 
-@using (Html.BeginForm("NewDeck", "Deck", FormMethod.Post))
+@using (Html.BeginForm("NewDeck", "AddDeck", FormMethod.Post))
 {
     <div>
         @Html.Label("Name", "Deck Name: ")
         @Html.TextBoxFor(m => m.Name)
     </div>
 
-    <div>
-        @Html.Label("Topic", "Topic")
-        @Html.TextBoxFor(m => m.Topic)
-    </div>
+    @*<div>
+        @Html.Label("Tag", "Tag")
+        @Html.TextBoxFor(m => m.Tag)
+    </div>*@
 
-    <button>Flash Forward</button>
-}*@
+    <button>Add Deck</button>
+}

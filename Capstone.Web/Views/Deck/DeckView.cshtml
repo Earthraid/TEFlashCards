@@ -1,33 +1,44 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using Capstone.Web.DAL
+@using System.Configuration
 @using Capstone.Web.Models
 @model List<Deck>
-
-<h2>Your Decks</h2>
-
-    @using(Html.BeginForm("DeckSearch", "Deck", FormMethod.Get))
-    {
-        @Html.TextBox("SearchString")
-
-       // @Html.HiddenFor(m => m[0].UserID)
-        <button type="submit">Search Decks</button>
-
-    }
-
+<div>
+    <div class="search">
+        @using (Html.BeginForm("DeckSearchByName", "Deck", FormMethod.Get))
+        {
+            @Html.TextBox("SearchString")
+            <button type="submit">Search Name</button>
+        }
+    </div>
+    <div class="search">
+        @using (Html.BeginForm("DeckSearchByTag", "Deck", FormMethod.Get))
+        {
+            TagsSqlDAL tagsSql = new TagsSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
+            @Html.DropDownList("SearchString", tagsSql.TagList);
+            <button type="submit">Search Tag</button>
+        }
+    </div>
+    <div>
+    @Html.ActionLink("New Deck", "AddDeck", "Deck", null, new { @class = "list_item btn col-sm-1" })
+    </div>
+        <h2>Your Decks</h2>
     <div>
         @foreach (var deck in Model)
         {
-        <hr />
+            <hr />
             <div>
                 <div><h3>@deck.Name</h3></div>
                 @*<div>Topic: @deck.Topic</div>
-                <div class="navbar-collapse collapse">
-                    <div class="nav navbar-nav">
-                        <div>@Html.ActionLink("Edit", "EditDeck", "Deck")</div>
-                    </div>
-                </div>*@
+                    <div class="navbar-collapse collapse">
+                        <div class="nav navbar-nav">
+                            <div>@Html.ActionLink("Edit", "EditDeck", "Deck")</div>
+                        </div>
+                    </div>*@
             </div>
-        <hr />
+            <hr />
         }
     </div>
+</div>

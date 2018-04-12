@@ -5,13 +5,33 @@
 
 <h2>Card index page</h2>
 
-@Html.ActionLink("Create a Card", "CardConstruct", "Card")
-@Html.ActionLink("View All Cards", "CardView", "Card")
+<div class="container-fluid">
 
-@using(Html.BeginForm("CardSearch", "Card", FormMethod.Get))
-{
-    @Html.TextBox("SearchString")
-    
-    <button type="submit">Search cards</button>
-}
+    <div class="row">
 
+        <div class="col-sm-6">
+            <div class="index_option">
+                @Html.ActionLink("Create a Card", "CardConstruct", "Card")
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="index_option">
+                @Html.ActionLink("View All Cards", "CardView", "Card")
+            </div>
+        </div>
+
+    </div>
+
+    <div class="index_option">
+        @using (Html.BeginForm("CardSearch", "Card", FormMethod.Get))
+        {
+            <div>
+                @Html.TextBox("SearchString")
+            </div>
+
+            <button type="submit" class="search_button">Search cards by tag</button>
+        }
+    </div>
+
+</div>
