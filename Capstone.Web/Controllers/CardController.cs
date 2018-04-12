@@ -21,12 +21,13 @@ namespace Capstone.Web.Controllers
             return View();
         }
 
+
         public ActionResult CardConstruct()
         {
 
-
             return View("CardCreate");
         }
+
 
         public ActionResult CardSubmit(Card newCard)
         {
@@ -41,6 +42,7 @@ namespace Capstone.Web.Controllers
             return View("CardView", allCards);
         }
 
+
         public ActionResult CardSearch(string searchString)
         {
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
@@ -48,6 +50,7 @@ namespace Capstone.Web.Controllers
 
             return View("CardSearch", matchingCards);
         }
+
 
         public ActionResult CardView()
         {
@@ -60,15 +63,34 @@ namespace Capstone.Web.Controllers
             return View("CardView", allCards);
         }
 
-        public ActionResult CardModify()
+
+        public ActionResult CardModify(string id)
         {
-            CardSqlDAL cDal = new CardSqlDAL(connectionString);
+            Card currentCard = new Card();
+            currentCard.CardID = id;
 
 
-            //cDal.EditCard
-
-            return View();
+            return View("CardModify", currentCard);
         }
+
+
+        public ActionResult CardSubmitChange(string id, string front, string back)
+        {
+            Card currentCard = new Card();
+            currentCard.CardID = id;
+            currentCard.Front = front;
+            currentCard.Back = back;
+            CardSqlDAL cDal = new CardSqlDAL(connectionString);
+            cDal.EditCard(currentCard);
+            
+            //temporary user id
+            string user_id = "2";
+            List<Card> allCards = cDal.ViewCards(user_id);
+
+
+            return View("CardView", allCards);
+        }
+
 
         public ActionResult CardToDeck()
         {

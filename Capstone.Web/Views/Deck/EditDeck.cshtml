@@ -1,6 +1,5 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    List<Card> cards = Model.DeckCards(Model.DeckID);
 }
 @using Capstone.Web.Models;
 @model Deck
@@ -26,9 +25,9 @@
 
         <button>Add Tag</button>
     }*@
-@if (cards.Count != 0)
+@if (Model.DeckCards.Count != 0)
 {
-    foreach (var card in cards)
+    foreach (var card in Model.DeckCards)
     {
         <div>
             <div>@card.Front</div>
@@ -36,10 +35,10 @@
         using (Html.BeginForm("RemoveCard", "Deck", FormMethod.Post))
         {
             <div>
-                @Html.Label("card.CardID", "Remove Card: ")
-                @Html.HiddenFor(card => card.CardID)
+                @Html.HiddenFor(m => card.CardID)
             </div>
 
-            <button>Submit</button>
+            <button>Remove Card</button>
         }
     }
+}

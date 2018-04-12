@@ -11,6 +11,8 @@ namespace Capstone.Web.DAL
     public class DeckSqlDAL
     {
         private string connectionString;
+        TagsSqlDAL tagsDAL;
+        CardSqlDAL cardDAL;
 
         private string GetAllDecksSQL = "SELECT * FROM decks WHERE UserID = @userIDValue ORDER BY DeckID ASC";
 
@@ -28,9 +30,13 @@ namespace Capstone.Web.DAL
 
         private string ModifyDeckPublicSQL = "UPDATE decks SET IsPublic = @publicValue WHERE DeckID = @deckIDValue;";
 
+        private string AddCardToDeckSQL = "INSERT INTO card_deck (CardID, DeckID) VALUES (@cardIDValue, @deckIDValue);";
+
         public DeckSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
+            tagsDAL = new TagsSqlDAL(connectionString);
+            cardDAL = new CardSqlDAL(connectionString);
         }
 
         public List<Deck> GetDecks(string userID)
@@ -187,6 +193,27 @@ namespace Capstone.Web.DAL
             }
         }
 
-        
+        public bool AddCardToDeck(string cardID, string deckID)
+        {
+            bool success = false;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    var result = conn.Execute(AddCardToDeckSQL, new { cardIDValue = cardID, deckIDValue = deckID });
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+                    return success;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }

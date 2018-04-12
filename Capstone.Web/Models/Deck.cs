@@ -11,6 +11,9 @@ namespace Capstone.Web.Models
     public class Deck
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
+        private CardSqlDAL cardDAL = new CardSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
+        private TagsSqlDAL tagsDAL = new TagsSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
+        private DeckSqlDAL deckDAL = new DeckSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
 
         public string DeckID { get; set; }
 
@@ -20,15 +23,21 @@ namespace Capstone.Web.Models
 
         public bool IsPublic { get; set; }
 
-        public List<Card> DeckCards(string deck_id)
+        public List<Card> DeckCards
         {
-            CardSqlDAL c = new CardSqlDAL(connectionString);
-            List<Card> cards = c.ViewCardsInDeck(deck_id);
-
-            return cards;
-
+            get
+            {
+                return cardDAL.ViewCardsInDeck(DeckID);
+            }
         }
-        
+
+        //public List<Card> DeckCards(string deck_id)
+        //{
+        //    List<Card> cards = cardDAL.ViewCardsInDeck(deck_id);
+
+        //    return cards;
+        //}
+
         /// <summary>
         /// Returns a list of all available Tags.
         /// </summary>
@@ -36,8 +45,7 @@ namespace Capstone.Web.Models
         {
             get
             {
-                TagsSqlDAL tagSql = new TagsSqlDAL(connectionString);
-                return tagSql.TagList;
+                return tagsDAL.TagList;
             }
         }
 
@@ -48,19 +56,22 @@ namespace Capstone.Web.Models
         {
             get
             {
-                TagsSqlDAL tagSql = new TagsSqlDAL(connectionString);
-                return tagSql.GetTagsByDeckID(DeckID);
+                return tagsDAL.GetTagsByDeckID(DeckID);
             }
         }
-        
+
         /// <summary>
         /// Adds a Tag to an individual deck in a current instance.
         /// </summary>
         /// <param name="tagName"></param>
         public void AddTagToDeck(string tagName)
         {
-            TagsSqlDAL tagsSql = new TagsSqlDAL(connectionString);
-            tagsSql.AddTagToDeck(DeckID, tagName);
+            tagsDAL.AddTagToDeck(DeckID, tagName);
+        }
+
+        public void AddCardToDeck(string cardID)
+        {
+            deckDAL.AddCardToDeck(cardID, DeckID);
         }
     }
 }
