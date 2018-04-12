@@ -18,8 +18,12 @@
                         <div class="card_bothsides">
                             <div class="card_front">@thisCard.Front</div>
                             <div class="card_back">@thisCard.Back</div>
-                            @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
-                            @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = thisCard.CardID }, null)
+                            <div class="card_option">
+                                @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+                            </div>
+                            <div>
+                                @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = thisCard.CardID }, null)
+                            </div>
                         </div>
                     </div>
                 </div>
