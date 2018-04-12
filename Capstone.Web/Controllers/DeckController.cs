@@ -24,6 +24,7 @@ namespace Capstone.Web.Controllers
             return View("Deck", decks);
         }
 
+        //Search for decks by name
         public ActionResult DeckSearchByName(string user_id, string searchString)
         {
             user_id = CheckSession(user_id);
@@ -33,6 +34,7 @@ namespace Capstone.Web.Controllers
             return View("Deck", decks);
         }
 
+        //Search for decks by tag
         public ActionResult DeckSearchByTag(string user_id, string searchString)
         {
             user_id = CheckSession(user_id);
@@ -56,6 +58,9 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult EditDeckName(string deck_id, string deck_name)
         {
+
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+
             // Deck deck = deckDAL.EditDeckName(deck_id);
             // or Deck deck = deckDAL.GetDeckByDeckID(deck_id);
             return View("EditDeck", deck_id);
@@ -65,10 +70,27 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult EditDeckTags(string deck_id, string deck_tag)
         {
+
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+
             // Deck deck = deckDAL.AddTag(deck_id);
             return View("EditDeck", deck_id);
         }
 
+        //Remove Card
+        [HttpGet]
+        public ActionResult RemoveCard()
+        {
+            return View("EditDeck");
+        }
+
+        [HttpPost]
+        public ActionResult RemoveCard(string card_id, string deck_id)
+        {
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            //Deck deck = dDAL.RemoveCardFromDeck(card_id, deck_id);
+            return RedirectToAction("EditDeck", deck_id);
+        }
 
         //Add new deck
         [HttpGet]
