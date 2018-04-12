@@ -23,7 +23,7 @@
             @using (Html.BeginForm("DeckSearchByTag", "Deck", FormMethod.Get))
             {
                 TagsSqlDAL tagsSql = new TagsSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
-                @Html.DropDownList("SearchString", tagsSql.TagList);
+                @Html.DropDownList("SearchString", tagsSql.TagSelectItemList);
                 <button type="submit" class="list_item btn">Search Tag</button>
             }
         </div>
