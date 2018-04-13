@@ -26,6 +26,8 @@ namespace Capstone.Web.Models
 
         public string TagName { get; set; }
 
+        public string CardID { get; set; }
+
         public List<Card> DeckCards
         {
             get
