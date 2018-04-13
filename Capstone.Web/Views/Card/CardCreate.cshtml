@@ -10,13 +10,14 @@
 
 @using (Html.BeginForm("CardSubmit", "Card", new { newCard = Model }, FormMethod.Post))
 {
-    <p>front of card:</p>
-    @Html.TextAreaFor(m => m.Front);
+    <div>
+        <p>front of card:</p>
+        @Html.TextAreaFor(m => m.Front);
 
-    <p>back of card:</p>
-    @Html.TextAreaFor(m => m.Back);
+        <p>back of card:</p>
+        @Html.TextAreaFor(m => m.Back);
+    </div>
 
-
-    <button type="submit">Submit card</button>
+    <button class="submit_button" type="submit">Create card</button>
 }
 

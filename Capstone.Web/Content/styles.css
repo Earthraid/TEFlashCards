@@ -64,19 +64,24 @@ header{
 
 /*cards*/
 
-.card_container {
-    width: 100vw;
+.card_flex_container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .card_bothsides {
-    background: #ddd;
     display: inline-block;
-    overflow: auto;
-    border: 1px solid #aaa;
     padding: 20px;
-    margin-top: 20px;
-    min-height: 25vh;
-    width: 100%;
+    margin: 20px;
+    height: 30vh;
+    width: 25%;
+    min-width: 300px;
+    overflow: auto;
+    background: #ddd;
+    border: 1px solid #aaa;
     color: black;
 }
 
@@ -127,3 +132,17 @@ header{
         .search_button:hover {
             cursor: pointer;
         }
+
+/*card search results*/
+.noresults_option a {
+    color: #fff;
+}
+
+/*modify card*/
+.submit_button {
+    margin-top: 10px;
+    padding: 10px;
+    background: dodgerblue;
+    color: white;
+    border: none;
+}

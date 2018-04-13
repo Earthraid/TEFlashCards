@@ -45,10 +45,17 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardSearch(string searchString)
         {
-            CardSqlDAL cDal = new CardSqlDAL(connectionString);
-            List<Card> matchingCards = cDal.SearchCard(searchString);
+            if (String.IsNullOrEmpty(searchString))
+            {
+                return View("Index");
+            }
+            else
+            {
+                CardSqlDAL cDal = new CardSqlDAL(connectionString);
+                List<Card> matchingCards = cDal.SearchCard(searchString);
 
-            return View("CardSearch", matchingCards);
+                return View("CardSearch", matchingCards);
+            }
         }
 
 
@@ -89,7 +96,7 @@ namespace Capstone.Web.Controllers
             currentCard.Back = back;
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
             cDal.EditCard(currentCard);
-            
+
             //temporary user id
             string user_id = "2";
             List<Card> allCards = cDal.ViewCards(user_id);
