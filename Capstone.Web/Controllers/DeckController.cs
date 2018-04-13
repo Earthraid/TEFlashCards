@@ -120,8 +120,8 @@ namespace Capstone.Web.Controllers
         }
 
 
-        [HttpPost]
-        public ActionResult RemoveCard(int card_id)
+        [HttpGet]
+        public ActionResult RemoveThisCard(int id)
         {
 
             string deckID = Session["deck_ID"].ToString();
@@ -132,7 +132,7 @@ namespace Capstone.Web.Controllers
             }
 
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            dDAL.RemoveCardFromDeck(card_id.ToString(), deckID);
+            dDAL.RemoveCardFromDeck(id.ToString(), deckID);
             
             return RedirectToAction(deckID, "Deck/EditDeck");
         }
