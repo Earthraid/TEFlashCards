@@ -16,6 +16,20 @@
             <div class="card_bothsides">
                 <div class="card_front">@thisCard.Front</div>
                 <div class="card_back">@thisCard.Back</div>
+                <div class="card_tags">
+                    <p class="tag_list">Tags: </p>
+                    @if (thisCard.ThisCardTags.Count != 0)
+                    {
+                        foreach (var tag in thisCard.ThisCardTags)
+                        {
+                            <p class="tag_list">@tag</p>
+                        }
+                    }
+                    else
+                    {
+                        <p class="tag_list">No tags assigned.</p>
+                    }
+                </div>
                 <div class="card_option">
                     @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
                 </div>
