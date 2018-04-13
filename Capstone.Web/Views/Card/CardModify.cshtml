@@ -9,14 +9,14 @@
 
 <h2>Modify card</h2>
 
-@using (Html.BeginForm("CardSubmitChange", "Card", new { id = Model.CardID, front = Model.Front, back = Model.Back }))
+@using (Html.BeginForm("CardSubmitChange", "Card", new { id = Model.CardID, front = Model.Front.Trim(), back = Model.Back.Trim() }))
 {
     <div>
         <p>front of card:</p>
-        @Html.TextAreaFor(m => m.Front, new { placeholder = ViewBag.cardFront })
+        @Html.TextAreaFor(m => m.Front)
 
         <p>back of card:</p>
-        @Html.TextAreaFor(m => m.Back, new { placeholder = ViewBag.cardBack })
+        @Html.TextAreaFor(m => m.Back)
 
     </div>
 

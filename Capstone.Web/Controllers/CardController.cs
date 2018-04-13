@@ -18,12 +18,21 @@ namespace Capstone.Web.Controllers
         // GET: Card
         public ActionResult Index()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
 
         public ActionResult CardConstruct()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             return View("CardCreate");
         }
@@ -31,13 +40,15 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardSubmit(Card newCard)
         {
-            //temporary userID
-            string user_id = "2";
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
-            cDal.CreateCard(newCard, user_id);
+            cDal.CreateCard(newCard, Session["userid"].ToString());
 
-            List<Card> allCards = cDal.ViewCards(user_id);
+            List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
             return View("CardView", allCards);
         }
@@ -45,6 +56,11 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardSearch(string searchString)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (String.IsNullOrEmpty(searchString))
             {
                 return View("Index");
@@ -61,11 +77,13 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardView()
         {
-            //temporary user ID
-            string user_id = "2";
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
-            List<Card> allCards = cDal.ViewCards(user_id);
+            List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
             return View("CardView", allCards);
         }
@@ -73,23 +91,26 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardModify(string id)
         {
-            Card cardToChange = new Card();
-            cardToChange.CardID = id;
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
             Card existingCard = cDal.GetCardByID(id);
 
-            //DAL doesn't return front and back with closing quotes
-            ViewBag.cardFront = existingCard.Front;
-            ViewBag.cardBack = existingCard.Back;
-            ViewBag.Msg = "Message";
 
-            return View("CardModify", cardToChange);
+            return View("CardModify", existingCard);
         }
 
 
         public ActionResult CardSubmitChange(string id, string front, string back)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Card currentCard = new Card();
             currentCard.CardID = id;
             currentCard.Front = front;
@@ -97,9 +118,7 @@ namespace Capstone.Web.Controllers
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
             cDal.EditCard(currentCard);
 
-            //temporary user id
-            string user_id = "2";
-            List<Card> allCards = cDal.ViewCards(user_id);
+            List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
 
             return View("CardView", allCards);
@@ -108,6 +127,11 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardToDeck()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
             //cDal.AddCardToDeck
 
