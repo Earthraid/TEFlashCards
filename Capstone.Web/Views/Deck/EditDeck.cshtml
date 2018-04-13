@@ -6,16 +6,21 @@
 
 <h2>Edit Deck</h2>
 
+<!--Edit deck name-->
+
 @using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
 {
     <div>
         @Html.Label("Name", "Deck Name: ")
         @Html.TextBoxFor(m => m.Name)
         @Html.HiddenFor(m => m.DeckID)
-    </div>
 
     <button class="list_item btn">Change Name</button>
+    </div>
 }
+
+ <!--Add a tag to the deck-->
+
 <div class="col-lg-4">
     @using (Html.BeginForm("AddDeckTag", "Deck", FormMethod.Post))
     {
@@ -31,47 +36,59 @@
         <input type="submit" class="list_item btn" value="Add Tag">
     }
 </div>
+
+<!--Lists tags under deck-->
+
 <div class="row">
-    <p>Tags: </p>
+    <p class="tag_list">Tags: </p>
     @if (Model.ThisDeckTags.Count != 0)
     {
         foreach (var tag in Model.ThisDeckTags)
         {
-            <div>
-                @tag
-                @using (Html.BeginForm("RemoveDeckTag", "Deck", FormMethod.Post))
+            
+               <p class="tag_list">@tag</p>
+                using (Html.BeginForm("RemoveDeckTag", "Deck", FormMethod.Post))
                 {
-                    <div>
-                        @*@Html.Label("Tag", tag)
-                        @Html.HiddenFor(Tag, Model.TagName)*@
-                        @Html.HiddenFor(m => Model.DeckID)
-                    </div>
 
-                    <button id="@tag" class="removeTag">X</button>
+                    @*@Html.Label("Tag", tag)
+                        @Html.HiddenFor(Tag, Model.TagName)*@
+                    @Html.HiddenFor(m => Model.DeckID)
+
+
+                    <button id="@tag" class="removeTag">x</button>
                 }
-            </div>
         }
     }
     else
     {
+        <!--if no tags-->
         <div>No tags exist for this deck. Add one above.</div>
     }
     <hr />
 </div>
+
+<!--Lists cards in deck for review or removal-->
+
 @if (Model.DeckCards.Count != 0)
 {
     foreach (var card in Model.DeckCards)
     {
-        <div>
-            <div>@card.Front</div>
-        </div>
-        using (Html.BeginForm("RemoveCard", "Deck", FormMethod.Post))
-        {
-            <div>
-                @Html.HiddenFor(m => card.CardID)
-            </div>
+        <div class="card_bothsides">
+            <div class="card_front">@card.Front</div>
+            <div class="card_back">@card.Back</div>
+            @using (Html.BeginForm("RemoveCard", "Deck", FormMethod.Post))
+            {
+                <div>
+                    @Html.HiddenFor(m => card.CardID)
+                    @*@Html.HiddenFor(m => m.DeckID)*@
+                </div>
 
-            <button>Remove Card</button>
-        }
+                <button>Remove Card</button>
+            }
+        </div>
     }
+}
+else
+{
+    <p>There are no cards in this deck.  Add some above.</p>
 }

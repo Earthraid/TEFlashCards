@@ -61,7 +61,16 @@ header{
 .new_deck{
     margin-bottom:2%;
 }
-.removeTag{}
+.removeTag
+{
+    display:inline-block;
+}
+
+.tag_list{
+    margin-right:1%;
+    margin-left:1%;
+    display:inline-block;
+}
 
 /*cards*/
 
