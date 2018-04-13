@@ -17,7 +17,10 @@ namespace Capstone.Web.DAL
 
         //private string view_cards_in_deck = "SELECT Front, Back FROM [cards] ORDER BY CardID";
 
+
         private string view_cards_in_deck = "SELECT * FROM [cards] JOIN users ON cards.UserID = users.UserID JOIN decks ON users.UserID = decks.UserID WHERE decks.DeckID = @deck_id ";
+
+        //private string view_cards_in_deck = "SELECT * FROM cards JOIN card_deck ON cards.CardID = card_deck.CardID JOIN decks ON decks.DeckID = card_deck.DeckID WHERE decks.DeckID = @deck_id";
 
         private string view_cards = "SELECT * FROM [cards] WHERE UserID = @user_id";
 
@@ -92,6 +95,34 @@ namespace Capstone.Web.DAL
             }
 
             return result;
+        }
+
+        public Card GetCardByID(string id)
+        {
+            Card currentCard = new Card();
+            currentCard.CardID = id;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(get_card_by_id, conn);
+                    cmd.Parameters.AddWithValue("@card_id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        currentCard.UserID = Convert.ToString(reader["UserID"]);
+                        currentCard.Front = Convert.ToString(reader["Front"]);
+                        currentCard.Back = Convert.ToString(reader["Back"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return currentCard;
         }
 
         public bool CreateCard(Card card, string user_id)

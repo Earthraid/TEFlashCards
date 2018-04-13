@@ -17,8 +17,11 @@ namespace Capstone.Web.Controllers
         // GET: Deck
         public ActionResult Index(string user_id)
         {
-            user_id = CheckSession(user_id);
-
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            user_id = Session["userid"].ToString();
             List<Deck> decks = deckDAL.GetDecks(user_id);
 
             return View("Deck", decks);
@@ -27,8 +30,10 @@ namespace Capstone.Web.Controllers
         //Search for decks by name
         public ActionResult DeckSearchByName(string user_id, string searchString)
         {
-            user_id = CheckSession(user_id);
-
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchString);
 
             return View("Deck", decks);
@@ -37,8 +42,10 @@ namespace Capstone.Web.Controllers
         //Search for decks by tag
         public ActionResult DeckSearchByTag(string user_id, string searchString)
         {
-            user_id = CheckSession(user_id);
-
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<Deck> decks = new List<Deck>();
 
             decks = deckDAL.SearchDecksByTag(user_id, searchString);
@@ -50,39 +57,55 @@ namespace Capstone.Web.Controllers
         [HttpGet]
         public ActionResult EditDeck(int id)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Deck deck = deckDAL.GetDeckByDeckID(id.ToString());
+            Session["deck_ID"] = deck.DeckID;
             return View(deck);
         }
 
         //Deck Name
         [HttpPost]
-        public ActionResult EditDeckName(string deck_id, string deck_name)
+        public ActionResult EditDeckName(Deck model)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            deckDAL.ModifyDeckName(model.DeckID, model.Name);
+            Deck deck = deckDAL.GetDeckByDeckID(model.DeckID);
 
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-
-            // Deck deck = deckDAL.EditDeckName(deck_id);
-            // or Deck deck = deckDAL.GetDeckByDeckID(deck_id);
-            return View("EditDeck", deck_id);
+            return RedirectToAction(deck.DeckID, "Deck/EditDeck");
         }
 
         //Deck Tags
         [HttpPost]
-        public ActionResult AddDeckTag(string deck_id, string deck_tag)
+        public ActionResult AddDeckTag(Deck model)
         {
-
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-
-            // Deck deck = deckDAL.AddTag(deck_id);
-            return View("EditDeck", deck_id);
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
+            curDeck.AddTagToDeck(model.TagName);
+            return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
         [HttpPost]
-        public ActionResult RemoveDeckTag(string deck_id, string deck_tag)
+        public ActionResult RemoveDeckTag(Deck model)
         {
-
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
             // Deck deck = deckDAL.RemoveTag(deck_id);
             return View("EditDeck", deck_id);
+
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
+            curDeck.RemoveTagFromDeck(model.TagName);
+            return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
         
         //Add a new card 
@@ -100,41 +123,65 @@ namespace Capstone.Web.Controllers
         }
         
         //Remove Card
+
         [HttpGet]
         public ActionResult RemoveCard()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View("EditDeck");
         }
 
+
         [HttpPost]
-        public ActionResult RemoveCard(string card_id, string deck_id)
+        public ActionResult RemoveCard(int card_id)
         {
+
+            string deckID = Session["deck_ID"].ToString();
+
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            //Deck deck = dDAL.RemoveCardFromDeck(card_id, deck_id);
-            return RedirectToAction("EditDeck", deck_id);
+            dDAL.RemoveCardFromDeck(card_id.ToString(), deckID);
+            
+            return RedirectToAction(deckID, "Deck/EditDeck");
         }
 
         //Add new deck
         [HttpGet]
         public ActionResult AddDeck()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View("NewDeck");
         }
 
         [HttpPost]
         public ActionResult AddDeck(string user_id, Deck model)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             user_id = CheckSession(user_id);
             if (CheckSession(user_id) != null)
             {
                 deckDAL.AddDeck(user_id, model.Name);
             }
             List<Deck> decks = deckDAL.GetDecks(user_id);
-            return RedirectToAction("Deck", decks);
+            return RedirectToAction("Index");
         }
 
         private string CheckSession(string user_id)
         {
+
             var currentUser = Session["user_id"];
             if (currentUser == null)
             {

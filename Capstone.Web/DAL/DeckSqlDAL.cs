@@ -32,6 +32,8 @@ namespace Capstone.Web.DAL
 
         private string AddCardToDeckSQL = "INSERT INTO card_deck (CardID, DeckID) VALUES (@cardIDValue, @deckIDValue);";
 
+        private string RemoveCardFromDeckSQL = "DELETE FROM card_deck WHERE CardID = @cardIDValue AND DeckID = @deckIDValue;";
+
         public DeckSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -73,7 +75,7 @@ namespace Capstone.Web.DAL
                     {
                         result.DeckID = Convert.ToString(reader["DeckID"]);
                         result.UserID = Convert.ToString(reader["UserID"]);
-                        result.Name = Convert.ToString(reader["Name"]);
+                        result.Name = Convert.ToString(reader["Name"]).Trim();
                         result.IsPublic = Convert.ToBoolean(reader["IsPublic"]);
                     }
                     return result;
@@ -216,6 +218,27 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public bool RemoveCardFromDeck(string cardID, string deckID)
+        {
+            bool success = false;
 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    var result = conn.Execute(RemoveCardFromDeckSQL, new { cardIDValue = cardID, deckIDValue = deckID });
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+                    return success;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }

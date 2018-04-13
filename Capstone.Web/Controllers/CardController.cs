@@ -18,22 +18,34 @@ namespace Capstone.Web.Controllers
         // GET: Card
         public ActionResult Index()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
 
         public ActionResult CardConstruct()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             return View("CardCreate");
         }
 
-        public ActionResult CardSubmit(Card newCard)
+        public ActionResult CardSubmit(Card newCard, string user_id)
         {
-            //temporary userID
-            string user_id = "2";
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
+
             if (!string.IsNullOrEmpty(newCard.TempDeckNum))
             {
                 cDal.CreateCard(newCard, user_id);
@@ -43,7 +55,7 @@ namespace Capstone.Web.Controllers
             else
             {
                 cDal.CreateCard(newCard, user_id);
-                List<Card> allCards = cDal.ViewCards(user_id);
+                List<Card> allCards = cDal.ViewCards(Session["user_id"].ToString());
                 return View("CardView", allCards);
             }
         }
@@ -51,20 +63,34 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardSearch(string searchString)
         {
-            CardSqlDAL cDal = new CardSqlDAL(connectionString);
-            List<Card> matchingCards = cDal.SearchCard(searchString);
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-            return View("CardSearch", matchingCards);
+            if (String.IsNullOrEmpty(searchString))
+            {
+                return View("Index");
+            }
+            else
+            {
+                CardSqlDAL cDal = new CardSqlDAL(connectionString);
+                List<Card> matchingCards = cDal.SearchCard(searchString);
+
+                return View("CardSearch", matchingCards);
+            }
         }
 
 
         public ActionResult CardView()
         {
-            //temporary user ID
-            string user_id = "2";
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
-            List<Card> allCards = cDal.ViewCards(user_id);
+            List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
             return View("CardView", allCards);
         }
@@ -72,26 +98,34 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardModify(string id)
         {
-            Card currentCard = new Card();
-            currentCard.CardID = id;
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            CardSqlDAL cDal = new CardSqlDAL(connectionString);
+            Card existingCard = cDal.GetCardByID(id);
 
 
-            return View("CardModify", currentCard);
+            return View("CardModify", existingCard);
         }
 
 
         public ActionResult CardSubmitChange(string id, string front, string back)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Card currentCard = new Card();
             currentCard.CardID = id;
             currentCard.Front = front;
             currentCard.Back = back;
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
             cDal.EditCard(currentCard);
-            
-            //temporary user id
-            string user_id = "2";
-            List<Card> allCards = cDal.ViewCards(user_id);
+
+            List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
 
             return View("CardView", allCards);
@@ -100,6 +134,11 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardToDeck()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
             //cDal.AddCardToDeck
 

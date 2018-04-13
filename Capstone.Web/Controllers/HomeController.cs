@@ -13,10 +13,14 @@ namespace Capstone.Web.Controllers
     public class HomeController : Controller
     {
 
+
         private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
         // GET: Home
         public ActionResult Index()
         {
+            //temporary user id
+            Session["userid"] = "2";
+
             return View("Index");
         }
 
@@ -61,7 +65,7 @@ namespace Capstone.Web.Controllers
             return View("RegisterView");
         }
 
-        
+
         [HttpPost]
         public ActionResult Register(User model)
         {
@@ -73,11 +77,11 @@ namespace Capstone.Web.Controllers
             UserSqlDAL newUserDAL = new UserSqlDAL(connectionString);
             User newUser = newUserDAL.GetUser(model.Email);
 
-                    newUser.Email = model.Email;
-                    newUser.UserName = model.UserName;
-                    newUser.Password = model.Password;
+            newUser.Email = model.Email;
+            newUser.UserName = model.UserName;
+            newUser.Password = model.Password;
 
-                    newUserDAL.Register(newUser);
+            newUserDAL.Register(newUser);
 
             return RedirectToAction("Index", "Home");
         }

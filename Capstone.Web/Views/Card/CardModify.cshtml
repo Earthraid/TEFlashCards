@@ -1,20 +1,26 @@
-﻿@{
+﻿@using Capstone.Web.Models
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using Capstone.Web.Models
 @model Card
 
-<h2>Modify a card</h2>
 
-@using (Html.BeginForm("CardSubmitChange", "Card", new { id = Model.CardID, front = Model.Front, back = Model.Back }))
+<h2>Modify card</h2>
+
+@using (Html.BeginForm("CardSubmitChange", "Card", new { id = Model.CardID, front = Model.Front.Trim(), back = Model.Back.Trim() }))
 {
-    <p>front of card:</p>
-    @Html.TextAreaFor(m => m.Front)
+    <div>
+        <p>front of card:</p>
+        @Html.TextAreaFor(m => m.Front)
 
-    <p>back of card:</p>
-    @Html.TextAreaFor(m => m.Back)
+        <p>back of card:</p>
+        @Html.TextAreaFor(m => m.Back)
+
+    </div>
+
+    <button class="submit_button" type="submit">Submit changes</button>
 
 
-    <button type="submit">Submit card</button>
 }
