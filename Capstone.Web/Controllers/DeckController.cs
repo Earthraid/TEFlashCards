@@ -56,34 +56,28 @@ namespace Capstone.Web.Controllers
 
         //Deck Name
         [HttpPost]
-        public ActionResult EditDeckName(string deck_id, string deck_name)
+        public ActionResult EditDeckName(Deck model)
         {
+            deckDAL.ModifyDeckName(model.DeckID, model.Name);
+            Deck deck = deckDAL.GetDeckByDeckID(model.DeckID);
 
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-
-            // Deck deck = deckDAL.EditDeckName(deck_id);
-            // or Deck deck = deckDAL.GetDeckByDeckID(deck_id);
-            return View("EditDeck", deck_id);
+            return RedirectToAction(deck.DeckID, "Deck/EditDeck");
         }
 
         //Deck Tags
         [HttpPost]
-        public ActionResult AddDeckTag(string deck_id, string deck_tag)
+        public ActionResult AddDeckTag(Deck model)
         {
-
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-
-            // Deck deck = deckDAL.AddTag(deck_id);
-            return View("EditDeck", deck_id);
+            Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
+            curDeck.AddTagToDeck(model.TagName);
+            return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
         [HttpPost]
-        public ActionResult RemoveDeckTag(string deck_id, string deck_tag)
+        public ActionResult RemoveDeckTag(Deck model)
         {
-
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-
-            // Deck deck = deckDAL.RemoveTag(deck_id);
-            return View("EditDeck", deck_id);
+            Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
+            curDeck.RemoveTagFromDeck(model.TagName);
+            return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
         //Remove Card
         [HttpGet]
@@ -116,7 +110,7 @@ namespace Capstone.Web.Controllers
                 deckDAL.AddDeck(user_id, model.Name);
             }
             List<Deck> decks = deckDAL.GetDecks(user_id);
-            return RedirectToAction("Deck", decks);
+            return RedirectToAction("Index");
         }
 
         private string CheckSession(string user_id)

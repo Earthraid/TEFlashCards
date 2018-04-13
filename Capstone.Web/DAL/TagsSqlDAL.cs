@@ -22,6 +22,7 @@ namespace Capstone.Web.DAL
 
         private string AddTagToDeckSQL = "INSERT INTO deck_tag (DeckID, TagID) VALUES (@deckIDValue, @tagIDValue);";
         private string GetTagsByDeckIDSQL = "SELECT TagName FROM tags JOIN deck_tag ON tags.TagID = deck_tag.TagID WHERE deck_tag.DeckID = @deckIDValue;";
+        private string RemoveTagFromDeckSQL = "DELETE FROM deck_tag WHERE TagID = @tagIDValue AND DeckID = @deckIDValue;";
 
         public TagsSqlDAL(string connectionString)
         {
@@ -84,7 +85,7 @@ namespace Capstone.Web.DAL
 
                 foreach (KeyValuePair<string, string> item in this.TagDictionary)
                 {
-                    tagList.Add(item.Value);
+                    tagList.Add(item.Key);
                 }
 
                 return tagList;
@@ -243,7 +244,7 @@ namespace Capstone.Web.DAL
                 {
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        var result = conn.Execute(AddTagToDeckSQL, new { cardIDValue = deckID, tagIDValue = this.TagDictionary[tagName] });
+                        var result = conn.Execute(AddTagToDeckSQL, new { deckIDValue = deckID, tagIDValue = this.TagDictionary[tagName] });
                         if (result == 1)
                         {
                             success = true;
@@ -257,6 +258,33 @@ namespace Capstone.Web.DAL
                 }
             }
             return success;
+        }
+
+        public bool RemoveTagFromDeck(string deckID, string tagName)
+        {
+            string removeTagID = this.TagDictionary[tagName.ToLower()];
+            bool success = false;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Execute(RemoveTagFromDeckSQL, new { deckNameValue = deckID, tagIDValue = removeTagID });
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+
+                    return success;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public List<string> GetTagsByDeckID(string deckID)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using Capstone.Web.DAL;
+using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -23,6 +24,8 @@ namespace Capstone.Web.Models
 
         public bool IsPublic { get; set; }
 
+        public string TagName { get; set; }
+
         public List<Card> DeckCards
         {
             get
@@ -39,6 +42,14 @@ namespace Capstone.Web.Models
             get
             {
                 return tagsDAL.TagList;
+            }
+        }
+
+        public List<SelectListItem> AllTagsSelectList
+        {
+            get
+            {
+                return tagsDAL.TagSelectItemList;
             }
         }
 
@@ -62,9 +73,19 @@ namespace Capstone.Web.Models
             tagsDAL.AddTagToDeck(DeckID, tagName);
         }
 
-        public void AddCardToDeck(string cardID)
+        public void RemoveTagFromDeck(string tagName)
         {
-            deckDAL.AddCardToDeck(cardID, DeckID);
+            tagsDAL.RemoveTagFromDeck(DeckID, tagName);
+        }
+
+        public bool AddCardToDeck(string cardID)
+        {
+            return deckDAL.AddCardToDeck(cardID, DeckID);
+        }
+
+        public bool RemoveCardFromDeck(string cardID)
+        {
+            return deckDAL.RemoveCardFromDeck(cardID, DeckID);
         }
     }
 }

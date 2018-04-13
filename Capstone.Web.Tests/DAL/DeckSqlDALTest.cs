@@ -138,5 +138,20 @@ namespace Capstone.Web.Tests.DAL
             //Assert
             Assert.IsTrue(success);
         }
+
+        [TestMethod]
+        public void RemoveCardFromDeckTest()
+        {
+            //Arrange
+            DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+            Deck testDeck = deckSql.GetDeckByDeckID(deckID.ToString());
+
+            //Act
+            testDeck.AddCardToDeck(cardID.ToString());
+            bool deleted = deckSql.RemoveCardFromDeck(cardID.ToString(), deckID.ToString());
+
+            //Assert
+            Assert.IsTrue(deleted);
+        }
     }
 }
