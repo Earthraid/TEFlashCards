@@ -31,7 +31,7 @@ namespace Capstone.Web.Controllers
         {
             //Lookup user
             UserSqlDAL dal = new UserSqlDAL(connectionString);
-            User user = dal.GetUser(formValues.UserName);
+            User user = dal.GetUser(formValues.Email);
             if (user.UserName == null)
             {
                 //todo: count attempts

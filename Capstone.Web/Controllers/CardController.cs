@@ -28,18 +28,24 @@ namespace Capstone.Web.Controllers
             return View("CardCreate");
         }
 
-
         public ActionResult CardSubmit(Card newCard)
         {
             //temporary userID
             string user_id = "2";
 
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
-            cDal.CreateCard(newCard, user_id);
-
-            List<Card> allCards = cDal.ViewCards(user_id);
-
-            return View("CardView", allCards);
+            if (!string.IsNullOrEmpty(newCard.TempDeckNum))
+            {
+                cDal.CreateCard(newCard, user_id);
+                List<Card> cardsInDeck = cDal.ViewCardsInDeck(newCard.TempDeckNum);
+                return RedirectToAction("Index","Deck");
+            }
+            else
+            {
+                cDal.CreateCard(newCard, user_id);
+                List<Card> allCards = cDal.ViewCards(user_id);
+                return View("CardView", allCards);
+            }
         }
 
 

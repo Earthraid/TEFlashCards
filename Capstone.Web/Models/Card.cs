@@ -15,6 +15,7 @@ namespace Capstone.Web.Models
         public string Front { get; set; }
         public string Back { get; set; }
         public string UserID { get; set; }
+        public string TempDeckNum { get; set; }
 
         /// <summary>
         /// Returns a list of all available Tags.
@@ -49,5 +50,6 @@ namespace Capstone.Web.Models
             TagsSqlDAL tagsSql = new TagsSqlDAL(connectionString);
             tagsSql.AddTagToCard(CardID, tagName);
         }
+
     }
 }

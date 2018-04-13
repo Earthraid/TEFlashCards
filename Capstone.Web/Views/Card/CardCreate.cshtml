@@ -1,10 +1,10 @@
 ﻿@{
+    string existingDeck = ViewBag.deckID;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @using Capstone.Web.Models;
 @model Card
-
 
 <h2>Create a card</h2>
 
@@ -19,4 +19,13 @@
 
     <button type="submit">Submit card</button>
 }
+
+@{
+
+    Card tempDeck = new Card();
+    Model.TempDeckNum = existingDeck;
+}
+
+
+
 

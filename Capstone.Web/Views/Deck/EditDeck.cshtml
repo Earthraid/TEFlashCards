@@ -1,4 +1,5 @@
 ﻿@{
+    ViewBag.data = "DeckID";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using Capstone.Web.Models;
@@ -15,16 +16,37 @@
 
     <button>Submit</button>
 }
-@*
-    @using (Html.BeginForm("EditDeckTags", "Deck", FormMethod.Post))
-    {
-        <div>
-            @Html.Label("Tag", "Tag: ")
-            @Html.TextBoxFor(Tag)
-        </div>
 
-        <button>Add Tag</button>
-    }*@
+<div class="row">
+    <p>Tags: </p>
+    @if (Model.ThisDeckTags.Count != 0)
+    {
+        foreach (var tag in Model.ThisDeckTags)
+        {
+            <div>
+                @tag
+                @using (Html.BeginForm("RemoveDeckTag", "Deck", FormMethod.Post))
+                {
+                    <div>
+                        @Html.HiddenFor(m => tag)
+                    </div>
+
+                    <button>X</button>
+                }
+            </div>
+        }
+    }
+    <hr />
+</div>
+
+@using (Html.BeginForm("NewCard", "Deck", FormMethod.Post))
+{
+<div>
+    <p>DeckID is: @ViewBag.deckID</p>
+    <button>Add A New Card</button>
+</div>
+}
+
 @if (Model.DeckCards.Count != 0)
 {
     foreach (var card in Model.DeckCards)

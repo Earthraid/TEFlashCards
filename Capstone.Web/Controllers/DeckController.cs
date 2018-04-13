@@ -68,7 +68,7 @@ namespace Capstone.Web.Controllers
 
         //Deck Tags
         [HttpPost]
-        public ActionResult EditDeckTags(string deck_id, string deck_tag)
+        public ActionResult AddDeckTag(string deck_id, string deck_tag)
         {
 
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
@@ -76,7 +76,30 @@ namespace Capstone.Web.Controllers
             // Deck deck = deckDAL.AddTag(deck_id);
             return View("EditDeck", deck_id);
         }
+        [HttpPost]
+        public ActionResult RemoveDeckTag(string deck_id, string deck_tag)
+        {
 
+            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
+            // Deck deck = deckDAL.RemoveTag(deck_id);
+            return View("EditDeck", deck_id);
+        }
+        
+        //Add a new card 
+        [HttpGet]
+        public ActionResult NewCard(string deck_id)
+        {
+            ViewBag.deckID = deck_id;
+            return View("CardCreate");
+        }
+        [HttpPost]
+        public ActionResult NewCard()
+        {
+            CardSqlDAL cDAL = new CardSqlDAL(connectionString);
+            return RedirectToAction("CardConstruct", "Card");
+        }
+        
+        //Remove Card
         [HttpGet]
         public ActionResult RemoveCard()
         {
