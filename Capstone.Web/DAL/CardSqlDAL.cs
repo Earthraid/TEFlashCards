@@ -95,6 +95,34 @@ namespace Capstone.Web.DAL
             return result;
         }
 
+        public Card GetCardByID(string id)
+        {
+            Card currentCard = new Card();
+            currentCard.CardID = id;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(get_card_by_id, conn);
+                    cmd.Parameters.AddWithValue("@card_id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        currentCard.UserID = Convert.ToString(reader["UserID"]);
+                        currentCard.Front = Convert.ToString(reader["Front"]);
+                        currentCard.Back = Convert.ToString(reader["Back"]);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return currentCard;
+        }
+
         public bool CreateCard(Card card, string user_id)
         {
             int result = 0;

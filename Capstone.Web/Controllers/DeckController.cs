@@ -14,11 +14,17 @@ namespace Capstone.Web.Controllers
         private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
         private DeckSqlDAL deckDAL = new DeckSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
 
+
+
+
+
         // GET: Deck
         public ActionResult Index(string user_id)
         {
-            user_id = CheckSession(user_id);
-
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<Deck> decks = deckDAL.GetDecks(user_id);
 
             return View("Deck", decks);
@@ -27,8 +33,10 @@ namespace Capstone.Web.Controllers
         //Search for decks by name
         public ActionResult DeckSearchByName(string user_id, string searchString)
         {
-            user_id = CheckSession(user_id);
-
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchString);
 
             return View("Deck", decks);
@@ -37,8 +45,10 @@ namespace Capstone.Web.Controllers
         //Search for decks by tag
         public ActionResult DeckSearchByTag(string user_id, string searchString)
         {
-            user_id = CheckSession(user_id);
-
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<Deck> decks = new List<Deck>();
 
             decks = deckDAL.SearchDecksByTag(user_id, searchString);
@@ -50,8 +60,11 @@ namespace Capstone.Web.Controllers
         [HttpGet]
         public ActionResult EditDeck(int id)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Deck deck = deckDAL.GetDeckByDeckID(id.ToString());
-            Session["deck_ID"] = deck.DeckID;
             return View(deck);
         }
 
@@ -59,6 +72,10 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult EditDeckName(Deck model)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             deckDAL.ModifyDeckName(model.DeckID, model.Name);
             Deck deck = deckDAL.GetDeckByDeckID(model.DeckID);
 
@@ -69,28 +86,43 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddDeckTag(Deck model)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
             curDeck.AddTagToDeck(model.TagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
-        [HttpGet]
-        public ActionResult RemoveDeckTag(string tagName)
+        [HttpPost]
+        public ActionResult RemoveDeckTag(Deck model)
         {
-            string deckID = Session["deck_ID"].ToString();
-            Deck curDeck = deckDAL.GetDeckByDeckID(deckID);
-            curDeck.RemoveTagFromDeck(tagName);
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
+            curDeck.RemoveTagFromDeck(model.TagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
         //Remove Card
         [HttpGet]
         public ActionResult RemoveCard()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View("EditDeck");
         }
 
         [HttpPost]
         public ActionResult RemoveCard(string card_id, string deck_id)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
             //Deck deck = dDAL.RemoveCardFromDeck(card_id, deck_id);
             return RedirectToAction("EditDeck", deck_id);
@@ -100,12 +132,20 @@ namespace Capstone.Web.Controllers
         [HttpGet]
         public ActionResult AddDeck()
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View("NewDeck");
         }
 
         [HttpPost]
         public ActionResult AddDeck(string user_id, Deck model)
         {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             user_id = CheckSession(user_id);
             if (CheckSession(user_id) != null)
             {
@@ -117,6 +157,7 @@ namespace Capstone.Web.Controllers
 
         private string CheckSession(string user_id)
         {
+
             var currentUser = Session["user_id"];
             if (currentUser == null)
             {
