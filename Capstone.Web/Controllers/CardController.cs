@@ -73,18 +73,12 @@ namespace Capstone.Web.Controllers
 
         public ActionResult CardModify(string id)
         {
-            Card cardToChange = new Card();
-            cardToChange.CardID = id;
 
             CardSqlDAL cDal = new CardSqlDAL(connectionString);
             Card existingCard = cDal.GetCardByID(id);
 
-            //DAL doesn't return front and back with closing quotes
-            ViewBag.cardFront = existingCard.Front;
-            ViewBag.cardBack = existingCard.Back;
-            ViewBag.Msg = "Message";
 
-            return View("CardModify", cardToChange);
+            return View("CardModify", existingCard);
         }
 
 
