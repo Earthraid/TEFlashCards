@@ -40,6 +40,9 @@
             <div class="row">
                 <div class="col-md-2 btn"><a href="@deckLink" class="deck_name"><h3>@deck.Name</h3></a></div>
             </div>
+
+            @Html.ActionLink("Study this deck", "BeginStudy", "Deck", new { deckID = deck.DeckID }, null)
+
             <hr />
         }
     </div>

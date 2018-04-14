@@ -33,6 +33,8 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+            TagsSqlDAL tDal = new TagsSqlDAL(connectionString);
+            ViewBag.allTags = tDal.TagDictionary;
             return View("CardCreate");
         }
 

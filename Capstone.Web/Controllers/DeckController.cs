@@ -165,6 +165,15 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        //begin study session
+        public ActionResult BeginStudy(string deckID)
+        {
+            DeckSqlDAL dDal = new DeckSqlDAL(connectionString);
+            Deck thisDeck = dDal.GetDeckByDeckID(deckID);
+            return View("StudySession", thisDeck);
+        }
+      
+
         private string CheckSession(string user_id)
         {
 

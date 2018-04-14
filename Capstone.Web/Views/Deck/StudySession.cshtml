@@ -1,0 +1,14 @@
+﻿@using Capstone.Web.Models
+@model Deck
+@{
+    ViewBag.Title = "Study Session";
+}
+
+<h2>StudySession</h2>
+
+@{ 
+    foreach (Card currentCard in Model.DeckCards)
+    {
+        <p>@currentCard.Front  / @currentCard.Back</p>
+    }
+}
