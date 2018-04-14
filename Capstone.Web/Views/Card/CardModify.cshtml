@@ -7,9 +7,9 @@
 <script type="text/javascript" src="../../Scripts/CardScripts/card.js"></script>
 
 
-<h2>Modify card</h2>
+<h2 class="modify_header">Modify card</h2>
 
-@using (Html.BeginForm("CardSubmitChange", "Card", new { id = Model.CardID, front = Model.Front.Trim(), back = Model.Back.Trim(), tags = Model.ThisCardTags }))
+@using (Html.BeginForm("CardSubmitChange", "Card", new { id = Model.CardID, front = Model.Front.Trim(), back = Model.Back.Trim(), tags = Model.ThisCardTags }, FormMethod.Get, new { @class = "change_fields_action" }))
 {
     <div>
         <p>front of card:</p>
@@ -18,7 +18,7 @@
         <p>back of card:</p>
         @Html.TextAreaFor(m => m.Back)
     </div>
-    <button class="submit_button" type="submit">Submit changes</button>
+    <button class="submit_button">Submit changes</button>
 }
 
 <p>tags:</p>
