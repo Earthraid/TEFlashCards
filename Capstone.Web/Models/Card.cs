@@ -15,7 +15,8 @@ namespace Capstone.Web.Models
         public string Front { get; set; }
         public string Back { get; set; }
         public string UserID { get; set; }
-
+        public string TagName { get; set; }
+ 
         /// <summary>
         /// Returns a list of all available Tags.
         /// </summary>
@@ -38,6 +39,8 @@ namespace Capstone.Web.Models
                 TagsSqlDAL tagSql = new TagsSqlDAL(connectionString);
                 return tagSql.GetTagsByCardID(CardID);
             }
+            set { }
+            
         }
 
         /// <summary>
@@ -48,6 +51,12 @@ namespace Capstone.Web.Models
         {
             TagsSqlDAL tagsSql = new TagsSqlDAL(connectionString);
             tagsSql.AddTagToCard(CardID, tagName);
+        }
+
+        public void RemoveTagFromCard(string tagName)
+        {
+            TagsSqlDAL tagsSql = new TagsSqlDAL(connectionString);
+            tagsSql.RemoveTagFromCard(CardID, tagName);
         }
     }
 }

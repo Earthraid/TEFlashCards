@@ -8,31 +8,34 @@
     background-size: cover;
 }
 
-header{
-    text-align:center;
+header {
+    text-align: center;
 }
 
-.top{
-    font-size:400%;
-    color:white;
+.top {
+    font-size: 400%;
+    color: white;
 }
+
 
 /*layout*/
 .list_item {
     text-decoration-style: none;
     background-color: dodgerblue;
     color: white;
-    margin:1%;
+    margin: 1%;
 }
-.list_item:hover{
-    background-color:white;
-    color:blue;
-    text-decoration-style: none;
-    border: 1px solid dodgerblue;
+
+    .list_item:hover {
+        background-color: white;
+        color: blue;
+        text-decoration-style: none;
+        border: 1px solid dodgerblue;
+    }
+
+.top_links {
 }
-.top_links{
-   
-}
+
 .main_body {
     background-color: rgba(255,255,255,0.3);
     border-radius: 10px;
@@ -47,29 +50,32 @@ header{
 
 
 /*decks*/
-.search{
-    float:right;
-    padding:1%;
+.search {
+    float: right;
+    padding: 1%;
 }
-.deck_name{
-    color:white;
-    text-decoration:none;
+
+.deck_name {
+    color: white;
+    text-decoration: none;
 }
+
     .deck_name:hover {
         text-decoration: none;
     }
-.new_deck{
-    margin-bottom:2%;
-}
-.removeTag
-{
-    display:inline-block;
+
+.new_deck {
+    margin-bottom: 2%;
 }
 
-.tag_list{
-    margin-right:1%;
-    margin-left:1%;
-    display:inline-block;
+.removeTag {
+    display: inline-block;
+}
+
+.tag_list {
+    margin-right: 1%;
+    margin-left: 1%;
+    display: inline-block;
 }
 
 /*cards*/
@@ -95,6 +101,10 @@ header{
     color: black;
 }
 
+    .card_bothsides li {
+        list-style-type: none;
+    }
+
 .card_front {
     top: 0;
     border: 1px solid #aaa;
@@ -107,6 +117,18 @@ header{
     border: 1px solid #aaa;
     background: #eee;
     margin: 10px;
+}
+
+.card_tag {
+    display: inline-block;
+    background: darkblue;
+    color: white;
+}
+
+.inactive_tag {
+    display: inline-block;
+    background: #444;
+    color: white;
 }
 
 .index_option {
@@ -127,21 +149,21 @@ header{
         flex-direction: column;
     }
 
-        .index_option a:hover {
-            color: #c0d0e0;
-        }
+    .index_option a:hover {
+        color: #c0d0e0;
+    }
 
-        .search_button {
-            font-size: .8em;
-            margin: 10px;
-            background: dodgerblue;
-            color: white;
-            border: none;
-        }
+.search_button {
+    font-size: .8em;
+    margin: 10px;
+    background: dodgerblue;
+    color: white;
+    border: none;
+}
 
-        .search_button:hover {
-            cursor: pointer;
-        }
+    .search_button:hover {
+        cursor: pointer;
+    }
 
 /*card search results*/
 .noresults_option a {
@@ -156,3 +178,20 @@ header{
     color: white;
     border: none;
 }
+
+.add_tag_action {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.remove_tag_action {
+    display: inline-block;
+    border: 1px solid #ccc;
+    width: 24px;
+    height: 24px;
+    padding-right: 20px;
+    color: #ccc;
+    border-radius: 50%;
+    background: rgba(0,0,0,0);
+}
+

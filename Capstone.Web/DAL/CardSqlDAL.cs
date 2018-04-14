@@ -94,6 +94,7 @@ namespace Capstone.Web.DAL
             return result;
         }
 
+        //get card object based on id
         public Card GetCardByID(string id)
         {
             Card currentCard = new Card();
@@ -122,6 +123,7 @@ namespace Capstone.Web.DAL
             return currentCard;
         }
 
+        //create a new card
         public bool CreateCard(Card card, string user_id)
         {
             int result = 0;
@@ -146,6 +148,7 @@ namespace Capstone.Web.DAL
             return (result > 0);
         }
 
+        //edit card front and back
         public bool EditCard(Card currentCard)
         {
             int result = 0;
@@ -193,6 +196,9 @@ namespace Capstone.Web.DAL
         }
 
 
+
+
+        //search cards by tag
         public List<Card> SearchCard(string tagName)
         {
             List<Card> matchingCards = new List<Card>();
@@ -224,7 +230,7 @@ namespace Capstone.Web.DAL
         }
 
 
-
+        //convert SQL to obj properties
         private Card ConvertFields(SqlDataReader reader)
         {
             Card card = new Card();
