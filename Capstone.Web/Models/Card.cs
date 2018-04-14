@@ -16,7 +16,6 @@ namespace Capstone.Web.Models
         public string Back { get; set; }
         public string UserID { get; set; }
         public string TagName { get; set; }
- 
         /// <summary>
         /// Returns a list of all available Tags.
         /// </summary>

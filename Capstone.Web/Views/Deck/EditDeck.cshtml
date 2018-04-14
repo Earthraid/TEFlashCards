@@ -15,13 +15,14 @@
         @Html.TextBoxFor(m => m.Name)
         @Html.HiddenFor(m => m.DeckID)
 
-    <button class="list_item btn">Change Name</button>
+        <button class="list_item btn">Change Name</button>
     </div>
 }
 
- <!--Add a tag to the deck-->
+<!--Add a tag to the deck-->
 
 <div class="col-lg-4">
+    <!--Temp removal for work JC-->
     @using (Html.BeginForm("AddDeckTag", "Deck", FormMethod.Post))
     {
 
@@ -45,18 +46,8 @@
     {
         foreach (var tag in Model.ThisDeckTags)
         {
-            
-               <p class="tag_list">@tag</p>
-                using (Html.BeginForm("RemoveDeckTag", "Deck", FormMethod.Post))
-                {
-
-                    @*@Html.Label("Tag", tag)
-                        @Html.HiddenFor(Tag, Model.TagName)*@
-                    @Html.HiddenFor(m => Model.DeckID)
-
-
-                    <button id="@tag" class="removeTag">x</button>
-                }
+            <p class="tag_list">@tag</p>
+            @Html.ActionLink("Delete", "RemoveDeckTag", new { tagName = tag, deckID = Model.DeckID })
         }
     }
     else
@@ -76,15 +67,8 @@
         <div class="card_bothsides">
             <div class="card_front">@card.Front</div>
             <div class="card_back">@card.Back</div>
-            @using (Html.BeginForm("RemoveCard", "Deck", FormMethod.Post))
-            {
-                <div>
-                    @Html.HiddenFor(m => card.CardID)
-                    @*@Html.HiddenFor(m => m.DeckID)*@
-                </div>
+            @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
 
-                <button>Remove Card</button>
-            }
         </div>
     }
 }

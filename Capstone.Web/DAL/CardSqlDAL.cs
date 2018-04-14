@@ -17,7 +17,7 @@ namespace Capstone.Web.DAL
 
         //private string view_cards_in_deck = "SELECT Front, Back FROM [cards] ORDER BY CardID";
 
-        private string view_cards_in_deck = "SELECT * FROM [cards] JOIN users ON cards.UserID = users.UserID JOIN decks ON users.UserID = decks.UserID WHERE decks.DeckID = @deck_id ";
+        private string view_cards_in_deck = "SELECT * FROM cards JOIN card_deck ON cards.CardID = card_deck.CardID JOIN decks ON decks.DeckID = card_deck.DeckID WHERE decks.DeckID = @deck_id";
 
         private string view_cards = "SELECT * FROM [cards] WHERE UserID = @user_id";
 
