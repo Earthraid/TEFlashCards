@@ -271,7 +271,7 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
 
-                    var result = conn.Execute(RemoveTagFromDeckSQL, new { deckNameValue = deckID, tagIDValue = removeTagID });
+                    var result = conn.Execute(RemoveTagFromDeckSQL, new { deckIDValue = deckID, tagIDValue = removeTagID });
                     if (result == 1)
                     {
                         success = true;
