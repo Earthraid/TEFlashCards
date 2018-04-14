@@ -124,6 +124,26 @@ namespace Capstone.Web.Controllers
             return RedirectToAction(currentCard.CardID, "Card/CardModify");
         }
 
+        [HttpPost]
+        public ActionResult CreateCardTag(Card model)
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            foreach (string tag in model.AllTags)
+            {
+                if (tag == model.TagName)
+                {
+                    return RedirectToAction("CardView", "Card");
+                }
+            }
+            CardSqlDAL cDAL = new CardSqlDAL(connectionString);
+            Card curCard = cDAL.GetCardByID(model.CardID);
+            curCard.AddTagToCard(model.TagName);
+            return RedirectToAction(curCard.CardID, "Card/CardModify");
+        }
+
 
         public ActionResult CardSubmitChange(string id, string front, string back, List<string> tags)
         {
