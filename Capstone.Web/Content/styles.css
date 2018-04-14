@@ -187,9 +187,14 @@ header {
     border: none;
 }
 
-.submit_button:hover {
-    cursor: pointer;
+    .submit_button:hover {
+        cursor: pointer;
+    }
+
+.input_field {
+    /*border: none;*/
 }
+
 
 .add_tag_action {
     display: inline-block;
@@ -206,4 +211,3 @@ header {
     border-radius: 50%;
     background: rgba(0,0,0,0);
 }
-

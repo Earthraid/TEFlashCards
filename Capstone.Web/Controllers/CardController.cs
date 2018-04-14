@@ -147,7 +147,7 @@ namespace Capstone.Web.Controllers
         }
 
 
-        public ActionResult CardSubmitChange(string id, string front, string back, List<string> tags)
+        public ActionResult CardEditFields(string id, string front, string back, List<string> tags)
         {
             if (Session["userid"] == null)
             {
@@ -165,8 +165,7 @@ namespace Capstone.Web.Controllers
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
-
-            return View("CardView", allCards);
+            return RedirectToAction(currentCard.CardID, "Card/CardModify");
         }
 
 
