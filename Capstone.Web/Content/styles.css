@@ -196,6 +196,10 @@ header {
         cursor: pointer;
     }
 
+.selected {
+    background: #ccc;
+}
+
 .input_field {
     /*border: none;*/
 }

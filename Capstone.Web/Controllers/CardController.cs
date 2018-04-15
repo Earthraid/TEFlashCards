@@ -137,6 +137,8 @@ namespace Capstone.Web.Controllers
             CardSqlDAL cDAL = new CardSqlDAL(connectionString);
             Card currentCard = cDAL.GetCardByID(model.CardID);
 
+            //makes all tags lowercase to avoid conflicts
+            model.TagName = model.TagName.ToLower();
             foreach (string tag in model.AllTags)
             {
                 if (tag == model.TagName)

@@ -1,4 +1,5 @@
-﻿var nextMessage = 'Next card';
+﻿
+var nextMessage = 'Next card';
 var flipped = false;
 
 

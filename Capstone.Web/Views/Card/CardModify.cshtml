@@ -15,10 +15,10 @@
 {
     <div>
         <p>front of card:</p>
-        @Html.TextAreaFor(m => m.Front, new { @class = "input_field" })
+        @Html.TextAreaFor(m => m.Front, new { @id = "front_field" })
 
         <p>back of card:</p>
-        @Html.TextAreaFor(m => m.Back, new { @class = "input_field" })
+        @Html.TextAreaFor(m => m.Back, new { @id = "back_field" })
     </div>
 }
 
