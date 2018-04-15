@@ -19,50 +19,46 @@ namespace Capstone.Web.Controllers
         public ActionResult Index()
         {
             //temporary user id
-            Session["userid"] = "2";
+            //Session["userid"] = "2";
 
             return View("Index");
         }
 
+        [HttpGet]
         public ActionResult Login()
         {
-            return View("LoginView");
+            return View("Login");
         }
 
-        //POST: /User/Login
         [HttpPost]
-        public ActionResult Login(User formValues)
+        public ActionResult Login(User model)
         {
-            //Lookup user
-            UserSqlDAL dal = new UserSqlDAL(connectionString);
-            User user = dal.GetUser(formValues.UserName);
-            if (user.UserName == null)
+            UserSqlDAL userDal = new UserSqlDAL(connectionString);
+
+            User user = userDal.GetUser(model.Email);
+
+            // user does not exist or password is wrong
+            //PROBLEM HERE WITH PASSWORD VERIFICATION?? user.Password contains a bunch of spaces after the password put into the login
+            //With the password part commented out below, you can log in with ANY password and a valid email.
+            if (user == null /*|| user.Password != model.Password*/)
             {
-                //todo: count attempts
-                return RedirectToAction("LoginView");
+                ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
+                return View("Login", model);
             }
-            //bool correctPassword = user.CheckPassword(user, formValues.Password);
-            //if (!correctPassword)
-            //{
-            //    //to do: count attempts
-            //    return RedirectToAction("Login");
-            //}
-
-            Session["userid"] = user.UserName;
+            Session["userid"] = user.Id;
             Session["admin"] = user.IsAdmin;
-
-            HttpCookie aCookie = new HttpCookie("user");
-            aCookie.Values["userName"] = user.UserName;
-            aCookie.Values["loggedIn"] = DateTime.Now.ToString();
-            aCookie.Expires = DateTime.Now.AddDays(1);
-            Response.Cookies.Add(aCookie);
-
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult Logout()
+        {
+            Session["userid"] = null;
+            return View("Logout");
         }
 
         public ActionResult Register()
         {
-            return View("RegisterView");
+            return View("Register");
         }
 
 
@@ -71,7 +67,7 @@ namespace Capstone.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("RegisterView", model);
+                return View("Register", model);
             }
 
             UserSqlDAL newUserDAL = new UserSqlDAL(connectionString);
@@ -82,7 +78,7 @@ namespace Capstone.Web.Controllers
             newUser.Password = model.Password;
 
             newUserDAL.Register(newUser);
-
+            
             return RedirectToAction("Index", "Home");
         }
 

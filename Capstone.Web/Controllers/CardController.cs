@@ -21,7 +21,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             return View();
         }
@@ -31,7 +31,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             TagsSqlDAL tDal = new TagsSqlDAL(connectionString);
             ViewBag.allTags = tDal.TagDictionary;
@@ -43,7 +43,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             cDal.CreateCard(newCard, Session["userid"].ToString());
@@ -58,7 +58,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             if (String.IsNullOrEmpty(searchString))
             {
@@ -77,7 +77,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
@@ -90,7 +90,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             Card existingCard = cDal.GetCardByID(id);
@@ -104,7 +104,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             Card currentCard = cDal.GetCardByID(cardID);
@@ -117,7 +117,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             Card currentCard = cDal.GetCardByID(cardID);
@@ -131,7 +131,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             foreach (string tag in model.AllTags)
             {
@@ -151,7 +151,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             Card currentCard = new Card();
@@ -173,7 +173,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             CardSqlDAL cDal = new CardSqlDAL(connectionString);

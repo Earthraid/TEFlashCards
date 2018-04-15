@@ -17,9 +17,10 @@ namespace Capstone.Web.Controllers
         // GET: Deck
         public ActionResult Index(string user_id)
         {
+            
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             user_id = Session["userid"].ToString();
             List<Deck> decks = deckDAL.GetDecks(user_id);
@@ -32,7 +33,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchString);
             if (decks.Count == 0)
@@ -52,7 +53,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             List<Deck> decks = new List<Deck>();
 
@@ -75,7 +76,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             Deck deck = deckDAL.GetDeckByDeckID(id.ToString());
             Session["deck_ID"] = deck.DeckID;
@@ -88,7 +89,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             deckDAL.ModifyDeckName(model.DeckID, model.Name);
             Deck deck = deckDAL.GetDeckByDeckID(model.DeckID);
@@ -102,7 +103,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
             curDeck.AddTagToDeck(model.TagName);
@@ -113,7 +114,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             Deck curDeck = deckDAL.GetDeckByDeckID(deckID);
             curDeck.RemoveTagFromDeck(tagName);
@@ -129,7 +130,7 @@ namespace Capstone.Web.Controllers
 
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
 
             DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
@@ -144,7 +145,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
             return View("NewDeck");
         }
@@ -152,12 +153,13 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult AddDeck(string user_id, Deck model)
         {
+            user_id = Session["userid"].ToString();
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
-            user_id = CheckSession(user_id);
-            if (CheckSession(user_id) != null)
+            //user_id = CheckSession(user_id);
+            if (Session["userid"] != null)
             {
                 deckDAL.AddDeck(user_id, model.Name);
             }
@@ -174,23 +176,23 @@ namespace Capstone.Web.Controllers
         }
       
 
-        private string CheckSession(string user_id)
-        {
+        //private string CheckSession(string user_id)
+        //{
 
-            var currentUser = Session["user_id"];
-            if (currentUser == null)
-            {
-                currentUser = "2";  //default for development
-            }
+        //    var currentUser = Session["user_id"];
+        //    if (currentUser == null)
+        //    {
+        //        currentUser = "2";  //default for development
+        //    }
 
-            if (user_id == null)
-            {
-                //TODO redirect to login page if no user_id
-                user_id = currentUser.ToString(); //for development purposes
-            }
+        //    if (user_id == null)
+        //    {
+        //        //TODO redirect to login page if no user_id
+        //        user_id = currentUser.ToString(); //for development purposes
+        //    }
 
-            return user_id;
-        }
+        //    return user_id;
+        //}
 
     }
 }
