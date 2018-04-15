@@ -212,6 +212,7 @@
     <Content Include="Views\Card\CardView.cshtml" />
     <Content Include="Views\Deck\StudySession.cshtml" />
     <Content Include="Views\Home\Logout.cshtml" />
+    <Content Include="Views\Card\CardToDeck.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

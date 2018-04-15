@@ -25,7 +25,7 @@
                 </div>
                 <ul class="card_options">
                     <li>
-                        @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+                        @Html.ActionLink("Add card to deck", "CardToDeck", "Card", new { cardID = thisCard.CardID }, null)
                     </li>
                     <li>
                         @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = thisCard.CardID }, null)
