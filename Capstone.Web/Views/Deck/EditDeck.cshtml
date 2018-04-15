@@ -39,6 +39,11 @@
             <input type="submit" class="list_item btn" value="Add Tag">
         }
     </div>
+@*<div class="col-lg-4">*@
+    <!--Temp removal for work JC-->
+    @*@using (Html.BeginForm("AddDeckTag", "Deck", FormMethod.Post))
+    {
+>>>>>>> 17b0754dffb56cb0dff15592a6a9b3e7e26cfbe4
 
     <!--Lists tags under deck-->
 
@@ -61,6 +66,7 @@
                     }
                 </div>
             }
+<<<<<<< HEAD
         }
         <hr />
     </div>
@@ -72,15 +78,30 @@
             <button>Add A New Card</button>
         </div>
     }
+=======
+        </datalist>
+        @Html.HiddenFor(m => Model.DeckID)
+        <input type="submit" class="list_item btn" value="Add Tag">
+    }*@
+@*</div>*@
 
-
-    <p class="tag_list">tag</p>
+    @*<p class="tag_list">tag</p>
     using (Html.BeginForm("RemoveDeckTag", "Deck", FormMethod.Post))
+
+<div class="row">
+    @*<p class="tag_list">Tags: </p>
+    @if (Model.ThisDeckTags.Count != 0)
+>>>>>>> 17b0754dffb56cb0dff15592a6a9b3e7e26cfbe4
     {
 
-    @*@Html.Label("Tag", tag)
+<<<<<<< HEAD
+    @Html.Label("Tag", tag)
         @Html.HiddenFor(Tag, Model.TagName)*@
-    @Html.HiddenFor(m => Model.DeckID)
+    @*@Html.HiddenFor(m => Model.DeckID)
+
+                    @Html.Label("Tag", tag)
+                        @Html.HiddenFor(Tag, Model.TagName)
+                    @Html.HiddenFor(m => Model.DeckID)
 
 
     <button id="tag" class="removeTag">x</button>
@@ -89,11 +110,11 @@
     }
     else
     {
-    <!--if no tags-->
+    if no tags
     <div>No tags exist for this deck. Add one above.</div>
     }
     <hr />
-</div>
+</div>*@
 
 <!--Lists cards in deck for review or removal-->
 
@@ -104,15 +125,16 @@
         <div class="card_bothsides">
             <div class="card_front">@card.Front</div>
             <div class="card_back">@card.Back</div>
-            @using (Html.BeginForm("RemoveCard", "Deck", FormMethod.Post))
+            @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
+            @*@using (Html.BeginForm("RemoveCard", "Deck", FormMethod.Post))
             {
                 <div>
                     @Html.HiddenFor(m => card.CardID)
-                    @*@Html.HiddenFor(m => m.DeckID)*@
+                    @Html.HiddenFor(m => m.DeckID)
                 </div>
 
                 <button>Remove Card</button>
-            }
+            }*@
         </div>
     }
 }
