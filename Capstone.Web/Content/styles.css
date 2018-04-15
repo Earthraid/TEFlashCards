@@ -18,6 +18,7 @@ header {
 }
 
 
+
 /*layout*/
 .list_item {
     text-decoration-style: none;
@@ -76,6 +77,10 @@ header {
     margin-right: 1%;
     margin-left: 1%;
     display: inline-block;
+}
+
+.deck_list a {
+    color: white;
 }
 
 /*cards*/
@@ -210,4 +215,70 @@ header {
     color: #ccc;
     border-radius: 50%;
     background: rgba(0,0,0,0);
+}
+
+/*study session*/
+
+
+.studyFrame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.cardFrame {
+    width: 600px;
+    max-width: 90vw;
+    height: 400px;
+    max-height: 60vw;
+    position: relative;
+}
+
+.studyCard {
+    width: 100%;
+    height: 100%;
+    background: #ccc;
+    color: black;
+    font-size: 2em;
+    padding: 10px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all .3s ease;
+}
+
+.newCard {
+    transform: translateX(100vw);
+}
+
+.activeCard {
+
+}
+
+.oldCard {
+    transform: translateX(-100vw);
+}
+
+.hiddenSide {
+    display: none;
+}
+
+.studyNav {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.score {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.resultsFrame a {
+    color: white;
 }

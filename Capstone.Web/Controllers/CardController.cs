@@ -133,17 +133,19 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
+
+            CardSqlDAL cDAL = new CardSqlDAL(connectionString);
+            Card currentCard = cDAL.GetCardByID(model.CardID);
+
             foreach (string tag in model.AllTags)
             {
                 if (tag == model.TagName)
                 {
-                    return RedirectToAction("CardView", "Card");
+                    return RedirectToAction(currentCard.CardID, "Card/CardModify");
                 }
             }
-            CardSqlDAL cDAL = new CardSqlDAL(connectionString);
-            Card curCard = cDAL.GetCardByID(model.CardID);
-            curCard.AddTagToCard(model.TagName);
-            return RedirectToAction(curCard.CardID, "Card/CardModify");
+            currentCard.AddTagToCard(model.TagName);
+            return RedirectToAction(currentCard.CardID, "Card/CardModify");
         }
 
 

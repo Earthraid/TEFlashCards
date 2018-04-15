@@ -9,7 +9,7 @@
 
 <h2 class="modify_header">Modify card</h2>
 
-@Html.ActionLink("Return to cards", "CardView", "Card", new { @class = "submit_button" }) <span>All changes saved</span>
+@Html.ActionLink("Return to cards", "CardView", "Card", new { @class = "submit_button" }) <span>All changes saved automatically</span>
 
 @using (Html.BeginForm("CardEditFields", "Card", new { id = Model.CardID, front = Model.Front.Trim(), back = Model.Back.Trim(), tags = Model.ThisCardTags }, FormMethod.Get, new { @class = "edit_fields_action" }))
 {
@@ -59,7 +59,7 @@
             <input name="TagName" />
 
             @Html.HiddenFor(m => Model.CardID)
-            <input type="submit" class="list_item btn" value="Add Tag">
+            <input type="submit" class="list_item btn" value="Add New Tag">
         }
     </div>
 
