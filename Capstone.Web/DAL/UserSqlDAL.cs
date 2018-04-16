@@ -45,11 +45,11 @@ namespace Capstone.Web.DAL
                     {
                         //if (Convert.ToString(reader["Email"]) != "")
                         //{
-                            result.Email = Convert.ToString(reader["Email"]);
-                            result.Password = Convert.ToString(reader["Password"]);
+                            result.Email = Convert.ToString(reader["Email"]).Trim();
+                            result.Password = Convert.ToString(reader["Password"]).Trim();
                             result.Id = Convert.ToInt32(reader["UserId"]);
                             result.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
-                            result.UserName = Convert.ToString(reader["UserName"]);
+                            result.UserName = Convert.ToString(reader["UserName"]).Trim();
                         //}
                     }
                     return result;
