@@ -15,27 +15,34 @@ namespace Capstone.Web.Controllers
         private DeckSqlDAL deckDAL = new DeckSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
 
         // GET: Deck
-        public ActionResult Index(string user_id)
+        public ActionResult Index()
         {
-            
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            user_id = Session["userid"].ToString();
+            string user_id = Session["userid"].ToString();
             List<Deck> decks = deckDAL.GetDecks(user_id);
 
             return View("Deck", decks);
         }
 
         //Search for decks by name
-        public ActionResult DeckSearchByName(string user_id, string searchString)
+        public ActionResult DeckSearchByName(string searchString)
         {
+            string user_id;
+
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
+            else
+            {
+                user_id = Session["userid"].ToString();
+            }
+
             List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchString);
+
             if (decks.Count == 0)
             {
                 Deck emptyDeck = new Deck
@@ -49,15 +56,19 @@ namespace Capstone.Web.Controllers
         }
 
         //Search for decks by tag
-        public ActionResult DeckSearchByTag(string user_id, string searchString)
+        public ActionResult DeckSearchByTag(string searchString)
         {
+            string user_id;
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            List<Deck> decks = new List<Deck>();
+            else
+            {
+                user_id = Session["userid"].ToString();
+            }
+            List<Deck> decks = deckDAL.SearchDecksByTag(user_id, searchString);
 
-            decks = deckDAL.SearchDecksByTag(user_id, searchString);
             if (decks.Count == 0)
             {
                 Deck emptyDeck = new Deck
@@ -66,7 +77,7 @@ namespace Capstone.Web.Controllers
                 };
                 decks.Add(emptyDeck);
             }
-
+            
             return View("Deck", decks);
         }
 
@@ -174,7 +185,7 @@ namespace Capstone.Web.Controllers
             Deck thisDeck = dDal.GetDeckByDeckID(deckID);
             return View("StudySession", thisDeck);
         }
-      
+
 
         //private string CheckSession(string user_id)
         //{
