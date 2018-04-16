@@ -15,6 +15,8 @@ namespace Capstone.Web.Controllers
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString;
         private CardSqlDAL cDal = new CardSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
+        private DeckSqlDAL dDal = new DeckSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
+
 
         // GET: Card
         public ActionResult Index()
@@ -150,9 +152,10 @@ namespace Capstone.Web.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            CardSqlDAL cDAL = new CardSqlDAL(connectionString);
-            Card currentCard = cDAL.GetCardByID(model.CardID);
+            Card currentCard = cDal.GetCardByID(model.CardID);
 
+            //makes all tags lowercase to avoid conflicts
+            model.TagName = model.TagName.ToLower();
             foreach (string tag in model.AllTags)
             {
                 if (tag == model.TagName)
@@ -178,7 +181,6 @@ namespace Capstone.Web.Controllers
             currentCard.Back = back;
             currentCard.ThisCardTags = tags;
  
-            CardSqlDAL cDal = new CardSqlDAL(connectionString);
             cDal.EditCard(currentCard);
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
@@ -187,17 +189,31 @@ namespace Capstone.Web.Controllers
         }
 
 
-        public ActionResult CardToDeck()
+        public ActionResult CardToDeck(string cardID)
         {
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            CardSqlDAL cDal = new CardSqlDAL(connectionString);
-            //cDal.AddCardToDeck
+            ViewBag.CardID = cardID;
 
-            return View("CardView");
+            string userID = Session["userid"].ToString();
+            List<Deck> allDecks = dDal.GetDecks(userID);
+
+            return View("CardToDeck", allDecks);
+        }
+
+        public ActionResult AddCardToDeck(string cardID, string deckID)
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            dDal.AddCardToDeck(cardID, deckID);
+
+            return RedirectToAction("EditDeck", "Deck", new { id = deckID });
         }
     }
 }

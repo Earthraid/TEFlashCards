@@ -1,0 +1,16 @@
+﻿@using Capstone.Web.Models
+@model List<Deck>
+@{
+    ViewBag.Title = "SelectDeck";
+}
+
+<h2>Add </h2>
+
+@{
+    foreach (Deck thisDeck in Model)
+    {
+        <p>
+            @Html.ActionLink(thisDeck.Name, "AddCardToDeck", "Card", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID }, null)
+        </p>
+    }
+}

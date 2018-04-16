@@ -15,7 +15,7 @@ namespace Capstone.Web.DAL
 
         //private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users];";
 
-        private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users] WHERE Email = @email";
+        private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users] WHERE Email = @email;";
 
         //private string getEmails = "SELECT Email FROM [users];";
 
@@ -52,6 +52,7 @@ namespace Capstone.Web.DAL
                             result.UserName = Convert.ToString(reader["UserName"]);
                         //}
                     }
+                    return result;
                 }
             }
             catch (Exception ex)
@@ -59,6 +60,7 @@ namespace Capstone.Web.DAL
                 throw;
             }
             return result;
+            //add message to tell user that email already exists
         }
 
         public bool Register(User user)

@@ -19,7 +19,7 @@ namespace Capstone.Web.Controllers
         public ActionResult Index()
         {
             //temporary user id
-            //Session["userid"] = "2";
+            Session["userid"] = "2";
 
             return View("Index");
         }
@@ -29,7 +29,6 @@ namespace Capstone.Web.Controllers
         {
             return View("Login");
         }
-
         //[HttpPost]
         //public ActionResult Login(User model)
         //{
@@ -55,6 +54,26 @@ namespace Capstone.Web.Controllers
         //    Session["admin"] = user.IsAdmin;
         //    return RedirectToAction("Index", "Home");
         //}
+        [HttpPost]
+        public ActionResult Login(User model)
+        {
+            UserSqlDAL userDal = new UserSqlDAL(connectionString);
+
+            User user = userDal.GetUser(model.Email);
+
+            // user does not exist or password is wrong
+            //PROBLEM HERE WITH PASSWORD VERIFICATION?? user.Password contains a bunch of spaces after the password put into the login
+            //With the password part commented out below, you can log in with ANY password and a valid email.
+            if (user.Email == null || user.Password != model.Password)
+            {
+                ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
+                return View("Login", model);
+            }
+            Session["userid"] = user.Id;
+            Session["admin"] = user.IsAdmin;
+            return RedirectToAction("Index", "Home");
+        }
+
 
         public ActionResult Logout()
         {

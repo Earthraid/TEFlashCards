@@ -7,15 +7,6 @@ $(document).ready(function () {
 
     $('.edit_fields_action').on('focusout', function () {
         $(this).submit();
-    })
-
-    $('.input_field').on('focus', function () {
-        $(this).css('background', '#ccc');
     });
-    $('.input_field').on('focusout', function () {
-        $(this).css('background', '#fff');
-
-    })
-
 
 });

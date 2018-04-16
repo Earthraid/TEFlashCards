@@ -114,8 +114,8 @@ namespace Capstone.Web.DAL
                     while (reader.Read())
                     {
                         currentCard.UserID = Convert.ToString(reader["UserID"]);
-                        currentCard.Front = Convert.ToString(reader["Front"]);
-                        currentCard.Back = Convert.ToString(reader["Back"]);
+                        currentCard.Front = Convert.ToString(reader["Front"]).Trim();
+                        currentCard.Back = Convert.ToString(reader["Back"]).Trim();
                     }
                 }
             }

@@ -9,7 +9,7 @@
 <div hidden></div>
 <div id="cardCount" data-name="@cardCount"></div>
 
-<h2>StudySession</h2>
+<h2>Study Session</h2>
 
 <div class="studyFrame">
 
@@ -28,14 +28,23 @@
             }
         }
     </div>
-    <button class="studyNav"></button>
+    <div class="studyNavFrame">
+        <div class="flip studyNav">Flip card</div>
+        <div class="markFrame hiddenNav">
+            <div class="markRight studyNav">Mark right</div>
+            <div class="markWrong studyNav">Mark wrong</div>
+        </div>
+    </div>
     <div class="score">
-        <div class="totalCorrect">a</div>
-        <div class="totalViewed">b</div>
+        <div class="totalCorrect"></div>
+        <div class="totalViewed"></div>
     </div>
 </div>
 
 <div class="resultsFrame">
+    <div class="finalScore">
+        <p>You got <span id="finalScore"></span> out of <span id="possibleScore"></span> correct.</p>
+    </div>
     <p>@Html.ActionLink("Study again", "BeginStudy", "Deck", new { deckID = Model.DeckID }, null)</p>
     <p>@Html.ActionLink("Return to your decks", "Index", "Deck")</p>
 </div>
