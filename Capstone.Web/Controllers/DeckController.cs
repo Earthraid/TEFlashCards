@@ -99,25 +99,18 @@ namespace Capstone.Web.Controllers
 
         //Deck Tags
         [HttpPost]
-        public ActionResult AddDeckTag(Deck model)
+        public ActionResult AddDeckTag(string tagName, string deckID)
         {
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
-            //if empty input is submitted
-            if (model.TagName == null)
-            {
-                return View("EditDeck", curDeck);
-            }
-            //makes all tags lowercase to avoid conflicts
-            model.TagName = model.TagName.ToLower();
-
-            curDeck.AddTagToDeck(model.TagName);
+            Deck curDeck = deckDAL.GetDeckByDeckID(deckID);
+            curDeck.AddTagToDeck(tagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
 
+        [HttpPost]
         public ActionResult RemoveDeckTag(string tagName, string deckID)
         {
             if (Session["userid"] == null)
@@ -127,6 +120,35 @@ namespace Capstone.Web.Controllers
             Deck curDeck = deckDAL.GetDeckByDeckID(deckID);
             curDeck.RemoveTagFromDeck(tagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
+        }
+
+        [HttpPost]
+        public ActionResult CreateDeckTag(Deck model)
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            Deck currentDeck = deckDAL.GetDeckByDeckID(model.DeckID);
+
+            //if empty input is submitted
+            if (model.TagName == null)
+            {
+                return View("CardModify", model);
+            }
+            //makes all tags lowercase to avoid conflicts
+            model.TagName = model.TagName.ToLower();
+
+            foreach (string tag in model.AllTags)
+            {
+                if (tag == model.TagName)
+                {
+                    return RedirectToAction(model.DeckID, "Deck/EditDeck");
+                }
+            }
+            model.AddTagToDeck(model.TagName);
+            return RedirectToAction(model.DeckID, "Deck/EditDeck");
         }
 
         //Remove Card

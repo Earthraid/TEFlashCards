@@ -50,6 +50,13 @@ header {
 }
 
 
+.added_tag {
+    display: inline-block;
+    background: darkblue;
+    color: white;
+    padding: 1px 5px;
+}
+
 /*decks*/
 .search {
     float: right;
@@ -123,13 +130,6 @@ header {
     border: 1px solid #aaa;
     background: #eee;
     margin: 10px;
-}
-
-.card_tag {
-    display: inline-block;
-    background: darkblue;
-    color: white;
-    padding: 1px 5px;
 }
 
 .inactive_tag {

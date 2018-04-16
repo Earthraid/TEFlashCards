@@ -1,12 +1,14 @@
 ﻿/// <reference path="../jquery-3.1.1.js" />
 
 $(document).ready(function () {
-    //$(".removeTag").on("click", function () {
-    //    var tagName = this.getAttribute("id");
-    //    document.getElementById('TagToRemove').value = tagName;
-    //    //some code to set the Model.TagName to the id of the button which is the tag
-    //    var breakpoint = "pause";
-    //});
+
+    $('.add_tag_action, .remove_tag_action').click(function () {
+        $(this).submit();
+    });
+
+    $('.edit_fields_action').on('focusout', function () {
+        $(this).submit();
+    });
 
     function removeTagFromDeck(deckID, tagName) {
 

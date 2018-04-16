@@ -141,7 +141,7 @@ namespace Capstone.Web.Controllers
             //if empty input is submitted
             if (model.TagName == null)
             {
-                return View("CardModify", currentCard);
+                return View("CardModify", model);
             }
             //makes all tags lowercase to avoid conflicts
             model.TagName = model.TagName.ToLower();
@@ -150,11 +150,11 @@ namespace Capstone.Web.Controllers
             {
                 if (tag == model.TagName)
                 {
-                    return RedirectToAction(currentCard.CardID, "Card/CardModify");
+                    return RedirectToAction(model.CardID, "Card/CardModify");
                 }
             }
-            currentCard.AddTagToCard(model.TagName);
-            return RedirectToAction(currentCard.CardID, "Card/CardModify");
+            model.AddTagToCard(model.TagName);
+            return RedirectToAction(model.CardID, "Card/CardModify");
         }
 
 
