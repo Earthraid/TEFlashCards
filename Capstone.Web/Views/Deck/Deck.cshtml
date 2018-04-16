@@ -11,12 +11,12 @@
         <div class="col-lg-2">
             @Html.ActionLink("New Deck", "AddDeck", "Deck", null, new { @class = "list_item btn" })
         </div>
-        <div class="col-lg-2"></div>
+
         <div class="col-lg-4">
             @using (Html.BeginForm("DeckSearchByName", "Deck", FormMethod.Get))
             {
                 @Html.TextBox("SearchString")
-                <button type="submit" class="list_item btn">Search Name</button>
+                <button type="submit" class="list_item btn" id="SearchName">Search Name</button>
             }
         </div>
         <div class="col-lg-4">
