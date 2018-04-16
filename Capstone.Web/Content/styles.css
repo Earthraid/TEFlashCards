@@ -24,7 +24,7 @@ header {
     color: white;
 }
 
-hr {
+body hr { 
     color: red;
 }
 
@@ -52,7 +52,7 @@ hr {
 }
 
 .main_body {
-    background-color: rgba(255,255,255,0.3);
+    background-color: rgba(255,255,255,0.5);
     border-radius: 10px;
     border: 3px solid red;
     width: 90%;
@@ -60,7 +60,7 @@ hr {
     margin-top: 2%;
     margin-bottom: 5%;
     padding: 3%;
-    color: white;
+    color: black;
     font-weight: 500;
 }
 
@@ -79,7 +79,7 @@ hr {
 }
 
 .deck_name {
-    color: white;
+    color: black;
     text-decoration: none;
 }
 
@@ -102,7 +102,15 @@ hr {
 }
 
 .deck_list a {
-    color: white;
+    color: black;
+}
+
+.add_cards {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 /*cards*/
@@ -150,11 +158,12 @@ hr {
 .inactive_tag {
     display: inline-block;
     background: #444;
-    color: white;
+    color: black;
     padding: 1px 5px;
 }
 
 .index_option {
+  
     display: flex;
     align-items: center;
     justify-content: center;
@@ -163,7 +172,7 @@ hr {
 }
 
     .index_option a {
-        color: #fff;
+        color: black;
     }
 
     .index_option form {
@@ -190,7 +199,7 @@ hr {
 
 /*card search results*/
 .noresults_option a {
-    color: #fff;
+    color: black;
 }
 
 /*modify card*/
@@ -295,7 +304,7 @@ hr {
 
 .studyNav {
     background: #333;
-    color: #fff;
+    color: black;
     margin: 10px;
 }
 
@@ -306,5 +315,5 @@ hr {
 }
 
 .resultsFrame a {
-    color: white;
+    color: black;
 }
