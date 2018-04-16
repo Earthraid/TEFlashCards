@@ -36,16 +36,13 @@ namespace Capstone.Web.DAL
                     cmd.Parameters.AddWithValue("@email", email);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
-                    {
-                        
+                    {                       
                             result.Email = Convert.ToString(reader["Email"]).Trim();
                             result.Password = Convert.ToString(reader["Password"]).Trim();
                             result.Id = Convert.ToInt32(reader["UserId"]);
                             result.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
                             result.UserName = Convert.ToString(reader["UserName"]).Trim();
-                       
                     }
                     return result;
                 }
@@ -54,7 +51,6 @@ namespace Capstone.Web.DAL
             {
                 throw;
             }
-            //add message to tell user that email already exists
         }
 
         public bool Register(User user)

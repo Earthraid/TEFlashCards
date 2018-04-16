@@ -19,6 +19,7 @@
             @Html.LabelFor(m => m.Email)
             @Html.EditorFor(m => m.Email)
             @Html.ValidationMessageFor(m => m.Email)
+            @Html.ValidationMessage("email-exists")
         </div>
         <div class="formValidationGroup">
             @Html.LabelFor(m => m.Password)

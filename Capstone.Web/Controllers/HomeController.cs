@@ -19,7 +19,7 @@ namespace Capstone.Web.Controllers
         public ActionResult Index()
         {
             //temporary user id
-            Session["userid"] = "2";
+            //Session["userid"] = "2";
 
             return View("Index");
         }
@@ -53,11 +53,11 @@ namespace Capstone.Web.Controllers
             return View("Logout");
         }
 
+        [HttpGet]
         public ActionResult Register()
         {
             return View("Register");
         }
-
 
         [HttpPost]
         public ActionResult Register(User model)
@@ -68,14 +68,28 @@ namespace Capstone.Web.Controllers
             }
 
             UserSqlDAL newUserDAL = new UserSqlDAL(connectionString);
+            //attempt to retrieve provided email - cannot duplicate existing
             User newUser = newUserDAL.GetUser(model.Email);
+            if (newUser.Email == null)
+            {
+                newUser.Email = model.Email;
+                newUser.Password = model.Password;
+                if (model.UserName == null)
+                {
+                    newUser.UserName = model.Email.Substring(0, model.Email.IndexOf('@'));
+                }
+                else
+                {
+                    newUser.UserName = model.UserName;
+                }
 
-            newUser.Email = model.Email;
-            newUser.UserName = model.UserName;
-            newUser.Password = model.Password;
-
-            newUserDAL.Register(newUser);
-            
+                newUserDAL.Register(newUser);
+            }
+            else
+            {
+                ModelState.AddModelError("email-exists", "That email address exists, please contact Admin for password reset if needed.");
+                return View("Register", model);
+            }
             return RedirectToAction("Index", "Home");
         }
 
