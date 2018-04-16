@@ -47,6 +47,9 @@ hr {
 .top_links {
     margin: 0 auto;
 }
+#top_links {
+    margin:0 auto;
+}
 
 .main_body {
     background-color: rgba(255,255,255,0.3);
