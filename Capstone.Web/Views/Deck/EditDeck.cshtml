@@ -22,7 +22,6 @@
 
     <!--Add a tag to the deck-->
 
-<<<<<<< HEAD
     <div class="col-lg-4">
 
         @using (Html.BeginForm("AddDeckTag", "Deck", FormMethod.Post))
@@ -42,7 +41,6 @@
     <hr/>
 </div>
 <!--Lists tags under deck-->
-=======
 <div class="allTags">
 
     @foreach (string tag in Model.ThisDeckTags)
@@ -70,8 +68,6 @@
     }
 
     <div class="createtag">create new tag for deck</div>
->>>>>>> 15ee138b31cdc9f9b2a54c62f064e9f138b873c0
-
     <div>
         @using (Html.BeginForm("CreateDeckTag", "Deck", FormMethod.Post))
         {
