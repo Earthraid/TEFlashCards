@@ -13,9 +13,11 @@ namespace Capstone.Web.DAL
 
         private string connectionString;
 
-        private string getUser = "SELECT Email, Password, IsAdmin, UserName FROM [users];";
+        //private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users];";
 
-        private string getEmails = "SELECT Email FROM [users];";
+        private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users] WHERE Email = @email";
+
+        //private string getEmails = "SELECT Email FROM [users];";
 
         private string registerUser = "INSERT INTO [users] (Email, Password, IsAdmin, UserName)" +
             "VALUES (@email, @password, @isadmin, @username);";
@@ -33,17 +35,22 @@ namespace Capstone.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand(getEmails, conn);
+                    //SqlCommand cmd = new SqlCommand(getEmails, conn);
+                    SqlCommand cmd = new SqlCommand(getUser, conn);
                     cmd.Parameters.AddWithValue("@email", email);
                     SqlDataReader reader = cmd.ExecuteReader();
 
 
                     while (reader.Read())
                     {
-                        if (Convert.ToString(reader["Email"]) != "")
-                        {
+                        //if (Convert.ToString(reader["Email"]) != "")
+                        //{
                             result.Email = Convert.ToString(reader["Email"]);
-                        }
+                            result.Password = Convert.ToString(reader["Password"]);
+                            result.Id = Convert.ToInt32(reader["UserId"]);
+                            result.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
+                            result.UserName = Convert.ToString(reader["UserName"]);
+                        //}
                     }
                 }
             }

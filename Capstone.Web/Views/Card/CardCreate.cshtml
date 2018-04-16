@@ -12,21 +12,22 @@
 {
     <div>
         <p>front of card:</p>
-        @Html.TextAreaFor(m => m.Front);
+        @Html.TextAreaFor(m => m.Front)
 
         <p>back of card:</p>
-        @Html.TextAreaFor(m => m.Back);
+        @Html.TextAreaFor(m => m.Back)
+
     </div>
 
     <button class="submit_button" type="submit">Create card</button>
+
 }
 
-@{
+@*@{
 
     Card tempDeck = new Card();
     Model.TempDeckNum = existingDeck;
-}
-
+}*@
 
 
 

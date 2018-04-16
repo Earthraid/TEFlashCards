@@ -124,7 +124,9 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CardScripts\Card.js" />
     <Content Include="Scripts\DeckScripts\EditDeck.js" />
+    <Content Include="Scripts\DeckScripts\study.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -178,6 +180,7 @@
     </Compile>
     <Compile Include="Models\Card.cs" />
     <Compile Include="Models\Deck.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -201,13 +204,15 @@
     <Content Include="Views\Deck\Deck.cshtml" />
     <Content Include="Views\Deck\EditDeck.cshtml" />
     <Content Include="Views\Deck\NewDeck.cshtml" />
-    <Content Include="Views\Home\LoginView.cshtml" />
-    <Content Include="Views\Home\RegisterView.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Card\Index.cshtml" />
     <Content Include="Views\Card\CardSearch.cshtml" />
     <Content Include="Views\Card\CardCreate.cshtml" />
     <Content Include="Views\Card\CardModify.cshtml" />
     <Content Include="Views\Card\CardView.cshtml" />
+    <Content Include="Views\Deck\StudySession.cshtml" />
+    <Content Include="Views\Home\Logout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

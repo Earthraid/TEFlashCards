@@ -8,31 +8,35 @@
     background-size: cover;
 }
 
-header{
-    text-align:center;
+header {
+    text-align: center;
 }
 
-.top{
-    font-size:400%;
-    color:white;
+.top {
+    font-size: 400%;
+    color: white;
 }
+
+
 
 /*layout*/
 .list_item {
     text-decoration-style: none;
     background-color: dodgerblue;
     color: white;
-    margin:1%;
+    margin: 1%;
 }
-.list_item:hover{
-    background-color:white;
-    color:blue;
-    text-decoration-style: none;
-    border: 1px solid dodgerblue;
+
+    .list_item:hover {
+        background-color: white;
+        color: blue;
+        text-decoration-style: none;
+        border: 1px solid dodgerblue;
+    }
+
+.top_links {
 }
-.top_links{
-   
-}
+
 .main_body {
     background-color: rgba(255,255,255,0.3);
     border-radius: 10px;
@@ -47,29 +51,36 @@ header{
 
 
 /*decks*/
-.search{
-    float:right;
-    padding:1%;
+.search {
+    float: right;
+    padding: 1%;
 }
-.deck_name{
-    color:white;
-    text-decoration:none;
+
+.deck_name {
+    color: white;
+    text-decoration: none;
 }
+
     .deck_name:hover {
         text-decoration: none;
     }
-.new_deck{
-    margin-bottom:2%;
-}
-.removeTag
-{
-    display:inline-block;
+
+.new_deck {
+    margin-bottom: 2%;
 }
 
-.tag_list{
-    margin-right:1%;
-    margin-left:1%;
-    display:inline-block;
+.removeTag {
+    display: inline-block;
+}
+
+.tag_list {
+    margin-right: 1%;
+    margin-left: 1%;
+    display: inline-block;
+}
+
+.deck_list a {
+    color: white;
 }
 
 /*cards*/
@@ -84,16 +95,21 @@ header{
 
 .card_bothsides {
     display: inline-block;
-    padding: 20px;
-    margin: 20px;
+    padding: 15px;
+    margin: 15px;
     height: 30vh;
+    min-height: 300px;
     width: 25%;
-    min-width: 300px;
+    min-width: 350px;
     overflow: auto;
     background: #ddd;
     border: 1px solid #aaa;
     color: black;
 }
+
+    .card_bothsides li {
+        list-style-type: none;
+    }
 
 .card_front {
     top: 0;
@@ -107,6 +123,20 @@ header{
     border: 1px solid #aaa;
     background: #eee;
     margin: 10px;
+}
+
+.card_tag {
+    display: inline-block;
+    background: darkblue;
+    color: white;
+    padding: 1px 5px;
+}
+
+.inactive_tag {
+    display: inline-block;
+    background: #444;
+    color: white;
+    padding: 1px 5px;
 }
 
 .index_option {
@@ -127,21 +157,21 @@ header{
         flex-direction: column;
     }
 
-        .index_option a:hover {
-            color: #c0d0e0;
-        }
+    .index_option a:hover {
+        color: #c0d0e0;
+    }
 
-        .search_button {
-            font-size: .8em;
-            margin: 10px;
-            background: dodgerblue;
-            color: white;
-            border: none;
-        }
+.search_button {
+    font-size: .8em;
+    margin: 10px;
+    background: dodgerblue;
+    color: white;
+    border: none;
+}
 
-        .search_button:hover {
-            cursor: pointer;
-        }
+    .search_button:hover {
+        cursor: pointer;
+    }
 
 /*card search results*/
 .noresults_option a {
@@ -149,10 +179,106 @@ header{
 }
 
 /*modify card*/
+
+.modify_header {
+    display: inline-block;
+}
+
 .submit_button {
-    margin-top: 10px;
+    margin-left: 30px;
     padding: 10px;
     background: dodgerblue;
     color: white;
     border: none;
+}
+
+    .submit_button:hover {
+        cursor: pointer;
+    }
+
+.input_field {
+    /*border: none;*/
+}
+
+
+.add_tag_action {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+.remove_tag_action {
+    display: inline-block;
+    border: 1px solid #ccc;
+    width: 24px;
+    height: 24px;
+    padding-right: 20px;
+    color: #ccc;
+    border-radius: 50%;
+    background: rgba(0,0,0,0);
+}
+
+/*study session*/
+
+
+.studyFrame {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.cardFrame {
+    width: 600px;
+    max-width: 90vw;
+    height: 400px;
+    max-height: 60vw;
+    position: relative;
+}
+
+.studyCard {
+    width: 100%;
+    height: 100%;
+    background: #ccc;
+    color: black;
+    font-size: 2em;
+    padding: 10px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all .3s ease;
+}
+
+.newCard {
+    transform: translateX(100vw);
+}
+
+.activeCard {
+
+}
+
+.oldCard {
+    transform: translateX(-100vw);
+}
+
+.hiddenSide {
+    display: none;
+}
+
+.studyNav {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.score {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.resultsFrame a {
+    color: white;
 }

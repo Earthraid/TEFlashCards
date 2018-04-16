@@ -16,12 +16,22 @@
             <div class="card_bothsides">
                 <div class="card_front">@thisCard.Front</div>
                 <div class="card_back">@thisCard.Back</div>
-                <div class="card_option">
-                    @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+                <div class="card_tags">
+
+                    @foreach (string tag in thisCard.ThisCardTags)
+                    {
+                        <span class="card_tag">@tag</span>
+                    }
                 </div>
-                <div>
-                    @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = thisCard.CardID }, null)
-                </div>
+                <ul class="card_options">
+                    <li>
+                        @Html.ActionLink("Add card to deck", "CardToDeck", "Card")
+                    </li>
+                    <li>
+                        @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = thisCard.CardID }, null)
+                    </li>
+                </ul>
+
             </div>
 
 
@@ -29,4 +39,3 @@
     }
 
 </div>
-

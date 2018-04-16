@@ -19,6 +19,7 @@ namespace Capstone.Web.DAL
 
         private string AddTagToCardSQL = "INSERT INTO card_tag (CardID, TagID) VALUES (@cardIDValue, @tagIDValue);";
         private string GetTagsByCardIDSQL = "SELECT TagName FROM tags JOIN card_tag ON tags.TagID = card_tag.TagID WHERE card_tag.CardID = @cardIDValue;";
+        private string RemoveTagFromCardSQL = "DELETE FROM card_tag WHERE TagID = @tagIDValue AND CardID = @cardIDValue;";
 
         private string AddTagToDeckSQL = "INSERT INTO deck_tag (DeckID, TagID) VALUES (@deckIDValue, @tagIDValue);";
         private string GetTagsByDeckIDSQL = "SELECT TagName FROM tags JOIN deck_tag ON tags.TagID = deck_tag.TagID WHERE deck_tag.DeckID = @deckIDValue;";
@@ -185,6 +186,33 @@ namespace Capstone.Web.DAL
             return success;
         }
 
+        public bool RemoveTagFromCard(string cardID, string tagName)
+        {
+            string removeTagID = this.TagDictionary[tagName.ToLower()];
+            bool success = false;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Execute(RemoveTagFromCardSQL, new { cardIDValue = cardID, tagIDValue = removeTagID });
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+
+                    return success;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
         public List<string> GetTagsByCardID(string cardID)
         {
             List<string> result = new List<string>();
@@ -200,7 +228,7 @@ namespace Capstone.Web.DAL
 
                     while (reader.Read())
                     {
-                        string resultValue = Convert.ToString(reader["TagName"]);
+                        string resultValue = Convert.ToString(reader["TagName"]).Trim();
 
                         result.Add(resultValue);
                     }
@@ -214,6 +242,7 @@ namespace Capstone.Web.DAL
                 throw;
             }
         }
+
 
         public bool AddTagToDeck(string deckID, string tagName)
         {
@@ -271,7 +300,7 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
 
-                    var result = conn.Execute(RemoveTagFromDeckSQL, new { deckNameValue = deckID, tagIDValue = removeTagID });
+                    var result = conn.Execute(RemoveTagFromDeckSQL, new { deckIDValue = deckID, tagIDValue = removeTagID });
                     if (result == 1)
                     {
                         success = true;
