@@ -1,5 +1,4 @@
 ﻿@{
-    ViewBag.data = "DeckID";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using Capstone.Web.Models;
@@ -20,64 +19,60 @@
     </div>
 }
 
-<div class="row">
-    <p>Tags: </p>
-    <!--Add a tag to the deck-->
+<!--Add a tag to the deck-->
 
-    <div class="col-lg-4">
-        @using (Html.BeginForm("AddDeckTag", "Deck", FormMethod.Post))
-        {
+<div class="col-lg-4">
 
-            <input list="tags" name="TagName" />
-            <datalist id="tags">
-                @foreach (string tag in Model.AllTags)
-                {
-                    <option value="@tag"></option>
-                }
-            </datalist>
-            @Html.HiddenFor(m => Model.DeckID)
-            <input type="submit" class="list_item btn" value="Add Tag">
-        }
-    </div>
-
-    <!--Lists tags under deck-->
-
-    <div class="row">
-        <p class="tag_list">Tags: </p>
-
-        @if (Model.ThisDeckTags.Count != 0)
-        {
-            foreach (var tag in Model.ThisDeckTags)
-            {
-                <p class="tag_list">@tag</p>
-                @Html.ActionLink("Delete", "RemoveDeckTag", new { tagName = tag, deckID = Model.DeckID })
-            }
-        }
-        else
-        {
-            <!--if no tags-->
-            <div>No tags exist for this deck. Add one above.</div>
-        }
-        <hr />
-    </div>
-
-    <!--Lists cards in deck for review or removal-->
-
-    @if (Model.DeckCards.Count != 0)
+    @using (Html.BeginForm("AddDeckTag", "Deck", FormMethod.Post))
     {
-        foreach (var card in Model.DeckCards)
-        {
-            <div class="card_bothsides">
-                <div class="card_front">@card.Front</div>
-                <div class="card_back">@card.Back</div>
-                @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
 
-            </div>
+        <input list="tags" name="TagName" />
+        <datalist id="tags">
+            @foreach (string tag in Model.AllTags)
+            {
+                <option value="@tag"></option>
+            }
+        </datalist>
+        @Html.HiddenFor(m => Model.DeckID)
+        <input type="submit" class="list_item btn" value="Add Tag">
+    }
+</div>
+
+<!--Lists tags under deck-->
+
+<div class="row">
+    <p class="tag_list">Tags: </p>
+    @if (Model.ThisDeckTags.Count != 0)
+    {
+        foreach (var tag in Model.ThisDeckTags)
+        {
+            <p class="tag_list">@tag</p>
+            @Html.ActionLink("Delete", "RemoveDeckTag", new { tagName = tag, deckID = Model.DeckID })
         }
     }
-
     else
     {
-        < p > There are no cards in this deck.Add some above.</ p >
+        <!--if no tags-->
+        <div>No tags exist for this deck. Add one above.</div>
     }
+    <hr />
+</div>
 
+<!--Lists cards in deck for review or removal-->
+
+@if (Model.DeckCards.Count != 0)
+{
+    foreach (var card in Model.DeckCards)
+    {
+        <div class="card_bothsides">
+            <div class="card_front">@card.Front</div>
+            <div class="card_back">@card.Back</div>
+            @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
+
+        </div>
+    }
+}
+else
+{
+    <p>There are no cards in this deck.  Add some above.</p>
+}

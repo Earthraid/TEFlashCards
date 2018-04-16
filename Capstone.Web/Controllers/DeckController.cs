@@ -15,14 +15,13 @@ namespace Capstone.Web.Controllers
         private DeckSqlDAL deckDAL = new DeckSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
 
         // GET: Deck
-        public ActionResult Index(string user_id)
+        public ActionResult Index()
         {
-            
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            user_id = Session["userid"].ToString();
+            string user_id = Session["userid"].ToString();
             List<Deck> decks = deckDAL.GetDecks(user_id);
 
             return View("Deck", decks);
@@ -35,7 +34,9 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
+
             List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchString);
+
             if (decks.Count == 0)
             {
                 Deck emptyDeck = new Deck
@@ -55,9 +56,8 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            List<Deck> decks = new List<Deck>();
+            List<Deck> decks = deckDAL.SearchDecksByTag(user_id, searchString);
 
-            decks = deckDAL.SearchDecksByTag(user_id, searchString);
             if (decks.Count == 0)
             {
                 Deck emptyDeck = new Deck
@@ -66,7 +66,7 @@ namespace Capstone.Web.Controllers
                 };
                 decks.Add(emptyDeck);
             }
-
+            
             return View("Deck", decks);
         }
 
@@ -118,18 +118,17 @@ namespace Capstone.Web.Controllers
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
 
-        [HttpPost]
-        public ActionResult RemoveDeckTag(Deck model)
+        public ActionResult RemoveDeckTag(string tagName, string deckID)
         {
             if (Session["userid"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Login", "Home");
             }
-            Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
-            curDeck.RemoveTagFromDeck(model.TagName);
+            Deck curDeck = deckDAL.GetDeckByDeckID(deckID);
+            curDeck.RemoveTagFromDeck(tagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
-              
+
         //Remove Card
         [HttpGet]
         public ActionResult RemoveThisCard(int id)
@@ -183,7 +182,7 @@ namespace Capstone.Web.Controllers
             Deck thisDeck = dDal.GetDeckByDeckID(deckID);
             return View("StudySession", thisDeck);
         }
-      
+
 
         //private string CheckSession(string user_id)
         //{
