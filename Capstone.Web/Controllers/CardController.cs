@@ -138,8 +138,14 @@ namespace Capstone.Web.Controllers
 
             Card currentCard = cDal.GetCardByID(model.CardID);
 
+            //if empty input is submitted
+            if (model.TagName == null)
+            {
+                return View("CardModify", currentCard);
+            }
             //makes all tags lowercase to avoid conflicts
             model.TagName = model.TagName.ToLower();
+
             foreach (string tag in model.AllTags)
             {
                 if (tag == model.TagName)

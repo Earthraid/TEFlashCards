@@ -106,6 +106,14 @@ namespace Capstone.Web.Controllers
                 return RedirectToAction("Login", "Home");
             }
             Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
+            //if empty input is submitted
+            if (model.TagName == null)
+            {
+                return View("EditDeck", curDeck);
+            }
+            //makes all tags lowercase to avoid conflicts
+            model.TagName = model.TagName.ToLower();
+
             curDeck.AddTagToDeck(model.TagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
