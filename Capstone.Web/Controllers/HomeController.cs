@@ -20,10 +20,14 @@ namespace Capstone.Web.Controllers
         {
             //temporary user id
 <<<<<<< HEAD
+<<<<<<< HEAD
             Session["userid"] = "7";
 =======
             Session["userid"] = "2";
 >>>>>>> 3ec9f63cc7473a69d7f3619db808e4334a177006
+=======
+            //Session["userid"] = "2";
+>>>>>>> a69b8bb567e71dc2261de6e126254303f080931c
 
             return View("Index");
         }

@@ -11,7 +11,7 @@
         <div class="col-lg-2">
             @Html.ActionLink("New Deck", "AddDeck", "Deck", null, new { @class = "list_item btn" })
         </div>
-
+        <div class="col-lg-2"></div>
         <div class="col-lg-4">
             @using (Html.BeginForm("DeckSearchByName", "Deck", FormMethod.Get))
             {
@@ -32,8 +32,11 @@
         <hr />
     </div>
     <h2>Your Decks</h2>
+    <hr />
     <div class="deck_list">
         @foreach (var deck in Model)
+    {
+        if (deck.DeckID != null)
         {
             string deckLink = "../Deck/EditDeck/" + deck.DeckID;
 
@@ -44,9 +47,14 @@
             @Html.ActionLink("Study this deck", "BeginStudy", "Deck", new { deckID = deck.DeckID }, null)
 
             <p>@Html.ActionLink("Submit this deck for public use", "SubmitToAdmin", "Home")</p>
+    }
+    else
+    {
+        <p>No decks found by that name.</p>
+}
 
-            <hr />
-        }
+    <hr />
+}
     </div>
 </div>
 
