@@ -138,17 +138,23 @@ namespace Capstone.Web.Controllers
 
             Card currentCard = cDal.GetCardByID(model.CardID);
 
+            //if empty input is submitted
+            if (model.TagName == null)
+            {
+                return View("CardModify", model);
+            }
             //makes all tags lowercase to avoid conflicts
             model.TagName = model.TagName.ToLower();
+
             foreach (string tag in model.AllTags)
             {
                 if (tag == model.TagName)
                 {
-                    return RedirectToAction(currentCard.CardID, "Card/CardModify");
+                    return RedirectToAction(model.CardID, "Card/CardModify");
                 }
             }
-            currentCard.AddTagToCard(model.TagName);
-            return RedirectToAction(currentCard.CardID, "Card/CardModify");
+            model.AddTagToCard(model.TagName);
+            return RedirectToAction(model.CardID, "Card/CardModify");
         }
 
 
