@@ -39,18 +39,6 @@
             <input type="submit" class="list_item btn" value="Add Tag">
         }
     </div>
-@*<div class="col-lg-4">*@
-    <!--Temp removal for work JC-->
-    @*@using (Html.BeginForm("AddDeckTag", "Deck", FormMethod.Post))
-=======
-<!--Add a tag to the deck-->
-
-<div class="col-lg-4">
-   
-    @using (Html.BeginForm("AddDeckTag", "Deck", FormMethod.Post))
->>>>>>> 4ef211d1e2619a68e6b5939f3d3d97e9524541ff
-    {
->>>>>>> 17b0754dffb56cb0dff15592a6a9b3e7e26cfbe4
 
     <!--Lists tags under deck-->
 
@@ -61,99 +49,35 @@
         {
             foreach (var tag in Model.ThisDeckTags)
             {
-                <div>
-                    @tag
-                    @using (Html.BeginForm("RemoveDeckTag", "Deck", FormMethod.Post))
-                    {
-                        <div>
-                            @Html.HiddenFor(m => tag)
-                        </div>
-
-                        <button>X</button>
-                    }
-                </div>
+                <p class="tag_list">@tag</p>
+                @Html.ActionLink("Delete", "RemoveDeckTag", new { tagName = tag, deckID = Model.DeckID })
             }
         }
-        <hr />
-    </div>*@
-
-    @using (Html.BeginForm("NewCard", "Deck", FormMethod.Post))
-    {
-        <div>
-            <p>DeckID is: @ViewBag.deckID</p>
-            <button>Add A New Card</button>
-        </div>
-    }
-        </datalist>
-        @Html.HiddenFor(m => Model.DeckID)
-        <input type="submit" class="list_item btn" value="Add Tag">
-    }
-@*</div>*@
-    @*}
-</div>*@
-
-
-    @*<p class="tag_list">tag</p>
-    using (Html.BeginForm("RemoveDeckTag", "Deck", FormMethod.Post))
-
-<div class="row">
-    <p class="tag_list">Tags: </p>
-    @if (Model.ThisDeckTags.Count != 0)
->>>>>>> 17b0754dffb56cb0dff15592a6a9b3e7e26cfbe4
-    {
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-    @Html.Label("Tag", tag)
-        @Html.HiddenFor(Tag, Model.TagName)*@
-    @*@Html.HiddenFor(m => Model.DeckID)
-
-                    @Html.Label("Tag", tag)
-                        @Html.HiddenFor(Tag, Model.TagName)
-                    @Html.HiddenFor(m => Model.DeckID)
-
-
-    <button id="tag" class="removeTag">x</button>
-    }
-    }
-    }
-    else
-    {
-    if no tags
-    <div>No tags exist for this deck. Add one above.</div>
-=======
-        foreach (var tag in Model.ThisDeckTags)
+        else
         {
-            <p class="tag_list">@tag</p>
-            @Html.ActionLink("Delete", "RemoveDeckTag", new { tagName = tag, deckID = Model.DeckID })
+            <!--if no tags-->
+            <div>No tags exist for this deck. Add one above.</div>
+        }
+        <hr />
+    </div>
+
+    <!--Lists cards in deck for review or removal-->
+
+    @if (Model.DeckCards.Count != 0)
+    {
+        foreach (var card in Model.DeckCards)
+        {
+            <div class="card_bothsides">
+                <div class="card_front">@card.Front</div>
+                <div class="card_back">@card.Back</div>
+                @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
+
+            </div>
         }
     }
+
     else
     {
-        <!--if no tags-->
-        <div>No tags exist for this deck. Add one above.</div>
->>>>>>> 4ef211d1e2619a68e6b5939f3d3d97e9524541ff
+        < p > There are no cards in this deck.Add some above.</ p >
     }
-    <hr />
-</div>*@
-
-<!--Lists cards in deck for review or removal-->
-
-@if (Model.DeckCards.Count != 0)
-{
-    foreach (var card in Model.DeckCards)
-    {
-        <div class="card_bothsides">
-            <div class="card_front">@card.Front</div>
-            <div class="card_back">@card.Back</div>
-            @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
-
-        </div>
-    }
-}
-
-else
-{
-    < p > There are no cards in this deck.Add some above.</ p >
-}
 

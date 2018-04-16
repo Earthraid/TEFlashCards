@@ -18,7 +18,7 @@ namespace Capstone.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            //temporary user id
+            //temporary user id 
             Session["userid"] = "7";
 
             return View("Index");

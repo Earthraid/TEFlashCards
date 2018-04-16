@@ -106,6 +106,14 @@ namespace Capstone.Web.Controllers
                 return RedirectToAction("Login", "Home");
             }
             Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
+            //if empty input is submitted
+            if (model.TagName == null)
+            {
+                return View("EditDeck", curDeck);
+            }
+            //makes all tags lowercase to avoid conflicts
+            model.TagName = model.TagName.ToLower();
+
             curDeck.AddTagToDeck(model.TagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
@@ -113,11 +121,6 @@ namespace Capstone.Web.Controllers
         [HttpPost]
         public ActionResult RemoveDeckTag(Deck model)
         {
-            DeckSqlDAL dDAL = new DeckSqlDAL(connectionString);
-            // Deck deck = deckDAL.RemoveTag(deck_id);
-            //?? model.DeckID changed from deck_id
-            return View("EditDeck", model.DeckID);
-
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Index", "Home");
@@ -126,34 +129,7 @@ namespace Capstone.Web.Controllers
             curDeck.RemoveTagFromDeck(model.TagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
-        
-        //Add a new card 
-        [HttpGet]
-        public ActionResult NewCard(string deck_id)
-        {
-            ViewBag.deckID = deck_id;
-            return View("CardCreate");
-        }
-        [HttpPost]
-        public ActionResult NewCard()
-        {
-            CardSqlDAL cDAL = new CardSqlDAL(connectionString);
-            return RedirectToAction("CardConstruct", "Card");
-        }
-        
-        //Remove Card
-
-        public ActionResult RemoveDeckTag(string tagName, string deckID)
-        {
-            if (Session["userid"] == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
-            Deck curDeck = deckDAL.GetDeckByDeckID(deckID);
-            curDeck.RemoveTagFromDeck(tagName);
-            return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
-        }
-
+              
         //Remove Card
         [HttpGet]
         public ActionResult RemoveThisCard(int id)

@@ -40,35 +40,32 @@ namespace Capstone.Web.Controllers
             return View("CardCreate");
         }
 
-        public ActionResult CardSubmit(Card newCard, string user_id)
-
         //add created card
-        //public ActionResult CardSubmit(Card newCard)
-
+        public ActionResult CardSubmit(Card newCard)
         {
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
 
-            CardSqlDAL cDal = new CardSqlDAL(connectionString);
-
             cDal.CreateCard(newCard, Session["userid"].ToString());
 
-            //List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
+            List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
-            if (!string.IsNullOrEmpty(newCard.TempDeckNum))
-            {
-                cDal.CreateCard(newCard, user_id);
-                List<Card> cardsInDeck = cDal.ViewCardsInDeck(newCard.TempDeckNum);
-                return RedirectToAction("Index","Deck");
-            }
-            else
-            {
-                cDal.CreateCard(newCard, user_id);
-                List<Card> allCards = cDal.ViewCards(Session["user_id"].ToString());
-                return View("CardView", allCards);
-            }
+            return View("CardView", allCards);
+
+            //if (!string.IsNullOrEmpty(newCard.TempDeckNum))
+            //{
+            //    cDal.CreateCard(newCard, user_id);
+            //    List<Card> cardsInDeck = cDal.ViewCardsInDeck(newCard.TempDeckNum);
+            //    return RedirectToAction("Index", "Deck");
+            //}
+            //else
+            //{
+            //    cDal.CreateCard(newCard, user_id);
+            //    List<Card> allCards = cDal.ViewCards(Session["user_id"].ToString());
+            //    return View("CardView", allCards);
+            //}
         }
 
         //search cards by tag
@@ -180,7 +177,7 @@ namespace Capstone.Web.Controllers
             currentCard.Front = front;
             currentCard.Back = back;
             currentCard.ThisCardTags = tags;
- 
+
             cDal.EditCard(currentCard);
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());

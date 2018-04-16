@@ -43,6 +43,8 @@
 
             @Html.ActionLink("Study this deck", "BeginStudy", "Deck", new { deckID = deck.DeckID }, null)
 
+            <p>@Html.ActionLink("Submit this deck for public use", "SubmitToAdmin", "Home")</p>
+
             <hr />
         }
     </div>
