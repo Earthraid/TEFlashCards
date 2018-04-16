@@ -85,6 +85,7 @@
     <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="DAL\DeckSqlDALTest.cs" />
     <Compile Include="DAL\TagSqlDALTests.cs" />
+    <Compile Include="DAL\CardSqlDALTests.cs" />
     <Compile Include="Models\DeckModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
