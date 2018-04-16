@@ -37,9 +37,6 @@ namespace Capstone.Web.Controllers
 
             User user = userDal.GetUser(model.Email);
 
-            // user does not exist or password is wrong
-            //PROBLEM HERE WITH PASSWORD VERIFICATION?? user.Password contains a bunch of spaces after the password put into the login
-            //With the password part commented out below, you can log in with ANY password and a valid email.
             if (user.Email == null || user.Password != model.Password)
             {
                 ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");

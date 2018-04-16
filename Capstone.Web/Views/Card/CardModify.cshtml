@@ -9,7 +9,7 @@
 
 <h2 class="modify_header">Modify card</h2>
 
-@Html.ActionLink("Return to cards", "CardView", "Card", new { @class = "submit_button" }) <span>All changes saved automatically</span>
+@Html.ActionLink("Return to cards", "CardView", "Card", new { @class = "list_item btn" }) <span>All changes saved automatically</span>
 
 @using (Html.BeginForm("CardEditFields", "Card", new { id = Model.CardID, front = Model.Front.Trim(), back = Model.Back.Trim(), tags = Model.ThisCardTags }, FormMethod.Get, new { @class = "edit_fields_action" }))
 {
@@ -36,7 +36,7 @@
         }
     }
 
-    <div class="addtag">add tag to card</div>
+    <div class="addtag list_item btn">add tag to card</div>
 
     @foreach (string tag in Model.AllTags)
     {

@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    background: url('background.jpg') no-repeat;
+    background: url('Diner.jpg') no-repeat;
     margin: 0;
     background-attachment: fixed;
     background-size: cover;
@@ -12,34 +12,46 @@ header {
     text-align: center;
 }
 
+.logo_photo {
+    height: 40%;
+    width: 40%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
 .top {
     font-size: 400%;
     color: white;
 }
 
+hr {
+    color: red;
+}
 
 
 /*layout*/
 .list_item {
     text-decoration-style: none;
-    background-color: dodgerblue;
+    background-color: red;
     color: white;
     margin: 1%;
 }
 
     .list_item:hover {
         background-color: white;
-        color: blue;
+        color: red;
         text-decoration-style: none;
-        border: 1px solid dodgerblue;
+        border: 1px solid red;
     }
 
 .top_links {
+    margin: 0 auto;
 }
 
 .main_body {
     background-color: rgba(255,255,255,0.3);
     border-radius: 10px;
+    border: 3px solid red;
     width: 90%;
     margin: auto;
     margin-top: 2%;
