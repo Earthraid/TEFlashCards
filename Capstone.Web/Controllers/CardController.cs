@@ -146,13 +146,6 @@ namespace Capstone.Web.Controllers
             //makes all tags lowercase to avoid conflicts
             model.TagName = model.TagName.ToLower();
 
-            foreach (string tag in model.AllTags)
-            {
-                if (tag == model.TagName)
-                {
-                    return RedirectToAction(model.CardID, "Card/CardModify");
-                }
-            }
             model.AddTagToCard(model.TagName);
             return RedirectToAction(model.CardID, "Card/CardModify");
         }

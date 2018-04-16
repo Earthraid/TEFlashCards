@@ -19,7 +19,7 @@ namespace Capstone.Web.Controllers
         public ActionResult Index()
         {
             //temporary user id
-            Session["userid"] = "2";
+            //Session["userid"] = "2";
 
             return View("Index");
         }
@@ -78,7 +78,9 @@ namespace Capstone.Web.Controllers
             newUser.Password = model.Password;
 
             newUserDAL.Register(newUser);
-            
+
+            Session["userid"] = newUser.Id;
+            Session["admin"] = newUser.IsAdmin;
             return RedirectToAction("Index", "Home");
         }
 
