@@ -260,21 +260,28 @@ header {
 }
 
 .activeCard {
-
 }
 
 .oldCard {
     transform: translateX(-100vw);
 }
 
-.hiddenSide {
+.hiddenSide, .hiddenNav {
     display: none;
 }
 
-.studyNav {
+.studyNavFrame {
     position: absolute;
     top: 0;
     right: 0;
+    width: 150px;
+    height: 100px;
+}
+
+.studyNav {
+    background: #333;
+    color: #fff;
+    margin: 10px;
 }
 
 .score {
