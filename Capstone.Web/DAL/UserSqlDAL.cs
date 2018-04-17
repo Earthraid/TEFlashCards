@@ -13,14 +13,12 @@ namespace Capstone.Web.DAL
 
         private string connectionString;
 
-        //private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users];";
-
         private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users] WHERE Email = @email;";
-
-        //private string getEmails = "SELECT Email FROM [users];";
 
         private string registerUser = "INSERT INTO [users] (Email, Password, IsAdmin, UserName)" +
             "VALUES (@email, @password, @isadmin, @username);";
+
+        
 
         public UserSqlDAL(string connectionString)
         {
@@ -35,22 +33,18 @@ namespace Capstone.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    //SqlCommand cmd = new SqlCommand(getEmails, conn);
+
                     SqlCommand cmd = new SqlCommand(getUser, conn);
                     cmd.Parameters.AddWithValue("@email", email);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-
                     while (reader.Read())
                     {
-                        //if (Convert.ToString(reader["Email"]) != "")
-                        //{
-                            result.Email = Convert.ToString(reader["Email"]).Trim();
-                            result.Password = Convert.ToString(reader["Password"]).Trim();
-                            result.Id = Convert.ToInt32(reader["UserId"]);
-                            result.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
-                            result.UserName = Convert.ToString(reader["UserName"]).Trim();
-                        //}
+                        result.Email = Convert.ToString(reader["Email"]).Trim();
+                        result.Password = Convert.ToString(reader["Password"]).Trim();
+                        result.Id = Convert.ToInt32(reader["UserId"]);
+                        result.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
+                        result.UserName = Convert.ToString(reader["UserName"]).Trim();
                     }
                     return result;
                 }
@@ -59,7 +53,6 @@ namespace Capstone.Web.DAL
             {
                 throw;
             }
-            //add message to tell user that email already exists
         }
 
         public bool Register(User user)
@@ -88,6 +81,8 @@ namespace Capstone.Web.DAL
             return (result > 0);
         }
 
+        
+
         private User ConvertFields(SqlDataReader reader)
         {
             User user = new User();
@@ -96,7 +91,7 @@ namespace Capstone.Web.DAL
             user.Password = Convert.ToString(reader["Password"]);
             user.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
             user.UserName = Convert.ToString(reader["UserName"]);
-            
+
             return user;
         }
     }

@@ -1,5 +1,8 @@
 ﻿/// <reference path="../jquery-3.1.1.js" />
 
+
+
+
 $(document).ready(function () {
 
     $('.add_tag_action, .remove_tag_action').click(function () {
@@ -9,6 +12,8 @@ $(document).ready(function () {
     $('.edit_fields_action').on('focusout', function () {
         $(this).submit();
     });
+
+
 
     function removeTagFromDeck(deckID, tagName) {
 
@@ -29,4 +34,4 @@ $(document).ready(function () {
         });
 
     }
-})
+});

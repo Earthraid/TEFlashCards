@@ -9,11 +9,19 @@ namespace Capstone.Web.Models
     public class User
     {
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "*")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "*")]
         public string Password { get; set; }
-        [Compare("Password")]
+
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
+
         public bool IsAdmin { get; set; }
+
         public string UserName { get; set; }
     }
 }
