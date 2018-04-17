@@ -137,6 +137,9 @@ h2.title {
     flex-wrap: wrap;
 }
 
+.editDeck_options div {
+    display: inline-block;
+}
 /*cards*/
 
 .card_flex_container {
