@@ -21,9 +21,7 @@ function nextCard() {
 
     thisCard.removeClass('activeCard').addClass('oldCard');
     nextCard.removeClass('newCard').addClass('activeCard');
-
 }
-
 
 $(document).ready(function () {
 
@@ -45,7 +43,16 @@ $(document).ready(function () {
         $('.totalCorrect').text(totalCorrect);
     });
 
+    $('.finish').click(function () {
+        $('.studyFrame').hide();
+        $('#finalScore').text(totalCorrect);
+        $('#possibleScore').text(cardsViewed);
+        $('.resultsFrame').show();
+    });
+
     $('.studyNav').click(function () {
+
+        console.log(cardsViewed);
 
         if (flipped == false) {
             flipCard();

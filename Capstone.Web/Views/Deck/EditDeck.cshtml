@@ -1,78 +1,148 @@
 ﻿@{
+
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
+
 @using Capstone.Web.Models;
+
 @model Deck
 
-<h2>Edit Deck</h2>
+<script type="text/javascript" src="../../Scripts/CardScripts/EditDeck.js"></script>
+
+
+<h2 class="title">Edit Deck</h2>
+
 
 <!--Edit deck name-->
 
+
 @using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
+
 {
+
     <div>
+
         @Html.Label("Name", "Deck Name: ")
+
         @Html.TextBoxFor(m => m.Name)
+
         @Html.HiddenFor(m => m.DeckID)
 
+
         <button class="list_item btn">Change Name</button>
+
     </div>
+
 }
+
 
 <!--Add a tag to the deck-->
 
-<div class="col-lg-4">
 
-    @using (Html.BeginForm("AddDeckTag", "Deck", FormMethod.Post))
+<div class="allTags">
+
+
+    @foreach (string tag in Model.ThisDeckTags)
+
     {
 
-        <input list="tags" name="TagName" />
-        <datalist id="tags">
-            @foreach (string tag in Model.AllTags)
-            {
-                <option value="@tag"></option>
-            }
-        </datalist>
-        @Html.HiddenFor(m => Model.DeckID)
-        <input type="submit" class="list_item btn" value="Add Tag">
-    }
-</div>
+        <span class="added_tag">@tag</span>
 
-<!--Lists tags under deck-->
+        using (Html.BeginForm("RemoveDeckTag", "Deck", new { tagName = tag, deckID = Model.DeckID }, FormMethod.Post, new { @class = "remove_tag_action" }))
 
-<div class="row">
-    <p class="tag_list">Tags: </p>
-    @if (Model.ThisDeckTags.Count != 0)
-    {
-        foreach (var tag in Model.ThisDeckTags)
         {
-            <p class="tag_list">@tag</p>
-            @Html.ActionLink("Delete", "RemoveDeckTag", new { tagName = tag, deckID = Model.DeckID })
+
+            @Html.HiddenFor(m => Model.DeckID)
+
+            <div id="@tag" class="remove_tag">x</div>
+
         }
+
     }
-    else
+
+
+    <div class="addtag">add tag to deck</div>
+
+
+    @foreach (string tag in Model.AllTags)
+
     {
-        <!--if no tags-->
-        <div>No tags exist for this deck. Add one above.</div>
+
+        if (!Model.ThisDeckTags.Contains(tag))
+
+        {
+
+            using (Html.BeginForm("AddDeckTag", "Deck", new { tagName = tag, deckID = Model.DeckID }, FormMethod.Post, new { @class = "add_tag_action" }))
+
+            {
+
+                <span id="@tag" class="add_tag inactive_tag">@tag</span>
+
+
+            }
+
+        }
+
     }
-    <hr />
+
+
+    <div class="createtag">create new tag for deck</div>
+
+
+    <div>
+
+        @using (Html.BeginForm("CreateDeckTag", "Deck", FormMethod.Post))
+
+        {
+
+
+            <input name="TagName" />
+
+
+            @Html.HiddenFor(m => Model.DeckID)
+
+            <input type="submit" class="list_item btn" value="Add New Tag">
+
+        }
+
+    </div>
+
+
 </div>
+
+
 
 <!--Lists cards in deck for review or removal-->
 
+
 @if (Model.DeckCards.Count != 0)
+
 {
+
     foreach (var card in Model.DeckCards)
+
     {
+
         <div class="card_bothsides">
+
             <div class="card_front">@card.Front</div>
+
             <div class="card_back">@card.Back</div>
+
             @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
 
+
         </div>
+
     }
+
 }
+
 else
+
 {
+
     <p>There are no cards in this deck.  Add some above.</p>
+
 }

@@ -15,24 +15,30 @@ namespace Capstone.Web.Controllers
         private DeckSqlDAL deckDAL = new DeckSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
 
         // GET: Deck
-        public ActionResult Index(string user_id)
+        public ActionResult Index()
         {
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            user_id = Session["userid"].ToString();
+            string user_id = Session["userid"].ToString();
             List<Deck> decks = deckDAL.GetDecks(user_id);
 
             return View("Deck", decks);
         }
 
         //Search for decks by name
-        public ActionResult DeckSearchByName(string user_id, string searchString)
+        public ActionResult DeckSearchByName(string searchString)
         {
+            string user_id;
+
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                user_id = Session["userid"].ToString();
             }
 
             List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchString);
@@ -50,11 +56,16 @@ namespace Capstone.Web.Controllers
         }
 
         //Search for decks by tag
-        public ActionResult DeckSearchByTag(string user_id, string searchString)
+        public ActionResult DeckSearchByTag(string searchString)
         {
+            string user_id;
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
+            }
+            else
+            {
+                user_id = Session["userid"].ToString();
             }
             List<Deck> decks = deckDAL.SearchDecksByTag(user_id, searchString);
 
@@ -66,7 +77,7 @@ namespace Capstone.Web.Controllers
                 };
                 decks.Add(emptyDeck);
             }
-            
+
             return View("Deck", decks);
         }
 
@@ -99,25 +110,18 @@ namespace Capstone.Web.Controllers
 
         //Deck Tags
         [HttpPost]
-        public ActionResult AddDeckTag(Deck model)
+        public ActionResult AddDeckTag(string tagName, string deckID)
         {
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            Deck curDeck = deckDAL.GetDeckByDeckID(model.DeckID);
-            //if empty input is submitted
-            if (model.TagName == null)
-            {
-                return View("EditDeck", curDeck);
-            }
-            //makes all tags lowercase to avoid conflicts
-            model.TagName = model.TagName.ToLower();
-
-            curDeck.AddTagToDeck(model.TagName);
+            Deck curDeck = deckDAL.GetDeckByDeckID(deckID);
+            curDeck.AddTagToDeck(tagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
         }
 
+        [HttpPost]
         public ActionResult RemoveDeckTag(string tagName, string deckID)
         {
             if (Session["userid"] == null)
@@ -127,6 +131,28 @@ namespace Capstone.Web.Controllers
             Deck curDeck = deckDAL.GetDeckByDeckID(deckID);
             curDeck.RemoveTagFromDeck(tagName);
             return RedirectToAction(curDeck.DeckID, "Deck/EditDeck");
+        }
+
+        [HttpPost]
+        public ActionResult CreateDeckTag(Deck model)
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            Deck currentDeck = deckDAL.GetDeckByDeckID(model.DeckID);
+
+            //if empty input is submitted
+            if (model.TagName == null)
+            {
+                return View("CardModify", model);
+            }
+            //makes all tags lowercase to avoid conflicts
+            model.TagName = model.TagName.ToLower();
+
+            model.AddTagToDeck(model.TagName);
+            return RedirectToAction(model.DeckID, "Deck/EditDeck");
         }
 
         //Remove Card

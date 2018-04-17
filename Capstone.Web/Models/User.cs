@@ -10,20 +10,18 @@ namespace Capstone.Web.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "* Valid Email Address Required")]
-        [EmailAddress]
+        [Required(ErrorMessage = "*")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "* Required Field")]
+        [Required(ErrorMessage = "*")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "* Passwords Must Match")]
-        [Compare("Password")]
+        [Compare("Password", ErrorMessage = "Passwords do not match.")]
         public string ConfirmPassword { get; set; }
 
         public bool IsAdmin { get; set; }
 
-        [Required(ErrorMessage = "* User Name Is Required")]
         public string UserName { get; set; }
     }
 }

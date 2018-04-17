@@ -25,6 +25,8 @@ namespace Capstone.Web.DAL
         private string GetTagsByDeckIDSQL = "SELECT TagName FROM tags JOIN deck_tag ON tags.TagID = deck_tag.TagID WHERE deck_tag.DeckID = @deckIDValue;";
         private string RemoveTagFromDeckSQL = "DELETE FROM deck_tag WHERE TagID = @tagIDValue AND DeckID = @deckIDValue;";
 
+        private string AdminDeleteTagSQL = "DELETE FROM tags WHERE TagID = @tagIDValue;";
+
         public TagsSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -337,6 +339,33 @@ namespace Capstone.Web.DAL
                     }
 
                     return result;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public bool AdminDeleteTag(string tagName)
+        {
+            string removeTagID = this.TagDictionary[tagName.ToLower()];
+            bool success = false;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Execute(AdminDeleteTagSQL, new { tagName = removeTagID });
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+
+                    return success;
                 }
             }
             catch (Exception ex)

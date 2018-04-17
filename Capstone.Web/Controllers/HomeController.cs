@@ -19,15 +19,7 @@ namespace Capstone.Web.Controllers
         public ActionResult Index()
         {
             //temporary user id
-<<<<<<< HEAD
-<<<<<<< HEAD
-            Session["userid"] = "7";
-=======
-            Session["userid"] = "2";
->>>>>>> 3ec9f63cc7473a69d7f3619db808e4334a177006
-=======
-            //Session["userid"] = "2";
->>>>>>> a69b8bb567e71dc2261de6e126254303f080931c
+            //Session["userid"] = "7";
 
             return View("Index");
         }
@@ -37,7 +29,7 @@ namespace Capstone.Web.Controllers
         {
             return View("Login");
         }
-        
+
         [HttpPost]
         public ActionResult Login(User model)
         {
@@ -55,18 +47,17 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         public ActionResult Logout()
         {
             Session["userid"] = null;
             return View("Logout");
         }
 
+        [HttpGet]
         public ActionResult Register()
         {
             return View("Register");
         }
-
 
         [HttpPost]
         public ActionResult Register(User model)
@@ -77,14 +68,28 @@ namespace Capstone.Web.Controllers
             }
 
             UserSqlDAL newUserDAL = new UserSqlDAL(connectionString);
+            //attempt to retrieve provided email - cannot duplicate existing
             User newUser = newUserDAL.GetUser(model.Email);
+            if (newUser.Email == null)
+            {
+                newUser.Email = model.Email;
+                newUser.Password = model.Password;
+                if (model.UserName == null)
+                {
+                    newUser.UserName = model.Email.Substring(0, model.Email.IndexOf('@'));
+                }
+                else
+                {
+                    newUser.UserName = model.UserName;
+                }
 
-            newUser.Email = model.Email;
-            newUser.UserName = model.UserName;
-            newUser.Password = model.Password;
-
-            newUserDAL.Register(newUser);
-            
+                newUserDAL.Register(newUser);
+            }
+            else
+            {
+                ModelState.AddModelError("email-exists", "That email address exists, please contact Admin for password reset if needed.");
+                return View("Register", model);
+            }
             return RedirectToAction("Index", "Home");
         }
 

@@ -34,6 +34,10 @@ namespace Capstone.Web.DAL
 
         private string RemoveCardFromDeckSQL = "DELETE FROM card_deck WHERE CardID = @cardIDValue AND DeckID = @deckIDValue;";
 
+        private string AdminGetAllDecksSQL = "SELECT * from decks";
+
+        private string AdminDeleteDeckSQL = "DELETE FROM deck WHERE deckID = @deckIDValue;";
+
         public DeckSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -174,6 +178,7 @@ namespace Capstone.Web.DAL
 
         public bool ModifyDeckIsPublic(string deckID, bool isPublic)
         {
+            bool success = false;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -183,9 +188,9 @@ namespace Capstone.Web.DAL
                     var result = conn.Execute(ModifyDeckPublicSQL, new { deckIDValue = deckID, publicValue = isPublic });
                     if (result == 1)
                     {
-                        return true;
+                        success = true;
                     }
-                    else return false;
+                    return success;
                 }
             }
             catch (Exception ex)
@@ -226,6 +231,47 @@ namespace Capstone.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     var result = conn.Execute(RemoveCardFromDeckSQL, new { cardIDValue = cardID, deckIDValue = deckID });
+                    if (result == 1)
+                    {
+                        success = true;
+                    }
+                    return success;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        public List<Deck> AdminGetAllDecks()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Query<Deck>(AdminGetAllDecksSQL);
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public bool AdminDeleteDeck(string deckID)
+        {
+            bool success = false;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    var result = conn.Execute(AdminDeleteDeckSQL, new { deckIDValue = deckID });
                     if (result == 1)
                     {
                         success = true;
