@@ -240,7 +240,7 @@ body hr {
     width: 24px;
     height: 24px;
     padding-right: 20px;
-    color: #ccc;
+    color: red;
     border-radius: 50%;
     background: rgba(0,0,0,0);
 }
@@ -306,6 +306,16 @@ body hr {
     background: #333;
     color: black;
     margin: 10px;
+    text-decoration-style: none;
+    background-color: red;
+    color: white;
+}
+
+.studyNav:hover {
+    background-color: white;
+    color: red;
+    text-decoration-style: none;
+    border: 1px solid red;
 }
 
 .score {
