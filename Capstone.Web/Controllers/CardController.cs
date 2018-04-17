@@ -176,7 +176,7 @@ namespace Capstone.Web.Controllers
             currentCard.Front = front;
             currentCard.Back = back;
             currentCard.ThisCardTags = tags;
- 
+
             cDal.EditCard(currentCard);
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
@@ -195,6 +195,7 @@ namespace Capstone.Web.Controllers
             }
 
             ViewBag.CardID = cardID;
+            ViewBag.CurCard = cDal.GetCardByID(cardID);
 
             string userID = Session["userid"].ToString();
             List<Deck> allDecks = dDal.GetDecks(userID);

@@ -13,20 +13,9 @@
 <!--Edit deck name-->
 @using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
 {
-    if (ViewBag.AddedCard != null)
-    {
-        <div class="successMsg">
-            <span class="checkmark">&#10003;</span> Your card for <b>@ViewBag.AddedCard.Front</b> was successfully added.
-            <b>@Html.ActionLink("Click here", "CardView", "Card")</b> to return to card view.
-        </div>
-
-    }
-
     <div>
         @Html.Label("Name", "Deck Name: ")
-
         @Html.TextBoxFor(m => m.Name)
-
         @Html.HiddenFor(m => m.DeckID)
 
         <button class="list_item btn">Change Name</button>
@@ -43,11 +32,11 @@
         {
             @Html.HiddenFor(m => Model.DeckID)
 
-            <span id="@tag" class="remove_tag">x</span>
+            <div id="@tag" class="remove_tag">x</div>
         }
     }
 
-    <div class="addtag">add tag to deck</div>
+    <div class="addtag">Add Tag</div>
 
     @foreach (string tag in Model.AllTags)
     {
@@ -59,18 +48,20 @@
             }
         }
     }
-
-    <div class="createtag">create new tag for deck</div>
+    <div class="createtag">Create Tag</div>
 
     <div>
         @using (Html.BeginForm("CreateDeckTag", "Deck", FormMethod.Post))
         {
             <input name="TagName" />
-
             @Html.HiddenFor(m => Model.DeckID)
-
             <input type="submit" class="list_item btn" value="Add New Tag">
         }
+    </div>
+
+    <!--Go to list of cards to add to decks-->
+    <div class="row add_cards">
+        @Html.ActionLink("Add Cards", "CardView", "Card", null, new { @class = "list_item btn" })
     </div>
 </div>
 
@@ -78,32 +69,20 @@
 
 <div class="card_flex_container">
 
-@if (Model.DeckCards.Count != 0)
-{
-    foreach (var card in Model.DeckCards)
+    @if (Model.DeckCards.Count != 0)
     {
-        <div class="card_bothsides">
-
-            <div class="card_front">@card.Front</div>
-
-            <div class="card_back">@card.Back</div>
-
-            <ul class="card_options">
-                <li>
-                    @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
-                </li>
-                <li>
-                    @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = card.CardID }, null)
-                </li>
-            </ul>
-
-        </div>
+        foreach (var card in Model.DeckCards)
+        {
+            <div class="card_bothsides">
+                <div class="card_front">@card.Front</div>
+                <div class="card_back">@card.Back</div>
+                @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
+            </div>
+        }
     }
-
-}
-else
-{
-    <p>There are no cards in this deck.  Add some above.</p>
-}
+    else
+    {
+        <p>There are no cards in this deck.  Add some above.</p>
+    }
 
 </div>

@@ -18,8 +18,8 @@ namespace Capstone.Web.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            //temporary user id
-            //Session["userid"] = "7";
+            //temporary user id 
+            Session["userid"] = "7";
 
             return View("Index");
         }
@@ -29,7 +29,7 @@ namespace Capstone.Web.Controllers
         {
             return View("Login");
         }
-
+        
         [HttpPost]
         public ActionResult Login(User model)
         {
@@ -37,9 +37,12 @@ namespace Capstone.Web.Controllers
 
             User user = userDal.GetUser(model.Email);
 
+            // user does not exist or password is wrong
+            //PROBLEM HERE WITH PASSWORD VERIFICATION?? user.Password contains a bunch of spaces after the password put into the login
+            //With the password part commented out below, you can log in with ANY password and a valid email.
             if (user.Email == null || user.Password != model.Password)
             {
-                ModelState.AddModelError("invalid-credentials", "An invalid email or password was provided");
+                ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
                 return View("Login", model);
             }
             Session["userid"] = user.Id;
@@ -47,17 +50,18 @@ namespace Capstone.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
         public ActionResult Logout()
         {
             Session["userid"] = null;
             return View("Logout");
         }
 
-        [HttpGet]
         public ActionResult Register()
         {
             return View("Register");
         }
+
 
         [HttpPost]
         public ActionResult Register(User model)
@@ -68,30 +72,14 @@ namespace Capstone.Web.Controllers
             }
 
             UserSqlDAL newUserDAL = new UserSqlDAL(connectionString);
-            //attempt to retrieve provided email - cannot duplicate existing
             User newUser = newUserDAL.GetUser(model.Email);
-            if (newUser.Email == null)
-            {
-                newUser.Email = model.Email;
-                newUser.Password = model.Password;
-                if (model.DisplayName == null)
-                {
-                    newUser.DisplayName = model.Email.Substring(0, model.Email.IndexOf('@'));
-                }
-                else
-                {
-                    newUser.DisplayName = model.DisplayName;
-                }
 
-                Session["userid"] = newUser.Id;
-                Session["admin"] = newUser.IsAdmin;
-                newUserDAL.Register(newUser);
-            }
-            else
-            {
-                ModelState.AddModelError("email-exists", "That email address exists, please contact Admin for password reset if needed.");
-                return View("Register", model);
-            }
+            newUser.Email = model.Email;
+            newUser.UserName = model.UserName;
+            newUser.Password = model.Password;
+
+            newUserDAL.Register(newUser);
+            
             return RedirectToAction("Index", "Home");
         }
 

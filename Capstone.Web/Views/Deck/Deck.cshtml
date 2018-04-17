@@ -12,11 +12,11 @@
         <div class="col-lg-2">
             @Html.ActionLink("New Deck", "AddDeck", "Deck", null, new { @class = "list_item btn" })
         </div>
-
+        <div class="col-lg-2"></div>
         <div class="col-lg-4">
             @using (Html.BeginForm("DeckSearchByName", "Deck", FormMethod.Get))
             {
-                @Html.TextBox("SearchString")
+                @Html.TextBox("searchName")
                 <button type="submit" class="list_item btn" id="SearchName">Search Name</button>
             }
         </div>
@@ -25,7 +25,7 @@
             {
                 using (Html.BeginForm("DeckSearchByTag", "Deck", FormMethod.Get))
                 {
-                    @Html.DropDownList("SearchString", Model[0].AllTagsSelectList);
+                    @Html.DropDownList("searchTag", Model[0].AllTagsSelectList);
                     <button type="submit" class="list_item btn">Search Tag</button>
                 }
             }
@@ -34,23 +34,26 @@
 
     <div class="deck_list">
         @foreach (var deck in Model)
+    {
+        if (deck.DeckID != null)
         {
-            if (deck.DeckID != null)
-            {
-                string deckLink = "../Deck/EditDeck/" + deck.DeckID;
+            string deckLink = "../Deck/EditDeck/" + deck.DeckID;
 
-                <div class="row">
-                    <div class="col-md-2 btn"><a href="@deckLink" class="deck_name"><h3>@deck.Name</h3></a></div>
-                </div>
+            <div class="row">
+                <div class="col-md-2 btn"><a href="@deckLink" class="deck_name"><h3>@deck.Name</h3></a></div>
+            </div>
 
-                @Html.ActionLink("Study this deck", "BeginStudy", "Deck", new { deckID = deck.DeckID }, null)
-            }
-            else
-            {
-                <p>No decks found by that name.</p>
-            }
-            <hr />
-        }
+            @Html.ActionLink("Study this deck", "BeginStudy", "Deck", new { deckID = deck.DeckID }, null)
+
+            <p>@Html.ActionLink("Submit this deck for public use", "SubmitToAdmin", "Home")</p>
+    }
+    else
+    {
+        <p>No decks found by that name.</p>
+}
+
+    <hr />
+}
     </div>
 </div>
 

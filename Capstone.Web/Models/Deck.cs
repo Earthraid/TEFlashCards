@@ -89,5 +89,20 @@ namespace Capstone.Web.Models
         {
             return deckDAL.RemoveCardFromDeck(cardID, DeckID);
         }
+
+        public void AdminDeleteDeck(string DeckID)
+        {
+            deckDAL.AdminDeleteDeck(DeckID);
+        }
+
+        public void AdminDeleteTag(string TagName)
+        {
+            tagsDAL.AdminDeleteTag(TagName);
+        }
+
+        public bool MakePublic(string DeckID)
+        {
+            return deckDAL.ModifyDeckIsPublic(DeckID, true);
+        }
     }
 }
