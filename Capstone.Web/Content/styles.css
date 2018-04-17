@@ -30,6 +30,7 @@ body hr {
 }
 
 
+
 /*layout*/
 .title {
     opacity: .8;
@@ -90,6 +91,15 @@ h2.title {
     background-color: #31156f;
     color: white;
     padding: 1px 5px;
+}
+
+.checkmark {
+    font-weight: bold;
+    color: #537254;
+}
+
+.successMsg a {
+    color: black;
 }
 
 /*decks*/
@@ -275,7 +285,7 @@ h2.title {
     height: 24px;
     padding-right: 20px;
     font-size:10px;
-    color: red;
+    color: #333;
     border-radius: 50%;
     background: rgba(0,0,0,0);
 }
