@@ -212,6 +212,9 @@ namespace Capstone.Web.Controllers
 
             dDal.AddCardToDeck(cardID, deckID);
 
+            Card currentCard = cDal.GetCardByID(cardID);
+            TempData["addedCard_ID"] = cardID;
+
             return RedirectToAction("EditDeck", "Deck", new { id = deckID });
         }
     }

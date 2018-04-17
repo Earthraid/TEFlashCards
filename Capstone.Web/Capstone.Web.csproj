@@ -112,7 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\arrowbg.png" />
-    <Content Include="Content\background.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />

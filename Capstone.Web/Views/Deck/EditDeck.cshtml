@@ -13,6 +13,15 @@
 <!--Edit deck name-->
 @using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
 {
+    if (ViewBag.AddedCard != null)
+    {
+        <div class="successMsg">
+            <span class="checkmark">&#10003;</span> Your card for <b>@ViewBag.AddedCard.Front</b> was successfully added.
+            <b>@Html.ActionLink("Click here", "CardView", "Card")</b> to return to card view.
+        </div>
+
+    }
+
     <div>
         @Html.Label("Name", "Deck Name: ")
 
@@ -34,7 +43,7 @@
         {
             @Html.HiddenFor(m => Model.DeckID)
 
-            <div id="@tag" class="remove_tag">x</div>
+            <span id="@tag" class="remove_tag">x</span>
         }
     }
 
