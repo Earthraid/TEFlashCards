@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     border: 0;
-    background: url('arrowbg.png') no-repeat;
+    background: url('arrowbg.png') no-repeat center center;
     margin: 0;
     background-attachment: fixed;
     background-size: cover;
@@ -11,13 +11,6 @@ body {
 
 header {
     text-align: center;
-}
-
-.logo_photo {
-    height: 40%;
-    width: 40%;
-    margin-top: 2%;
-    margin-bottom: 2%;
 }
 
 .top {

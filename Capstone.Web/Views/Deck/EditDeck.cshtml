@@ -100,6 +100,9 @@
 </div>
 
 <!--Lists cards in deck for review or removal-->
+
+<div class="card_flex_container">
+
 @if (Model.DeckCards.Count != 0)
 {
     foreach (var card in Model.DeckCards)
@@ -127,3 +130,5 @@ else
 {
     <p>There are no cards in this deck.  Add some above.</p>
 }
+
+</div>
