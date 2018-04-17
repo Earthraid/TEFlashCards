@@ -10,9 +10,9 @@
     @using (Html.BeginForm("Register", "Home", FormMethod.Post))
     {
         <div class="formValidationGroup">
-            @Html.LabelFor(m => m.UserName)
-            @Html.TextBoxFor(m => m.UserName)
-            @Html.ValidationMessageFor(m => m.UserName)
+            @Html.LabelFor(m => m.DisplayName)
+            @Html.TextBoxFor(m => m.DisplayName, new { autofocus = "autofocus" })
+            @Html.ValidationMessageFor(m => m.DisplayName)
         </div>
 
         <div class="formValidationGroup">
