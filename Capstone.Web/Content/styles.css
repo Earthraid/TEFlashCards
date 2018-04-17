@@ -72,7 +72,7 @@ h2.title {
 }
 
 .main_body {
-    background-color: rgba(255,255,255,0.35S);
+    background-color: rgba(255,255,255,0.35);
     border-radius: 10px;
     /*border: 3px solid red;*/
     width: 90%;
@@ -152,8 +152,7 @@ h2.title {
     width: 25%;
     min-width: 350px;
     overflow: auto;
-    background: #ddd;
-    border: 1px solid #aaa;
+    background: rgba(255,255,255,0.5);
     color: black;
 }
 
@@ -161,18 +160,19 @@ h2.title {
         list-style-type: none;
     }
 
+.card_front, .card_back {
+    background: #fff;
+    margin: 10px;
+    padding: 10px;
+
+}
+
 .card_front {
     top: 0;
-    border: 1px solid #aaa;
-    background: #eee;
-    margin: 10px;
 }
 
 .card_back {
     bottom: 0;
-    border: 1px solid #aaa;
-    background: #eee;
-    margin: 10px;
 }
 
 .inactive_tag {
@@ -255,11 +255,11 @@ h2.title {
 
 .remove_tag_action {
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid #333;
     width: 24px;
     height: 24px;
     padding-right: 20px;
-    color: #ccc;
+    color: #333;
     border-radius: 50%;
     background: rgba(0,0,0,0);
 }
@@ -286,7 +286,7 @@ h2.title {
 .studyCard {
     width: 100%;
     height: 100%;
-    background: #ccc;
+    background: rgba(255,255,255,0.8);
     color: black;
     font-size: 2em;
     padding: 10px;
@@ -323,7 +323,7 @@ h2.title {
 
 .studyNav {
     background: #333;
-    color: black;
+    color: white;
     margin: 10px;
 }
 
