@@ -62,7 +62,7 @@
     }
 
 
-    <div class="addtag">add tag to deck</div>
+    <div class="addtag">Add Tag</div>
 
 
     @foreach (string tag in Model.AllTags)
@@ -79,7 +79,6 @@
 
                 <span id="@tag" class="add_tag inactive_tag">@tag</span>
 
-
             }
 
         }
@@ -87,7 +86,7 @@
     }
 
 
-    <div class="createtag">create new tag for deck</div>
+    <div class="createtag">Create Tag</div>
 
 
     <div>
@@ -111,8 +110,10 @@
 
 </div>
 
-
-
+<!--Go to list of cards to add to decks-->
+<div class="row add_cards">
+    @Html.ActionLink("Add Cards", "CardView", "Card", null, new { @class = "list_item btn" })
+</div>
 <!--Lists cards in deck for review or removal-->
 
 

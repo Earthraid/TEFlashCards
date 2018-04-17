@@ -339,16 +339,16 @@ h2.title {
     color: white;
     margin: 10px;
     text-decoration-style: none;
-    background-color: red;
+    background-color: #912424;
     color: white;
 }
 
-.studyNav:hover {
-    background-color: white;
-    color: red;
-    text-decoration-style: none;
-    border: 1px solid red;
-}
+    .studyNav:hover {
+        background-color: white;
+        color: #912424;
+        text-decoration-style: none;
+        border: 1px solid #912424;
+    }
 
 .score {
     position: absolute;
