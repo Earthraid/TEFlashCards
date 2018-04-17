@@ -20,6 +20,14 @@
 @using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
 
 {
+    if (ViewBag.AddedCard != null)
+    {
+        <div>
+            &#10003; Your card for <b>@ViewBag.AddedCard.Front</b> was successfully added.
+            @Html.ActionLink("Click here", "CardView", "Card") to return to card view.
+        </div>
+
+    }
 
     <div>
 
