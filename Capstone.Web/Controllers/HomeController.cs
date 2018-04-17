@@ -39,7 +39,7 @@ namespace Capstone.Web.Controllers
 
             if (user.Email == null || user.Password != model.Password)
             {
-                ModelState.AddModelError("invalid-credentials", "An invalid username or password was provided");
+                ModelState.AddModelError("invalid-credentials", "An invalid email or password was provided");
                 return View("Login", model);
             }
             Session["userid"] = user.Id;
@@ -74,15 +74,17 @@ namespace Capstone.Web.Controllers
             {
                 newUser.Email = model.Email;
                 newUser.Password = model.Password;
-                if (model.UserName == null)
+                if (model.DisplayName == null)
                 {
-                    newUser.UserName = model.Email.Substring(0, model.Email.IndexOf('@'));
+                    newUser.DisplayName = model.Email.Substring(0, model.Email.IndexOf('@'));
                 }
                 else
                 {
-                    newUser.UserName = model.UserName;
+                    newUser.DisplayName = model.DisplayName;
                 }
 
+                Session["userid"] = newUser.Id;
+                Session["admin"] = newUser.IsAdmin;
                 newUserDAL.Register(newUser);
             }
             else

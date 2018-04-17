@@ -89,6 +89,14 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
+            if (TempData["addedCard_ID"] != null)
+            {
+                string cardID = TempData["addedCard_ID"].ToString();
+                CardSqlDAL cDal = new CardSqlDAL(connectionString);
+                Card addedCard = cDal.GetCardByID(cardID);
+                ViewBag.AddedCard = addedCard;
+                TempData["addedCard_ID"] = null;
+            }
             Deck deck = deckDAL.GetDeckByDeckID(id.ToString());
             Session["deck_ID"] = deck.DeckID;
             return View(deck);
@@ -146,11 +154,10 @@ namespace Capstone.Web.Controllers
             //if empty input is submitted
             if (model.TagName == null)
             {
-                return View("CardModify", model);
+                return RedirectToAction("Deck/EditDeck");
             }
             //makes all tags lowercase to avoid conflicts
             model.TagName = model.TagName.ToLower();
-
             model.AddTagToDeck(model.TagName);
             return RedirectToAction(model.DeckID, "Deck/EditDeck");
         }

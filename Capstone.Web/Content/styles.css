@@ -30,6 +30,7 @@ body hr {
 }
 
 
+
 /*layout*/
 .title {
     opacity: .8;
@@ -92,6 +93,15 @@ h2.title {
     padding: 1px 5px;
 }
 
+.checkmark {
+    font-weight: bold;
+    color: #537254;
+}
+
+.successMsg a {
+    color: black;
+}
+
 /*decks*/
 .search {
     float: right;
@@ -137,6 +147,9 @@ h2.title {
     flex-wrap: wrap;
 }
 
+.editDeck_options div {
+    display: inline-block;
+}
 /*cards*/
 
 .card_flex_container {
@@ -271,6 +284,7 @@ h2.title {
     width: 24px;
     height: 24px;
     padding-right: 20px;
+    font-size:10px;
     color: #333;
     border-radius: 50%;
     background: rgba(0,0,0,0);
@@ -337,7 +351,17 @@ h2.title {
     background: #333;
     color: white;
     margin: 10px;
+    text-decoration-style: none;
+    background-color: #912424;
+    color: white;
 }
+
+    .studyNav:hover {
+        background-color: white;
+        color: #912424;
+        text-decoration-style: none;
+        border: 1px solid #912424;
+    }
 
 .score {
     position: absolute;

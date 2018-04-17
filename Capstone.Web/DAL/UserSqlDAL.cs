@@ -16,7 +16,7 @@ namespace Capstone.Web.DAL
         private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users] WHERE Email = @email;";
 
         private string registerUser = "INSERT INTO [users] (Email, Password, IsAdmin, UserName)" +
-            "VALUES (@email, @password, @isadmin, @username);";
+            "VALUES (@email, @password, @isadmin, @displayname);";
 
 
 
@@ -44,7 +44,7 @@ namespace Capstone.Web.DAL
                         result.Password = Convert.ToString(reader["Password"]).Trim();
                         result.Id = Convert.ToInt32(reader["UserId"]);
                         result.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
-                        result.UserName = Convert.ToString(reader["UserName"]).Trim();
+                        result.DisplayName = Convert.ToString(reader["UserName"]).Trim();
                     }
                     return result;
                 }
@@ -68,7 +68,7 @@ namespace Capstone.Web.DAL
                     cmd.Parameters.AddWithValue("@email", user.Email);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@isadmin", user.IsAdmin);
-                    cmd.Parameters.AddWithValue("@username", user.UserName);
+                    cmd.Parameters.AddWithValue("@displayname", user.DisplayName);
 
                     result = cmd.ExecuteNonQuery();
                 }
@@ -90,7 +90,7 @@ namespace Capstone.Web.DAL
             user.Email = Convert.ToString(reader["Email"]);
             user.Password = Convert.ToString(reader["Password"]);
             user.IsAdmin = Convert.ToBoolean(reader["IsAdmin"]);
-            user.UserName = Convert.ToString(reader["UserName"]);
+            user.DisplayName = Convert.ToString(reader["UserName"]);
 
             return user;
         }

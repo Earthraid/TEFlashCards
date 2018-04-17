@@ -74,7 +74,7 @@ namespace Capstone.Web.Controllers
             }
         }
 
-        //view all cards
+        //view all user cards
         public ActionResult CardView()
         {
             if (Session["userid"] == null)
@@ -84,9 +84,20 @@ namespace Capstone.Web.Controllers
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
-            //List<Card> allCardswithAdmin = cDal.ViewCardsWithAdminCards(Session["userid"].ToString());
-
             return View("CardView", allCards);
+        }
+
+        //view all user cards
+        public ActionResult CardViewWithAdmin()
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            List<Card> allCardsWithAdmin = cDal.ViewCardsWithAdminCards(Session["userid"].ToString());
+
+            return View("CardView", allCardsWithAdmin);
         }
 
         //modify cards
@@ -199,6 +210,9 @@ namespace Capstone.Web.Controllers
             }
 
             dDal.AddCardToDeck(cardID, deckID);
+
+            Card currentCard = cDal.GetCardByID(cardID);
+            TempData["addedCard_ID"] = cardID;
 
             return RedirectToAction("EditDeck", "Deck", new { id = deckID });
         }

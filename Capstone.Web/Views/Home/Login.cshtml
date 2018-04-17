@@ -12,7 +12,7 @@
     @Html.ValidationMessage("invalid-credentials")
     <div class="formValidationGroup">
         @Html.LabelFor(m => m.Email)
-        @Html.EditorFor(m => m.Email)
+        @Html.EditorFor(m => m.Email, new { htmlAttributes = new { autofocus = "autofocus" } })
     </div>
 
     <div class="formValidationGroup">
