@@ -24,6 +24,10 @@ namespace Capstone.Web.DAL
             "JOIN deck_tag ON decks.DeckID = deck_tag.DeckID " +
             "WHERE decks.UserID = @userIDValue and deck_tag.TagID = @tagValue ORDER BY decks.DeckID ASC";
 
+        private string GetDecksByCardSQL = "SELECT * FROM decks " +
+            "JOIN card_deck ON decks.DeckID = card_deck.DeckID " +
+            "WHERE decks.UserID = @userIDValue and card_deck.CardID = @cardIDValue ORDER BY decks.DeckID ASC";
+
         private string AddDeckSQL = "INSERT INTO decks (UserID, Name) VALUES (@userIDValue, @nameValue); SELECT CAST(SCOPE_IDENTITY() as int);";
 
         private string ModifyDeckNameSQL = "UPDATE decks SET Name = @nameValue WHERE DeckID = @deckIDValue;";
@@ -114,6 +118,24 @@ namespace Capstone.Web.DAL
                     conn.Open();
 
                     var result = conn.Query<Deck>(GetDecksByTagSQL, new { userIDValue = userID, tagValue = searchName });
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public List<Deck> GetDecksByCardID(string userID, string cardID)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Query<Deck>(GetDecksByCardSQL, new { userIDValue = userID, cardIDValue = cardID });
                     return result.ToList();
                 }
             }

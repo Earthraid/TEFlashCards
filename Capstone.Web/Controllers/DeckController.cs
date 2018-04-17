@@ -28,7 +28,7 @@ namespace Capstone.Web.Controllers
         }
 
         //Search for decks by name
-        public ActionResult DeckSearchByName(string searchString)
+        public ActionResult DeckSearchByName(string searchName)
         {
             string user_id;
 
@@ -41,7 +41,7 @@ namespace Capstone.Web.Controllers
                 user_id = Session["userid"].ToString();
             }
 
-            List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchString);
+            List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchName);
 
             if (decks.Count == 0)
             {
@@ -56,7 +56,7 @@ namespace Capstone.Web.Controllers
         }
 
         //Search for decks by tag
-        public ActionResult DeckSearchByTag(string searchString)
+        public ActionResult DeckSearchByTag(string searchTag)
         {
             string user_id;
             if (Session["userid"] == null)
@@ -67,7 +67,7 @@ namespace Capstone.Web.Controllers
             {
                 user_id = Session["userid"].ToString();
             }
-            List<Deck> decks = deckDAL.SearchDecksByTag(user_id, searchString);
+            List<Deck> decks = deckDAL.SearchDecksByTag(user_id, searchTag);
 
             if (decks.Count == 0)
             {
