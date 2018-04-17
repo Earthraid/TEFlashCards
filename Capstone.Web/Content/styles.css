@@ -271,7 +271,8 @@ h2.title {
     width: 24px;
     height: 24px;
     padding-right: 20px;
-    color: #333;
+    font-size:10px;
+    color: red;
     border-radius: 50%;
     background: rgba(0,0,0,0);
 }
@@ -337,6 +338,16 @@ h2.title {
     background: #333;
     color: white;
     margin: 10px;
+    text-decoration-style: none;
+    background-color: red;
+    color: white;
+}
+
+.studyNav:hover {
+    background-color: white;
+    color: red;
+    text-decoration-style: none;
+    border: 1px solid red;
 }
 
 .score {
