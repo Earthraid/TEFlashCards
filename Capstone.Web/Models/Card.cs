@@ -45,7 +45,7 @@ namespace Capstone.Web.Models
         /// <summary>
         /// Adds a Tag to an individual card in a current instance.
         /// </summary>
-        /// <param name="tagName"></param>
+        // <param name="tagName"></param>
         public void AddTagToCard(string tagName)
         {
             TagsSqlDAL tagsSql = new TagsSqlDAL(connectionString);
