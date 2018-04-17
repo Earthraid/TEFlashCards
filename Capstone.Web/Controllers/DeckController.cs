@@ -15,13 +15,13 @@ namespace Capstone.Web.Controllers
         private DeckSqlDAL deckDAL = new DeckSqlDAL(ConfigurationManager.ConnectionStrings["HotelFlashCardsDB"].ConnectionString);
 
         // GET: Deck
-        public ActionResult Index()
+        public ActionResult Index(string user_id)
         {
             if (Session["userid"] == null)
             {
                 return RedirectToAction("Login", "Home");
             }
-            string user_id = Session["userid"].ToString();
+            user_id = Session["userid"].ToString();
             List<Deck> decks = deckDAL.GetDecks(user_id);
 
             return View("Deck", decks);

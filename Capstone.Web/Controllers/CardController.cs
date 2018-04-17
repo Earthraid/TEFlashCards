@@ -53,19 +53,6 @@ namespace Capstone.Web.Controllers
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
             return View("CardView", allCards);
-
-            //if (!string.IsNullOrEmpty(newCard.TempDeckNum))
-            //{
-            //    cDal.CreateCard(newCard, user_id);
-            //    List<Card> cardsInDeck = cDal.ViewCardsInDeck(newCard.TempDeckNum);
-            //    return RedirectToAction("Index", "Deck");
-            //}
-            //else
-            //{
-            //    cDal.CreateCard(newCard, user_id);
-            //    List<Card> allCards = cDal.ViewCards(Session["user_id"].ToString());
-            //    return View("CardView", allCards);
-            //}
         }
 
         //search cards by tag
