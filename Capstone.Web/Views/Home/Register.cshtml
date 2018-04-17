@@ -11,7 +11,7 @@
     {
         <div class="formValidationGroup">
             @Html.LabelFor(m => m.DisplayName)
-            @Html.TextBoxFor(m => m.DisplayName)
+            @Html.TextBoxFor(m => m.DisplayName, new { autofocus = "autofocus" })
             @Html.ValidationMessageFor(m => m.DisplayName)
         </div>
 
