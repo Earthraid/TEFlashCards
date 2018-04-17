@@ -3,14 +3,26 @@
 @{
     ViewBag.Title = "SelectDeck";
 }
+@*@ViewBag.CurCard.DecksHaveThisCard*@
 
 <h2 class="title">Add card to deck</h2>
 
 @{
+<h2>Available to Add to:</h2>
     foreach (Deck thisDeck in Model)
     {
         <p>
             @Html.ActionLink(thisDeck.Name, "AddCardToDeck", "Card", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID }, null)
+        </p>
+    }
+}
+
+@{
+    <h2>Decks Where Card Already Exists:</h2>
+    foreach (Deck thisDeck in ViewBag.CurCard.DecksHaveThisCard)
+    {
+        <p>
+            @Html.Label(thisDeck.Name)
         </p>
     }
 }

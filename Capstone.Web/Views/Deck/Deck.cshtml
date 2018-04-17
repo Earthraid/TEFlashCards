@@ -16,7 +16,7 @@
         <div class="col-lg-4">
             @using (Html.BeginForm("DeckSearchByName", "Deck", FormMethod.Get))
             {
-                @Html.TextBox("SearchString")
+                @Html.TextBox("searchName")
                 <button type="submit" class="list_item btn" id="SearchName">Search Name</button>
             }
         </div>
@@ -25,7 +25,7 @@
             {
                 using (Html.BeginForm("DeckSearchByTag", "Deck", FormMethod.Get))
                 {
-                    @Html.DropDownList("SearchString", Model[0].AllTagsSelectList);
+                    @Html.DropDownList("searchTag", Model[0].AllTagsSelectList);
                     <button type="submit" class="list_item btn">Search Tag</button>
                 }
             }

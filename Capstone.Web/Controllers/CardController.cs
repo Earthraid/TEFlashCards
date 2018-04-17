@@ -195,6 +195,7 @@ namespace Capstone.Web.Controllers
             }
 
             ViewBag.CardID = cardID;
+            ViewBag.CurCard = cDal.GetCardByID(cardID);
 
             string userID = Session["userid"].ToString();
             List<Deck> allDecks = dDal.GetDecks(userID);
