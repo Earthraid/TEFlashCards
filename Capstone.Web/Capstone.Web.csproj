@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\arrowbg.png" />
     <Content Include="Content\background.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -118,7 +119,6 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Diner.jpg" />
     <Content Include="Content\FlashCard2.png" />
     <Content Include="Content\styles.css" />
     <Content Include="Global.asax" />

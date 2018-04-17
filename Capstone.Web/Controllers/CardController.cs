@@ -84,6 +84,8 @@ namespace Capstone.Web.Controllers
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
+            //List<Card> allCardswithAdmin = cDal.ViewCardsWithAdminCards(Session["userid"].ToString());
+
             return View("CardView", allCards);
         }
 
@@ -146,13 +148,6 @@ namespace Capstone.Web.Controllers
             //makes all tags lowercase to avoid conflicts
             model.TagName = model.TagName.ToLower();
 
-            foreach (string tag in model.AllTags)
-            {
-                if (tag == model.TagName)
-                {
-                    return RedirectToAction(model.CardID, "Card/CardModify");
-                }
-            }
             model.AddTagToCard(model.TagName);
             return RedirectToAction(model.CardID, "Card/CardModify");
         }
@@ -174,6 +169,8 @@ namespace Capstone.Web.Controllers
             cDal.EditCard(currentCard);
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
+
+            //List<Card> allCardswithAdmin = cDal.ViewCardsWithAdminCards(Session["userid"].ToString());
 
             return RedirectToAction(currentCard.CardID, "Card/CardModify");
         }
