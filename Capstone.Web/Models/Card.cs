@@ -15,7 +15,10 @@ namespace Capstone.Web.Models
         public string Front { get; set; }
         public string Back { get; set; }
         public string UserID { get; set; }
+        public string TempDeckNum { get; set; }
+
         public string TagName { get; set; }
+
         /// <summary>
         /// Returns a list of all available Tags.
         /// </summary>
@@ -56,7 +59,7 @@ namespace Capstone.Web.Models
         /// <summary>
         /// Adds a Tag to an individual card in a current instance.
         /// </summary>
-        /// <param name="tagName"></param>
+        // <param name="tagName"></param>
         public void AddTagToCard(string tagName)
         {
             TagsSqlDAL tagsSql = new TagsSqlDAL(connectionString);
@@ -68,5 +71,6 @@ namespace Capstone.Web.Models
             TagsSqlDAL tagsSql = new TagsSqlDAL(connectionString);
             tagsSql.RemoveTagFromCard(CardID, tagName);
         }
+
     }
 }

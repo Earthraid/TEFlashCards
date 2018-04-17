@@ -12,7 +12,14 @@
     foreach (Deck thisDeck in Model)
     {
         <p>
-            @Html.ActionLink(thisDeck.Name, "AddCardToDeck", "Card", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID }, null)
+            @*@if()
+            {
+
+            }
+            else
+            {*@
+                Html.ActionLink(thisDeck.Name, "AddCardToDeck", "Card", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID }, null);
+                    @*}*@
         </p>
     }
 }

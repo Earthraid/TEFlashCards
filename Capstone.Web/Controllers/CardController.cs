@@ -176,7 +176,7 @@ namespace Capstone.Web.Controllers
             currentCard.Front = front;
             currentCard.Back = back;
             currentCard.ThisCardTags = tags;
- 
+
             cDal.EditCard(currentCard);
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());

@@ -18,7 +18,7 @@ namespace Capstone.Web.DAL
         private string registerUser = "INSERT INTO [users] (Email, Password, IsAdmin, UserName)" +
             "VALUES (@email, @password, @isadmin, @displayname);";
 
-        
+
 
         public UserSqlDAL(string connectionString)
         {
@@ -81,7 +81,7 @@ namespace Capstone.Web.DAL
             return (result > 0);
         }
 
-        
+
 
         private User ConvertFields(SqlDataReader reader)
         {
