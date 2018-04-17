@@ -47,7 +47,12 @@
         }
     }
 
+<<<<<<< HEAD
+
+    <div class="addtag">Add Tag</div>
+=======
     <div class="addtag">add tag to deck</div>
+>>>>>>> 092e7931dbd3da58e5c0cf3ccd9d3b427b921a76
 
     @foreach (string tag in Model.AllTags)
     {
@@ -56,11 +61,20 @@
             using (Html.BeginForm("AddDeckTag", "Deck", new { tagName = tag, deckID = Model.DeckID }, FormMethod.Post, new { @class = "add_tag_action" }))
             {
                 <span id="@tag" class="add_tag inactive_tag">@tag</span>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 092e7931dbd3da58e5c0cf3ccd9d3b427b921a76
             }
         }
     }
 
+<<<<<<< HEAD
+
+    <div class="createtag">Create Tag</div>
+=======
     <div class="createtag">create new tag for deck</div>
+>>>>>>> 092e7931dbd3da58e5c0cf3ccd9d3b427b921a76
 
     <div>
         @using (Html.BeginForm("CreateDeckTag", "Deck", FormMethod.Post))
@@ -74,6 +88,13 @@
     </div>
 </div>
 
+<<<<<<< HEAD
+<!--Go to list of cards to add to decks-->
+<div class="row add_cards">
+    @Html.ActionLink("Add Cards", "CardView", "Card", null, new { @class = "list_item btn" })
+</div>
+=======
+>>>>>>> 092e7931dbd3da58e5c0cf3ccd9d3b427b921a76
 <!--Lists cards in deck for review or removal-->
 @if (Model.DeckCards.Count != 0)
 {
