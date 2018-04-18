@@ -215,6 +215,7 @@
     <Content Include="Views\Home\Logout.cshtml" />
     <Content Include="Views\Card\CardToDeck.cshtml" />
     <Content Include="Views\Card\CardModifyExpanded.cshtml" />
+    <Content Include="Views\Deck\EditDeckExpanded.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

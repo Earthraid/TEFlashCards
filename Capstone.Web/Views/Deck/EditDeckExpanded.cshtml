@@ -43,7 +43,7 @@
     {
         <span class="added_tag">@tag</span>
 
-        using (Html.BeginForm("RemoveDeckTag", "Deck", new { deckID = Model.DeckID, tagName = tag, expanded = false }, FormMethod.Post, new { @class = "remove_tag_action" }))
+        using (Html.BeginForm("RemoveDeckTag", "Deck", new { deckID = Model.DeckID, tagName = tag, expanded = true }, FormMethod.Post, new { @class = "remove_tag_action" }))
         {
             @Html.HiddenFor(m => Model.DeckID)
 
@@ -53,36 +53,17 @@
 
     <h6 class="addtag bold_heading">Choose tags to add to your deck:</h6>
 
-    @if (Model.AllTags.Count > 30)
+    @foreach (string tag in Model.AllTags)
     {
-        <div class="tag_section limited_tags">
-            @for (int i = 0; i < 30; i++)
-            {
-                string tag = Model.AllTags[i];
-                if (!Model.ThisDeckTags.Contains(tag))
-                {
-                    using (Html.BeginForm("AddDeckTag", "Deck", new { deckID = Model.DeckID, tagName = tag, expanded = false }, FormMethod.Post, new { @class = "add_tag_action" }))
-                    {
-                        <span id="@tag" class="add_tag inactive_tag">@tag</span>
-                    }
-                }
-            }
-            @Html.ActionLink("See all", "TagExpand", "Deck", new { id = Model.DeckID }, null)
-        </div>
-    }
-    else
-    {
-        foreach (string tag in Model.AllTags)
+        if (!Model.ThisDeckTags.Contains(tag))
         {
-            if (!Model.ThisDeckTags.Contains(tag))
+            using (Html.BeginForm("AddDeckTag", "Deck", new { deckID = Model.DeckID, tagName = tag, expanded = true }, FormMethod.Post, new { @class = "add_tag_action" }))
             {
-                using (Html.BeginForm("AddDeckTag", "Deck", new { deckID = Model.DeckID, tagName = tag, expanded = false }, FormMethod.Post, new { @class = "add_tag_action" }))
-                {
-                    <span id="@tag" class="add_tag inactive_tag">@tag</span>
-                }
+                <span id="@tag" class="add_tag inactive_tag">@tag</span>
             }
         }
     }
+    @Html.ActionLink("See less", "TagCollapse", "Deck", new { id = Model.DeckID }, null)
 
 
     <h6 class="createtag bold_heading">create new tag for deck</h6>
