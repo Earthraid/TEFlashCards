@@ -39,11 +39,15 @@
             {
                 string deckLink = "../Deck/EditDeck/" + deck.DeckID;
 
-                <div class="row">
-                    <div class="col-md-2 btn"><a href="@deckLink" class="deck_name"><h3>@deck.Name</h3></a></div>
-                </div>
+                <a href="@deckLink" class="deck_name">
+                    <h6 class="bold_heading">@deck.Name</h6>
+                    <p>View or edit</p>
+                </a>
 
-                @Html.ActionLink("Study this deck", "BeginStudy", "Deck", new { deckID = deck.DeckID }, null)
+                if (deck.DeckCards.Count > 0)
+                {
+                    @Html.ActionLink("Study this deck", "BeginStudy", "Deck", new { deckID = deck.DeckID }, null)
+                }
             }
             else
             {

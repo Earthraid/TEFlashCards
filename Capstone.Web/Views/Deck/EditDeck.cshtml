@@ -100,30 +100,36 @@
 </div>
 
 <!--Lists cards in deck for review or removal-->
+
+
+<h6 class="bold_heading">Cards in this deck:</h6>
 @if (Model.DeckCards.Count != 0)
 {
-    foreach (var card in Model.DeckCards)
-    {
-        <div class="card_bothsides">
+    <div class="card_flex_container">
+        @foreach (var card in Model.DeckCards)
+        {
+            <div class="card_bothsides">
 
-            <div class="card_front">@card.Front</div>
+                <div class="card_front">@card.Front</div>
 
-            <div class="card_back">@card.Back</div>
+                <div class="card_back">@card.Back</div>
 
-            <ul class="card_options">
-                <li>
-                    @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
-                </li>
-                <li>
-                    @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = card.CardID }, null)
-                </li>
-            </ul>
-
-        </div>
-    }
-
+                <ul class="card_options">
+                    <li>
+                        @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
+                    </li>
+                    <li>
+                        @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = card.CardID }, null)
+                    </li>
+                </ul>
+            </div>
+        }
+    </div>
 }
 else
 {
-    <p>There are no cards in this deck.  Add some above.</p>
+    <p>There are no cards in this deck. @Html.ActionLink("Add some here", "CardView", "Card")</p>
 }
+
+
+
