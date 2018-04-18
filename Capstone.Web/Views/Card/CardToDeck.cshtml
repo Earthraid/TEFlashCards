@@ -5,31 +5,11 @@
 }
 @*@ViewBag.CurCard.DecksHaveThisCard*@
 
-<h2 class="title">Available to Add to:</h2>
-
-@{
-<h2>Available to Add to:</h2>
+@{<h2 class="title">Available to Add to:</h2>
     foreach (Deck thisDeck in Model)
     {
         <p>
-            @*@if()
-            {
-
-            }
-            else
-            {*@
-                Html.ActionLink(thisDeck.Name, "AddCardToDeck", "Card", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID }, null);
-                    @*}*@
-        </p>
-    }
-}
-
-@{
-    <h2>Decks Where Card Already Exists:</h2>
-    foreach (Deck thisDeck in ViewBag.CurCard.DecksHaveThisCard)
-    {
-        <p>
-            @Html.Label(thisDeck.Name)
+            @Html.ActionLink(thisDeck.Name, "AddCardToDeck", "Card", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID }, null);
         </p>
     }
 }
@@ -38,6 +18,8 @@
     <h2 class="title">Decks Where Card Already Exists:</h2>
     foreach (Deck thisDeck in ViewBag.CurCard.DecksHaveThisCard)
     {
-        <p>@Html.Label(thisDeck.Name)</p>
+        <p>
+            @Html.Label(thisDeck.Name)
+        </p>
     }
 }
