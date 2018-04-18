@@ -14,7 +14,7 @@ namespace Capstone.Web.DAL
         TagsSqlDAL tagsDAL;
         CardSqlDAL cardDAL;
 
-        private string GetAllDecksSQL = "SELECT * FROM decks WHERE UserID = @userIDValue ORDER BY DeckID ASC";
+        private string GetAllDecksByUserIDSQL = "SELECT * FROM decks WHERE UserID = @userIDValue ORDER BY DeckID ASC";
 
         private string GetDeckByDeckIDSQL = "SELECT * FROM decks WHERE DeckID = @deckIDValue ORDER BY DeckID ASC";
 
@@ -45,7 +45,7 @@ namespace Capstone.Web.DAL
             cardDAL = new CardSqlDAL(connectionString);
         }
 
-        public List<Deck> GetDecks(string userID)
+        public List<Deck> GetDecksByUserID(string userID)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
 
-                    var result = conn.Query<Deck>(GetAllDecksSQL, new { userIDValue = userID });
+                    var result = conn.Query<Deck>(GetAllDecksByUserIDSQL, new { userIDValue = userID });
                     return result.ToList();
                 }
             }

@@ -5,7 +5,7 @@
 }
 @*@ViewBag.CurCard.DecksHaveThisCard*@
 
-<h2 class="title">Add card to deck</h2>
+<h2 class="title">Available to Add to:</h2>
 
 @{
 <h2>Available to Add to:</h2>
@@ -31,5 +31,13 @@
         <p>
             @Html.Label(thisDeck.Name)
         </p>
+    }
+}
+
+@{
+    <h2 class="title">Decks Where Card Already Exists:</h2>
+    foreach (Deck thisDeck in ViewBag.CurCard.DecksHaveThisCard)
+    {
+        <p>@Html.Label(thisDeck.Name)</p>
     }
 }

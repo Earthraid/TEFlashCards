@@ -16,6 +16,7 @@ namespace Capstone.Web.Models
         public string Back { get; set; }
         public string UserID { get; set; }
         public string TagName { get; set; }
+
         /// <summary>
         /// Returns a list of all available Tags.
         /// </summary>
@@ -39,7 +40,16 @@ namespace Capstone.Web.Models
                 return tagSql.GetTagsByCardID(CardID);
             }
             set { }
-            
+
+        }
+
+        public List<Deck> DecksHaveThisCard
+        {
+            get
+            {
+                DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+                return deckSql.GetDecksByCardID(UserID, CardID);
+            }
         }
 
         
