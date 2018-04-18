@@ -3,13 +3,12 @@
 @{
     ViewBag.Title = "SelectDeck";
 }
-@*@ViewBag.CurCard.DecksHaveThisCard*@
 
 @{<h2 class="title">Available to Add to:</h2>
-    foreach (Deck thisDeck in Model)
+    foreach (Deck thisDeck in ViewBag.CurCard.AvailableDecksToAddThisCard)
     {
         <p>
-            @Html.ActionLink(thisDeck.Name, "AddCardToDeck", "Card", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID }, null);
+            @Html.ActionLink(thisDeck.Name, "AddCardToDeck", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID });
         </p>
     }
 }

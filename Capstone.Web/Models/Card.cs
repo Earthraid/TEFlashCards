@@ -52,6 +52,15 @@ namespace Capstone.Web.Models
             }
         }
 
+        public List<Deck> AvailableDecksToAddThisCard
+        {
+            get
+            {
+                DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+                return deckSql.GetAvailableDecksToAddCard(UserID, CardID);
+            }
+        }
+
         /// <summary>
         /// Adds a Tag to an individual card in a current instance.
         /// </summary>
