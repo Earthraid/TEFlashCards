@@ -132,8 +132,7 @@ namespace Capstone.Web.DAL
             }
         }
 
-<<<<<<< HEAD
-=======
+
         public List<Deck> GetDecksByCardID(string userID, string cardID)
         {
             try
@@ -177,7 +176,6 @@ namespace Capstone.Web.DAL
             }
         }
 
->>>>>>> fbda46d6b736b2d474e7fe79891e7b9a50f62a7a
         public string AddDeck(string userID, string deckName)
         {
             string newDeckID = "";
