@@ -242,7 +242,7 @@ namespace Capstone.Web.Controllers
             ViewBag.CardID = cardID;
 
             string userID = Session["userid"].ToString();
-            List<Deck> allDecks = dDal.GetDecks(userID);
+            List<Deck> allDecks = dDal.GetDecksByUserID(userID);
 
             return View("CardToDeck", allDecks);
         }

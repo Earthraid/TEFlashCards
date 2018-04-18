@@ -22,7 +22,7 @@ namespace Capstone.Web.Controllers
                 return RedirectToAction("Login", "Home");
             }
             string user_id = Session["userid"].ToString();
-            List<Deck> decks = deckDAL.GetDecks(user_id);
+            List<Deck> decks = deckDAL.GetDecksByUserID(user_id);
 
             return View("Deck", decks);
         }
@@ -246,7 +246,7 @@ namespace Capstone.Web.Controllers
             {
                 deckDAL.AddDeck(user_id, model.Name);
             }
-            List<Deck> decks = deckDAL.GetDecks(user_id);
+            List<Deck> decks = deckDAL.GetDecksByUserID(user_id);
             return RedirectToAction("Index");
         }
 

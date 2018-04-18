@@ -39,7 +39,25 @@ namespace Capstone.Web.Models
                 return tagSql.GetTagsByCardID(CardID);
             }
             set { }
-            
+
+        }
+
+        public List<Deck> DecksHaveThisCard
+        {
+            get
+            {
+                DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+                return deckSql.GetDecksByCardID(UserID, CardID);
+            }
+        }
+
+        public List<Deck> AvailableDecksToAddThisCard
+        {
+            get
+            {
+                DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+                return deckSql.GetAvailableDecksToAddCard(UserID, CardID);
+            }
         }
 
         /// <summary>

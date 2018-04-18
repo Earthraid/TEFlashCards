@@ -14,7 +14,7 @@ namespace Capstone.Web.DAL
         TagsSqlDAL tagsDAL;
         CardSqlDAL cardDAL;
 
-        private string GetAllDecksSQL = "SELECT * FROM decks WHERE UserID = @userIDValue ORDER BY DeckID ASC";
+        private string GetAllDecksByUserIDSQL = "SELECT * FROM decks WHERE UserID = @userIDValue ORDER BY DeckID ASC";
 
         private string GetDeckByDeckIDSQL = "SELECT * FROM decks WHERE DeckID = @deckIDValue ORDER BY DeckID ASC";
 
@@ -23,6 +23,15 @@ namespace Capstone.Web.DAL
         private string GetDecksByTagSQL = "SELECT * FROM decks " +
             "JOIN deck_tag ON decks.DeckID = deck_tag.DeckID " +
             "WHERE decks.UserID = @userIDValue and deck_tag.TagID = @tagValue ORDER BY decks.DeckID ASC";
+
+        private string GetDecksByCardSQL = "SELECT * FROM decks " +
+            "JOIN card_deck ON decks.DeckID = card_deck.DeckID " +
+            "WHERE decks.UserID = @userIDValue and card_deck.CardID = @cardIDValue ORDER BY decks.DeckID ASC";
+
+        private string GetAvailableDecksToAddCardSQL = "SELECT distinct card_deck.DeckID FROM card_deck " +
+            "JOIN decks ON decks.DeckID = card_deck.DeckID " +
+            "WHERE UserID = @userIDValue and " +
+            "NOT card_deck.DeckID = ANY(SELECT Distinct DeckID FROM card_deck WHERE CardID = @cardIDValue);";
 
         private string AddDeckSQL = "INSERT INTO decks (UserID, Name) VALUES (@userIDValue, @nameValue); SELECT CAST(SCOPE_IDENTITY() as int);";
 
@@ -41,7 +50,7 @@ namespace Capstone.Web.DAL
             cardDAL = new CardSqlDAL(connectionString);
         }
 
-        public List<Deck> GetDecks(string userID)
+        public List<Deck> GetDecksByUserID(string userID)
         {
             try
             {
@@ -49,7 +58,7 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
 
-                    var result = conn.Query<Deck>(GetAllDecksSQL, new { userIDValue = userID });
+                    var result = conn.Query<Deck>(GetAllDecksByUserIDSQL, new { userIDValue = userID });
                     return result.ToList();
                 }
             }
@@ -123,6 +132,52 @@ namespace Capstone.Web.DAL
             }
         }
 
+<<<<<<< HEAD
+=======
+        public List<Deck> GetDecksByCardID(string userID, string cardID)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Query<Deck>(GetDecksByCardSQL, new { userIDValue = userID, cardIDValue = cardID });
+                    return result.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public List<Deck> GetAvailableDecksToAddCard(string userID, string cardID)
+        {
+            List<string> AvailableDeckID = new List<string>();
+            List<Deck> resultList = new List<Deck>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Query<string>(GetAvailableDecksToAddCardSQL, new { userIDValue = userID, cardIDValue = cardID });
+                    AvailableDeckID = result.ToList();
+                }
+                foreach (string deckID in AvailableDeckID)
+                {
+                    resultList.Add(GetDeckByDeckID(deckID));
+                }
+                return resultList;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+>>>>>>> fbda46d6b736b2d474e7fe79891e7b9a50f62a7a
         public string AddDeck(string userID, string deckName)
         {
             string newDeckID = "";
