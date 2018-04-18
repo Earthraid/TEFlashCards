@@ -96,10 +96,10 @@ namespace Capstone.Web.Models
             return deckDAL.RemoveCardFromDeck(cardID, DeckID);
         }
 
-        public void AdminDeleteDeck(string DeckID)
-        {
-            deckDAL.AdminDeleteDeck(DeckID);
-        }
+        //public void AdminDeleteDeck(string DeckID)
+        //{
+        //    deckDAL.AdminDeleteDeck(DeckID);
+        //}
 
         public void AdminDeleteTag(string TagName)
         {
