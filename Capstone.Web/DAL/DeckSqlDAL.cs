@@ -14,7 +14,7 @@ namespace Capstone.Web.DAL
         TagsSqlDAL tagsDAL;
         CardSqlDAL cardDAL;
 
-        private string GetAllDecksSQL = "SELECT * FROM decks WHERE UserID = @userIDValue ORDER BY DeckID ASC";
+        private string GetAllDecksByUserIDSQL = "SELECT * FROM decks WHERE UserID = @userIDValue ORDER BY DeckID ASC";
 
         private string GetDeckByDeckIDSQL = "SELECT * FROM decks WHERE DeckID = @deckIDValue ORDER BY DeckID ASC";
 
@@ -28,6 +28,11 @@ namespace Capstone.Web.DAL
             "JOIN card_deck ON decks.DeckID = card_deck.DeckID " +
             "WHERE decks.UserID = @userIDValue and card_deck.CardID = @cardIDValue ORDER BY decks.DeckID ASC";
 
+        private string GetAvailableDecksToAddCardSQL = "SELECT distinct card_deck.DeckID FROM card_deck " +
+            "JOIN decks ON decks.DeckID = card_deck.DeckID " +
+            "WHERE UserID = @userIDValue and " +
+            "NOT card_deck.DeckID = ANY(SELECT Distinct DeckID FROM card_deck WHERE CardID = @cardIDValue);";
+
         private string AddDeckSQL = "INSERT INTO decks (UserID, Name) VALUES (@userIDValue, @nameValue); SELECT CAST(SCOPE_IDENTITY() as int);";
 
         private string ModifyDeckNameSQL = "UPDATE decks SET Name = @nameValue WHERE DeckID = @deckIDValue;";
@@ -38,10 +43,6 @@ namespace Capstone.Web.DAL
 
         private string RemoveCardFromDeckSQL = "DELETE FROM card_deck WHERE CardID = @cardIDValue AND DeckID = @deckIDValue;";
 
-        private string AdminGetAllDecksSQL = "SELECT * from decks";
-
-        private string AdminDeleteDeckSQL = "DELETE FROM deck WHERE deckID = @deckIDValue;";
-
         public DeckSqlDAL(string connectionString)
         {
             this.connectionString = connectionString;
@@ -49,7 +50,7 @@ namespace Capstone.Web.DAL
             cardDAL = new CardSqlDAL(connectionString);
         }
 
-        public List<Deck> GetDecks(string userID)
+        public List<Deck> GetDecksByUserID(string userID)
         {
             try
             {
@@ -57,7 +58,7 @@ namespace Capstone.Web.DAL
                 {
                     conn.Open();
 
-                    var result = conn.Query<Deck>(GetAllDecksSQL, new { userIDValue = userID });
+                    var result = conn.Query<Deck>(GetAllDecksByUserIDSQL, new { userIDValue = userID });
                     return result.ToList();
                 }
             }
@@ -149,6 +150,31 @@ namespace Capstone.Web.DAL
             }
         }
 
+        public List<Deck> GetAvailableDecksToAddCard(string userID, string cardID)
+        {
+            List<string> AvailableDeckID = new List<string>();
+            List<Deck> resultList = new List<Deck>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    var result = conn.Query<string>(GetAvailableDecksToAddCardSQL, new { userIDValue = userID, cardIDValue = cardID });
+                    AvailableDeckID = result.ToList();
+                }
+                foreach (string deckID in AvailableDeckID)
+                {
+                    resultList.Add(GetDeckByDeckID(deckID));
+                }
+                return resultList;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public string AddDeck(string userID, string deckName)
         {
             string newDeckID = "";
@@ -200,7 +226,6 @@ namespace Capstone.Web.DAL
 
         public bool ModifyDeckIsPublic(string deckID, bool isPublic)
         {
-            bool success = false;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -210,9 +235,9 @@ namespace Capstone.Web.DAL
                     var result = conn.Execute(ModifyDeckPublicSQL, new { deckIDValue = deckID, publicValue = isPublic });
                     if (result == 1)
                     {
-                        success = true;
+                        return true;
                     }
-                    return success;
+                    else return false;
                 }
             }
             catch (Exception ex)
@@ -253,47 +278,6 @@ namespace Capstone.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     var result = conn.Execute(RemoveCardFromDeckSQL, new { cardIDValue = cardID, deckIDValue = deckID });
-                    if (result == 1)
-                    {
-                        success = true;
-                    }
-                    return success;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-        }
-
-        public List<Deck> AdminGetAllDecks()
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-
-                    var result = conn.Query<Deck>(AdminGetAllDecksSQL);
-                    return result.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
-
-        public bool AdminDeleteDeck(string deckID)
-        {
-            bool success = false;
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    var result = conn.Execute(AdminDeleteDeckSQL, new { deckIDValue = deckID });
                     if (result == 1)
                     {
                         success = true;

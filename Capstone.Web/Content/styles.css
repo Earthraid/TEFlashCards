@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
     border: 0;
-    background: url('arrowbg.png') no-repeat;
+    background: url('arrowbg.png') no-repeat center center;
     margin: 0;
     background-attachment: fixed;
     background-size: cover;
@@ -11,13 +11,6 @@ body {
 
 header {
     text-align: center;
-}
-
-.logo_photo {
-    height: 40%;
-    width: 40%;
-    margin-top: 2%;
-    margin-bottom: 2%;
 }
 
 .top {
@@ -29,7 +22,9 @@ body hr {
     background: black;
 }
 
-
+.hiddenSide, .hiddenNav {
+    display: none;
+}
 
 /*layout*/
 .title {
@@ -75,7 +70,6 @@ h2.title {
 .main_body {
     background-color: rgba(255,255,255,0.3);
     border-radius: 5px;
-    /*border: 3px solid red;*/
     width: 90%;
     margin: auto;
     margin-top: 2%;
@@ -91,6 +85,7 @@ h2.title {
     background-color: #31156f;
     color: white;
     padding: 1px 5px;
+    margin-bottom: 4px;
 }
 
 .checkmark {
@@ -205,6 +200,11 @@ h2.title {
     background: #444;
     color: #fff;
     padding: 1px 5px;
+    margin-bottom: 4px;
+}
+
+.remove_tag:hover, inactive_tag:hover {
+    cursor: pointer;
 }
 
 .index_option {
@@ -252,6 +252,19 @@ h2.title {
     display: inline-block;
 }
 
+.toprow {
+    clear: both;
+    overflow: auto;
+}
+
+.row_left {
+    float: left;
+}
+
+.row_right {
+    float: right;
+}
+
 .submit_button {
     margin-left: 30px;
     padding: 10px;
@@ -264,12 +277,22 @@ h2.title {
         cursor: pointer;
     }
 
+.wide_textarea {
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+.bold_heading {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
 .selected {
     background: #ccc;
 }
 
-.input_field {
-    /*border: none;*/
+.tag_section {
+    margin-bottom: 20px;
 }
 
 
@@ -280,13 +303,8 @@ h2.title {
 
 .remove_tag_action {
     display: inline-block;
-    border: 1px solid #333;
-    width: 24px;
-    height: 24px;
-    padding-right: 20px;
-    font-size:10px;
+    margin-right: 20px;
     color: #333;
-    border-radius: 50%;
     background: rgba(0,0,0,0);
 }
 
@@ -335,9 +353,6 @@ h2.title {
     transform: translateX(-100vw);
 }
 
-.hiddenSide, .hiddenNav {
-    display: none;
-}
 
 .studyNavFrame {
     position: absolute;
@@ -352,16 +367,12 @@ h2.title {
     color: white;
     margin: 10px;
     text-decoration-style: none;
-    background-color: #912424;
     color: white;
 }
 
-    .studyNav:hover {
-        background-color: white;
-        color: #912424;
-        text-decoration-style: none;
-        border: 1px solid #912424;
-    }
+.studyNav:hover {
+    cursor: pointer;
+}
 
 .score {
     position: absolute;
