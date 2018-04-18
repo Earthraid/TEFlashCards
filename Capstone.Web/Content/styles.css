@@ -29,7 +29,9 @@ body hr {
     background: black;
 }
 
-
+.hiddenSide, .hiddenNav {
+    display: none;
+}
 
 /*layout*/
 .title {
@@ -91,6 +93,7 @@ h2.title {
     background-color: #31156f;
     color: white;
     padding: 1px 5px;
+    margin-bottom: 4px;
 }
 
 .checkmark {
@@ -205,6 +208,11 @@ h2.title {
     background: #444;
     color: #fff;
     padding: 1px 5px;
+    margin-bottom: 4px;
+}
+
+.remove_tag:hover, inactive_tag:hover {
+    cursor: pointer;
 }
 
 .index_option {
@@ -252,6 +260,19 @@ h2.title {
     display: inline-block;
 }
 
+.toprow {
+    clear: both;
+    overflow: auto;
+}
+
+.row_left {
+    float: left;
+}
+
+.row_right {
+    float: right;
+}
+
 .submit_button {
     margin-left: 30px;
     padding: 10px;
@@ -264,12 +285,22 @@ h2.title {
         cursor: pointer;
     }
 
+.wide_textarea {
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+.bold_heading {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
 .selected {
     background: #ccc;
 }
 
-.input_field {
-    /*border: none;*/
+.tag_section {
+    margin-bottom: 20px;
 }
 
 
@@ -280,13 +311,8 @@ h2.title {
 
 .remove_tag_action {
     display: inline-block;
-    border: 1px solid #333;
-    width: 24px;
-    height: 24px;
-    padding-right: 20px;
-    font-size:10px;
+    margin-right: 20px;
     color: #333;
-    border-radius: 50%;
     background: rgba(0,0,0,0);
 }
 
@@ -335,9 +361,6 @@ h2.title {
     transform: translateX(-100vw);
 }
 
-.hiddenSide, .hiddenNav {
-    display: none;
-}
 
 .studyNavFrame {
     position: absolute;
@@ -352,15 +375,11 @@ h2.title {
     color: white;
     margin: 10px;
     text-decoration-style: none;
-    background-color: red;
     color: white;
 }
 
 .studyNav:hover {
-    background-color: white;
-    color: red;
-    text-decoration-style: none;
-    border: 1px solid red;
+    cursor: pointer;
 }
 
 .score {
