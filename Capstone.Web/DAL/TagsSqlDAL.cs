@@ -22,7 +22,7 @@ namespace Capstone.Web.DAL
         private string RemoveTagFromCardSQL = "DELETE FROM card_tag WHERE TagID = @tagIDValue AND CardID = @cardIDValue;";
 
         private string AddTagToDeckSQL = "INSERT INTO deck_tag (DeckID, TagID) VALUES (@deckIDValue, @tagIDValue);";
-        private string GetTagsByDeckIDSQL = "SELECT TagName FROM tags JOIN deck_tag ON tags.TagID = deck_tag.TagID WHERE deck_tag.DeckID = @deckIDValue;";
+        private string GetTagsByDeckIDSQL = "SELECT TagName FROM tags JOIN deck_tag ON tags.TagID = deck_tag.TagID WHERE deck_tag.DeckID = @deckIDValue ORDER BY TagName;";
         private string RemoveTagFromDeckSQL = "DELETE FROM deck_tag WHERE TagID = @tagIDValue AND DeckID = @deckIDValue;";
 
         private string AdminDeleteTagSQL = "DELETE FROM tags WHERE TagID = @tagIDValue;";

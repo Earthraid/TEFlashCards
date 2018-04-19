@@ -13,6 +13,14 @@ header {
     text-align: center;
 }
 
+.main_body a {
+    color: black;
+}
+
+    .main_body a:hover {
+        color: #912424;
+    }
+
 .logo_photo {
     height: 40%;
     width: 40%;
@@ -23,6 +31,12 @@ header {
 .top {
     font-size: 400%;
     color: white;
+}
+
+.top_border {
+    width: 100vw;
+    height: 10px;
+    background: rgba(0,0,0,0.7);
 }
 
 body hr {
@@ -40,7 +54,7 @@ body hr {
 }
 
 h1.title {
-    font-size: 1.5em;
+    font-size: 1.25em;
     opacity: .5;
 }
 
@@ -48,11 +62,7 @@ h2.title {
     font-size: 2em;
 }
 
-.invisible {
-    opacity: .05;
-}
-
-.list_item {
+a.list_item, button.list_item, input.list_item {
     text-decoration-style: none;
     background-color: #912424;
     color: white;
@@ -76,6 +86,7 @@ h2.title {
 
 .main_body {
     background-color: rgba(255,255,255,0.3);
+    border: 1px solid black;
     border-radius: 5px;
     width: 90%;
     margin: auto;
@@ -86,7 +97,6 @@ h2.title {
     font-weight: 500;
 }
 
-
 .added_tag {
     display: inline-block;
     background-color: #31156f;
@@ -95,13 +105,11 @@ h2.title {
     margin-bottom: 4px;
 }
 
-.checkmark {
-    font-weight: bold;
-    color: #537254;
-}
-
-.successMsg a {
-    color: black;
+.left_field {
+    max-width: 50%;
+    margin-top: 5px;
+    height: 30px;
+    float: left;
 }
 
 /*decks*/
@@ -111,13 +119,13 @@ h2.title {
 }
 
 .deck_name {
-    color: black;
     text-decoration: none;
 }
 
-    .deck_name:hover {
-        text-decoration: none;
-    }
+
+.deck_list a {
+    font-size: 1.2em;
+}
 
 .new_deck {
     margin-bottom: 2%;
@@ -132,14 +140,6 @@ h2.title {
     margin-left: 1%;
     display: inline-block;
 }
-
-.deck_list a {
-    color: black;
-}
-
-    .deck_list a:hover {
-        color: #912424;
-    }
 
 .add_cards {
     width: 100%;
@@ -179,13 +179,10 @@ h2.title {
         list-style-type: none;
     }
 
-    .card_bothsides a {
-        color: black;
-    }
 
-        .card_bothsides a:hover {
-            color: #31156f
-        }
+    .card_bothsides a:hover {
+        color: #31156f
+    }
 
 .card_front, .card_back {
     background: #fff;
@@ -235,18 +232,6 @@ h2.title {
         color: #912424;
     }
 
-.search_button {
-    font-size: .8em;
-    margin: 10px;
-    background: dodgerblue;
-    color: white;
-    border: none;
-}
-
-    .search_button:hover {
-        cursor: pointer;
-    }
-
 /*card search results*/
 .noresults_option a {
     color: black;
@@ -270,18 +255,6 @@ h2.title {
 .row_right {
     float: right;
 }
-
-.submit_button {
-    margin-left: 30px;
-    padding: 10px;
-    background: dodgerblue;
-    color: white;
-    border: none;
-}
-
-    .submit_button:hover {
-        cursor: pointer;
-    }
 
 .wide_textarea {
     width: 80%;

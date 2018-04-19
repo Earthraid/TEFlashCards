@@ -10,7 +10,7 @@
 <div hidden id="tagCount" data-name="@tagCount"></div>
 
 
-<h2 class="title">Edit Deck</h2>
+<h2 class="title">Edit Deck: @Model.Name</h2>
 
 <!--Edit deck name-->
 @using (Html.BeginForm("EditDeckName", "Deck", FormMethod.Post))
@@ -18,7 +18,7 @@
     if (ViewBag.AddedCard != null)
     {
         <div class="successMsg">
-            <span class="checkmark">&#10003;</span> Your card for <b>@ViewBag.AddedCard.Front</b> was successfully added.
+            <span class="checkmark">&#10003;</span> SUCCESS! Your card for <b>@ViewBag.AddedCard.Front</b> was added.
             <b>@Html.ActionLink("Click here", "CardView", "Card")</b> to return to card view.
         </div>
 
@@ -34,6 +34,7 @@
         <button class="list_item btn">Change Name</button>
     </div>
 }
+<hr />
 
 <h6 class="bold_heading">Tags:</h6>
 
@@ -51,6 +52,7 @@
         }
     }
 
+    <p></p>
     <h6 class="addtag bold_heading">Choose tags to add to your deck:</h6>
 
     @if (Model.AllTags.Count > 30)
@@ -67,7 +69,7 @@
                     }
                 }
             }
-            @Html.ActionLink("See all", "TagExpand", "Deck", new { id = Model.DeckID }, null)
+            @Html.ActionLink("See all >>", "TagExpand", "Deck", new { id = Model.DeckID }, null)
         </div>
     }
     else
@@ -84,7 +86,6 @@
         }
     }
 
-
     <h6 class="createtag bold_heading">Create a new tag for this deck:</h6>
 
     <div>
@@ -98,12 +99,13 @@
         }
     </div>
 </div>
+<hr />
 
 <!--Lists cards in deck for review or removal-->
 
 
 <h6 class="bold_heading">Cards in this deck:</h6>
-@Html.ActionLink("Find more cards to add.", "CardView", "Card")
+@Html.ActionLink("Find more cards to add >>", "CardView", "Card")
 @if (Model.DeckCards.Count != 0)
 {
     <div class="card_flex_container">
@@ -129,7 +131,7 @@
 }
 else
 {
-    <p>There are no cards in this deck. @Html.ActionLink("Add some here", "CardView", "Card")</p>
+    <p>There are no cards in this deck. @Html.ActionLink("Add some here >>", "CardView", "Card")</p>
 }
 
 

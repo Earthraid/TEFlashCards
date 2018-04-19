@@ -23,7 +23,7 @@
 
         <div class="col-sm-4">
             <div class="index_option">
-                @Html.ActionLink("View All Cards with Admin", "CardViewWithAdmin", "Card")
+                @Html.ActionLink("View All Public Cards", "CardViewWithAdmin", "Card")
             </div>
         </div>
 
@@ -32,10 +32,10 @@
     <div class="index_option">
         @using (Html.BeginForm("CardSearch", "Card", FormMethod.Get))
         {
-            <div>
+            <span>
                 @Html.TextBox("SearchString")
-            </div>
-
+            </span>
+            
             <button type="submit" class="list_item btn">Search by Tag</button>
         }
     </div>
