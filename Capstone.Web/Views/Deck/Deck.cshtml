@@ -48,23 +48,25 @@
                 {
                     string deckLink = "../Deck/EditDeck/" + deck.DeckID;
 
-                    <a href="@deckLink" class="deck_name">
-                        <h6 class="bold_heading">@deck.Name</h6>
-                        <p>View or edit</p>
-                    </a>
+                <a href="@deckLink" class="deck_name">
+                    <h6>@deck.Name</h6>
+                    <p>View and edit</p>
+                </a>
 
                     if (deck.DeckCards.Count > 0)
-                    {
-                        <b>@Html.ActionLink("Study this deck >>", "BeginStudy", "Deck", new { deckID = deck.DeckID }, null)</b>
+                    {                    
+                        <button class="list_item btn">
+                        @Html.ActionLink("Study this deck >>", "BeginStudy", "Deck", new { deckID = deck.DeckID }, null)
+                        </button>
                     }
                 }
                 else
                 {
                     <p>No decks found by that criteria. See <a href="~/Deck">all decks</a> or search again.</p>
                 }
+                <hr />
             }
         }
-        <hr />
     </div>
 </div>
 

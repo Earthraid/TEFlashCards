@@ -57,12 +57,12 @@
                         {
                             <span class="added_tag">@tag</span>
                             @Html.HiddenFor(m => Model.CardID)
-                            <span id="@tag" class="remove_tag">x</span>
+                            <span id="@tag" class="x_button remove_tag">&#x2297;</span>
                         }
 
                     }
 
-
+                    <p></p>
                     <h6 class="bold_heading">Choose tags to add to your card:</h6>
 
                     <div class="tag_section">
@@ -77,7 +77,9 @@
                                 }
                             }
                         }
-                        @Html.ActionLink("See less", "TagCollapse", "Card", new { id = Model.CardID }, null)
+                        <div>
+                            @Html.ActionLink("^^ See less", "TagCollapse", "Card", new { id = Model.CardID }, null)
+                        </div>
                     </div>
 
 

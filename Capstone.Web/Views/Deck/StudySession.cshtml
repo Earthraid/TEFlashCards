@@ -15,8 +15,8 @@
     <div class="studyNavFrame">
         <div class="flip studyNav">Flip card</div>
         <div class="markFrame hiddenNav">
-            <div class="markRight studyNav">Mark right</div>
             <div class="markWrong studyNav">Mark wrong</div>
+            <div class="markRight studyNav">Mark right</div>
         </div>
     </div>
 
@@ -38,8 +38,10 @@
 
     <div class="score">
         <div class="totalCorrect"></div>
+        <span>of</span>
         <div class="totalViewed"></div>
-        <div class="finish">Finish</div>
+        <span>correct-</span>
+        <div class="finish">Quit</div>
     </div>
 
 </div>
@@ -48,6 +50,10 @@
     <div class="finalScore">
         <p>You got <span id="finalScore"></span> out of <span id="possibleScore"></span> correct.</p>
     </div>
-    <p>@Html.ActionLink("Study again >>", "BeginStudy", "Deck", new { deckID = Model.DeckID }, null)</p>
-    <p>@Html.ActionLink("Return to your decks >>", "Index", "Deck")</p>
+    <div>
+        <button class="list_item btn">@Html.ActionLink("Study again >>", "BeginStudy", "Deck", new { deckID = Model.DeckID }, null)</button>
+    </div>
+    <div>
+        <button class="list_item btn">@Html.ActionLink("Return to your decks >>", "Index", "Deck")</button>
+    </div>
 </div>
