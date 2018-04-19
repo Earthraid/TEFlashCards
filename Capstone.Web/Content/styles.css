@@ -273,6 +273,8 @@ a.list_item, button.list_item, input.list_item {
 
     .inactive_tag:hover {
         cursor: pointer;
+        background: white;
+        color: black;
     }
 
 .index_option {
