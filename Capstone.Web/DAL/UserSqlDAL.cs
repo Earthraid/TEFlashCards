@@ -13,7 +13,7 @@ namespace Capstone.Web.DAL
 
         private string connectionString;
 
-        private string getUser = "SELECT UserID, Email, Password, IsAdmin, UserName FROM [users] WHERE Email = @email;";
+        private string getUser = "SELECT UserID, Email, Password, IsAdmin, DisplayName FROM [users] WHERE Email = @email;";
 
         private string registerUser = "INSERT INTO [users] (Email, Password, IsAdmin, DisplayName)" +
             "VALUES (@email, @password, @isadmin, @displayname);";
