@@ -21,6 +21,7 @@ namespace Capstone.Web.Controllers
             //temporary user id
             //Session["userid"] = "2";
 
+            Session["anon"] = "Home";
             return View("Index");
         }
 
@@ -42,14 +43,25 @@ namespace Capstone.Web.Controllers
                 ModelState.AddModelError("invalid-credentials", "An invalid email or password was provided");
                 return View("Login", model);
             }
+
+            //if user clicked on 'cards' or 'decks' before logging in, take them there now
             Session["userid"] = user.Id;
             Session["admin"] = user.IsAdmin;
-            return RedirectToAction("Index", "Home");
+            switch (Session["anon"].ToString())
+            {
+                case "Cards":
+                    return RedirectToAction("Index", "Card");
+                case "Decks":
+                    return RedirectToAction("Index", "Deck");
+                default:
+                    return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult Logout()
         {
             Session["userid"] = null;
+            Session["anon"] = "Home";
             return View("Logout");
         }
 

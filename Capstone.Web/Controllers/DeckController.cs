@@ -19,6 +19,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
+                Session["anon"] = "Decks";
                 return RedirectToAction("Login", "Home");
             }
             string user_id = Session["userid"].ToString();

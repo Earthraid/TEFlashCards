@@ -23,6 +23,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
+                Session["anon"] = "Cards";
                 return RedirectToAction("Login", "Home");
             }
             return View();
