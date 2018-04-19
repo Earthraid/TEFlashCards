@@ -7,11 +7,20 @@ body {
     margin: 0;
     background-attachment: fixed;
     background-size: cover;
+    overflow-x: hidden;
 }
 
 header {
     text-align: center;
 }
+
+.main_body a {
+    color: black;
+}
+
+    .main_body a:hover {
+        color: #912424;
+    }
 
 .logo_photo {
     height: 40%;
@@ -25,11 +34,19 @@ header {
     color: white;
 }
 
+.top_border {
+    width: 100vw;
+    height: 10px;
+    background: rgba(0,0,0,0.7);
+}
+
 body hr {
     background: black;
 }
 
-
+.hiddenSide, .hiddenNav {
+    display: none;
+}
 
 /*layout*/
 .title {
@@ -38,7 +55,7 @@ body hr {
 }
 
 h1.title {
-    font-size: 1.5em;
+    font-size: 1.25em;
     opacity: .5;
 }
 
@@ -46,11 +63,7 @@ h2.title {
     font-size: 2em;
 }
 
-.invisible {
-    opacity: .05;
-}
-
-.list_item {
+a.list_item, button.list_item, input.list_item {
     text-decoration-style: none;
     background-color: #912424;
     color: white;
@@ -74,8 +87,8 @@ h2.title {
 
 .main_body {
     background-color: rgba(255,255,255,0.3);
+    border: 1px solid black;
     border-radius: 5px;
-    /*border: 3px solid red;*/
     width: 90%;
     margin: auto;
     margin-top: 2%;
@@ -85,21 +98,19 @@ h2.title {
     font-weight: 500;
 }
 
-
 .added_tag {
     display: inline-block;
     background-color: #31156f;
     color: white;
     padding: 1px 5px;
+    margin-bottom: 4px;
 }
 
-.checkmark {
-    font-weight: bold;
-    color: #537254;
-}
-
-.successMsg a {
-    color: black;
+.left_field {
+    max-width: 50%;
+    margin-top: 5px;
+    height: 30px;
+    float: left;
 }
 
 /*decks*/
@@ -109,13 +120,13 @@ h2.title {
 }
 
 .deck_name {
-    color: black;
     text-decoration: none;
 }
 
-    .deck_name:hover {
-        text-decoration: none;
-    }
+
+.deck_list a {
+    font-size: 1.2em;
+}
 
 .new_deck {
     margin-bottom: 2%;
@@ -129,14 +140,6 @@ h2.title {
     margin-right: 1%;
     margin-left: 1%;
     display: inline-block;
-}
-
-.deck_list a {
-    color: black;
-}
-
-.deck_list a:hover {
-    color: #912424;
 }
 
 .add_cards {
@@ -177,9 +180,6 @@ h2.title {
         list-style-type: none;
     }
 
-    .card_bothsides a {
-        color: black;
-    }
 
     .card_bothsides a:hover {
         color: #31156f
@@ -189,7 +189,6 @@ h2.title {
     background: #fff;
     margin: 10px;
     padding: 10px;
-
 }
 
 .card_front {
@@ -205,6 +204,11 @@ h2.title {
     background: #444;
     color: #fff;
     padding: 1px 5px;
+    margin-bottom: 4px;
+}
+
+.remove_tag:hover, inactive_tag:hover {
+    cursor: pointer;
 }
 
 .index_option {
@@ -229,18 +233,6 @@ h2.title {
         color: #912424;
     }
 
-.search_button {
-    font-size: .8em;
-    margin: 10px;
-    background: dodgerblue;
-    color: white;
-    border: none;
-}
-
-    .search_button:hover {
-        cursor: pointer;
-    }
-
 /*card search results*/
 .noresults_option a {
     color: black;
@@ -252,24 +244,35 @@ h2.title {
     display: inline-block;
 }
 
-.submit_button {
-    margin-left: 30px;
-    padding: 10px;
-    background: dodgerblue;
-    color: white;
-    border: none;
+.toprow {
+    clear: both;
+    overflow: auto;
 }
 
-    .submit_button:hover {
-        cursor: pointer;
-    }
+.row_left {
+    float: left;
+}
+
+.row_right {
+    float: right;
+}
+
+.wide_textarea {
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+.bold_heading {
+    font-weight: bold;
+    font-size: 1.2em;
+}
 
 .selected {
     background: #ccc;
 }
 
-.input_field {
-    /*border: none;*/
+.tag_section {
+    margin-bottom: 20px;
 }
 
 
@@ -280,13 +283,8 @@ h2.title {
 
 .remove_tag_action {
     display: inline-block;
-    border: 1px solid #333;
-    width: 24px;
-    height: 24px;
-    padding-right: 20px;
-    font-size:10px;
+    margin-right: 20px;
     color: #333;
-    border-radius: 50%;
     background: rgba(0,0,0,0);
 }
 
@@ -299,12 +297,13 @@ h2.title {
     justify-content: center;
     overflow: hidden;
     position: relative;
+    flex-direction: column;
 }
 
 .cardFrame {
-    width: 600px;
+    width: 550px;
     max-width: 90vw;
-    height: 400px;
+    height: 350px;
     max-height: 60vw;
     position: relative;
 }
@@ -335,16 +334,13 @@ h2.title {
     transform: translateX(-100vw);
 }
 
-.hiddenSide, .hiddenNav {
-    display: none;
+
+.markFrame div {
+    display: inline-block;
 }
 
-.studyNavFrame {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 150px;
-    height: 100px;
+.markFrame div:hover, .finish:hover {
+    cursor: pointer;
 }
 
 .studyNav {
@@ -352,21 +348,18 @@ h2.title {
     color: white;
     margin: 10px;
     text-decoration-style: none;
-    background-color: #912424;
     color: white;
 }
 
     .studyNav:hover {
-        background-color: white;
-        color: #912424;
-        text-decoration-style: none;
-        border: 1px solid #912424;
+        cursor: pointer;
     }
 
-.score {
-    position: absolute;
-    right: 0;
-    bottom: 0;
+.score div {
+    display: inline-block;
+    background: #333;
+    color: #fff;
+
 }
 
 .resultsFrame a {

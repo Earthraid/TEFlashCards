@@ -10,6 +10,13 @@
 <div class="card_flex_container">
 
     @{
+        if (Model.Count == 0)
+        {
+            <p>
+                You don't have any cards yet.
+                @Html.ActionLink("Create some here.", "CardConstruct", "Card")
+            </p>
+        }
         foreach (Card thisCard in Model)
         {
 
@@ -17,12 +24,27 @@
                 <div class="card_front">@thisCard.Front</div>
                 <div class="card_back">@thisCard.Back</div>
                 <div class="card_tags">
-
-                    @foreach (string tag in thisCard.ThisCardTags)
-                    {
-                        <span class="added_tag">@tag</span>
+                    @{
+                        //cap the number of tags to display in this view at 7
+                        if (thisCard.ThisCardTags.Count > 7)
+                        {
+                            for (int i = 0; i < 7; i++)
+                            {
+                                string tag = thisCard.ThisCardTags[i];
+                                <span class="added_tag">@tag</span>
+                            }
+                            <span>...</span>
+                        }
+                        else
+                        {
+                            foreach (string tag in thisCard.ThisCardTags)
+                            {
+                                <span class="added_tag">@tag</span>
+                            }
+                        }
                     }
                 </div>
+
                 <ul class="card_options">
                     <li>
                         @Html.ActionLink("Add card to deck", "CardToDeck", "Card", new { cardID = thisCard.CardID }, null)
@@ -35,7 +57,7 @@
             </div>
 
 
-        }
+                        }
     }
 
 </div>

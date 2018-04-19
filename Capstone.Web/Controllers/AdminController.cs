@@ -28,7 +28,7 @@ namespace Capstone.Web.Controllers
                 return RedirectToAction("You are not authorized to view this page.");
             }
             string isAdmin = Session["admin"].ToString();
-            List<Deck> decks = dDal.AdminGetAllDecks();
+            //List<Deck> decks = dDal.AdminGetAllDecks();
 
             return View("Home", "Index");
         }
@@ -59,7 +59,7 @@ namespace Capstone.Web.Controllers
             string isAdmin = Session["admin"].ToString();
 
             Deck curDeck = dDal.GetDeckByDeckID(deck_id);
-            curDeck.AdminDeleteDeck(deck_id);
+            //curDeck.AdminDeleteDeck(deck_id);
             return RedirectToAction("Deck");
         }
 

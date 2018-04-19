@@ -23,6 +23,7 @@ namespace Capstone.Web.Controllers
         {
             if (Session["userid"] == null)
             {
+                Session["anon"] = "Cards";
                 return RedirectToAction("Login", "Home");
             }
             return View();
@@ -113,9 +114,46 @@ namespace Capstone.Web.Controllers
             return View("CardModify", existingCard);
         }
 
+        public ActionResult CardModifyExpanded(string id)
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            Card existingCard = cDal.GetCardByID(id);
+
+            return View("CardModifyExpanded", existingCard);
+        }
+
+        public ActionResult TagExpand(string id)
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            Card existingCard = cDal.GetCardByID(id);
+
+            return View("CardModifyExpanded", existingCard);
+        }
+
+        public ActionResult TagCollapse(string id)
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            Card existingCard = cDal.GetCardByID(id);
+
+            return View("CardModify", existingCard);
+        }
+
+
         //card tags
         [HttpPost]
-        public ActionResult AddCardTag(string cardID, string tagName)
+        public ActionResult AddCardTag(string cardID, string tagName, bool expanded)
         {
             if (Session["userid"] == null)
             {
@@ -124,11 +162,15 @@ namespace Capstone.Web.Controllers
 
             Card currentCard = cDal.GetCardByID(cardID);
             currentCard.AddTagToCard(tagName);
+            if (expanded)
+            {
+                return RedirectToAction(currentCard.CardID, "Card/CardModifyExpanded");
+            }
             return RedirectToAction(currentCard.CardID, "Card/CardModify");
         }
 
         [HttpPost]
-        public ActionResult RemoveCardTag(string cardID, string tagName)
+        public ActionResult RemoveCardTag(string cardID, string tagName, bool expanded)
         {
             if (Session["userid"] == null)
             {
@@ -138,6 +180,10 @@ namespace Capstone.Web.Controllers
             Card currentCard = cDal.GetCardByID(cardID);
             currentCard.TagName = tagName;
             currentCard.RemoveTagFromCard(tagName);
+            if (expanded)
+            {
+                return RedirectToAction(currentCard.CardID, "Card/CardModifyExpanded");
+            }
             return RedirectToAction(currentCard.CardID, "Card/CardModify");
         }
 
@@ -176,7 +222,7 @@ namespace Capstone.Web.Controllers
             currentCard.Front = front;
             currentCard.Back = back;
             currentCard.ThisCardTags = tags;
-
+ 
             cDal.EditCard(currentCard);
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
@@ -195,9 +241,11 @@ namespace Capstone.Web.Controllers
             }
 
             ViewBag.CardID = cardID;
+            ViewBag.CurCard = cDal.GetCardByID(cardID);
 
             string userID = Session["userid"].ToString();
-            List<Deck> allDecks = dDal.GetDecks(userID);
+            List<Deck> allDecks = dDal.GetDecksByUserID(userID);
+
 
             return View("CardToDeck", allDecks);
         }

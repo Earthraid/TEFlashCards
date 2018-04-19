@@ -28,6 +28,9 @@ namespace Capstone.Web.Models
 
         public string CardID { get; set; }
 
+        /// <summary>
+        /// Returns a List<Card> of all cards in this instance of deck. Requires DeckID to not be null.
+        /// </summary>
         public List<Card> DeckCards
         {
             get
@@ -47,6 +50,9 @@ namespace Capstone.Web.Models
             }
         }
 
+        /// <summary>
+        /// Returns a List<SelectListItem> of all available tags.
+        /// </summary>
         public List<SelectListItem> AllTagsSelectList
         {
             get
@@ -90,10 +96,10 @@ namespace Capstone.Web.Models
             return deckDAL.RemoveCardFromDeck(cardID, DeckID);
         }
 
-        public void AdminDeleteDeck(string DeckID)
-        {
-            deckDAL.AdminDeleteDeck(DeckID);
-        }
+        //public void AdminDeleteDeck(string DeckID)
+        //{
+        //    deckDAL.AdminDeleteDeck(DeckID);
+        //}
 
         public void AdminDeleteTag(string TagName)
         {
