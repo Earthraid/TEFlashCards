@@ -25,7 +25,7 @@
             {
                 using (Html.BeginForm("DeckSearchByTag", "Deck", FormMethod.Get))
                 {
-                    @Html.DropDownList("SearchString", Model[0].AllTagsSelectList, new { @class = "left_field" });
+                    @Html.DropDownList("SearchString", Model[0].AllTagsSelectList, new { @class = "left_field" })
                     <button type="submit" class="list_item btn">Search Tag</button>
                 }
             }

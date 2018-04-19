@@ -12,6 +12,14 @@
 
 <div class="studyFrame">
 
+    <div class="studyNavFrame">
+        <div class="flip studyNav">Flip card</div>
+        <div class="markFrame hiddenNav">
+            <div class="markRight studyNav">Mark right</div>
+            <div class="markWrong studyNav">Mark wrong</div>
+        </div>
+    </div>
+
     <div class="cardFrame">
         @{
             foreach (Card currentCard in Model.DeckCards)
@@ -27,24 +35,19 @@
             }
         }
     </div>
-    <div class="studyNavFrame">
-        <div class="flip studyNav">Flip card</div>
-        <div class="markFrame hiddenNav">
-            <div class="markRight studyNav">Mark right</div>
-            <div class="markWrong studyNav">Mark wrong</div>
-        </div>
-    </div>
+
     <div class="score">
         <div class="totalCorrect"></div>
         <div class="totalViewed"></div>
         <div class="finish">Finish</div>
     </div>
+
 </div>
 
 <div class="resultsFrame">
     <div class="finalScore">
         <p>You got <span id="finalScore"></span> out of <span id="possibleScore"></span> correct.</p>
     </div>
-    <p>@Html.ActionLink("Study again", "BeginStudy", "Deck", new { deckID = Model.DeckID }, null)</p>
-    <p>@Html.ActionLink("Return to your decks", "Index", "Deck")</p>
+    <p>@Html.ActionLink("Study again >>", "BeginStudy", "Deck", new { deckID = Model.DeckID }, null)</p>
+    <p>@Html.ActionLink("Return to your decks >>", "Index", "Deck")</p>
 </div>

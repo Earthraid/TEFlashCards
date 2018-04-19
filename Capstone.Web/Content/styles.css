@@ -7,6 +7,7 @@ body {
     margin: 0;
     background-attachment: fixed;
     background-size: cover;
+    overflow-x: hidden;
 }
 
 header {
@@ -296,12 +297,13 @@ a.list_item, button.list_item, input.list_item {
     justify-content: center;
     overflow: hidden;
     position: relative;
+    flex-direction: column;
 }
 
 .cardFrame {
-    width: 600px;
+    width: 550px;
     max-width: 90vw;
-    height: 400px;
+    height: 350px;
     max-height: 60vw;
     position: relative;
 }
@@ -334,9 +336,7 @@ a.list_item, button.list_item, input.list_item {
 
 
 .studyNavFrame {
-    position: absolute;
-    top: 0;
-    right: 0;
+
     width: 150px;
     height: 100px;
 }
@@ -354,9 +354,7 @@ a.list_item, button.list_item, input.list_item {
     }
 
 .score {
-    position: absolute;
-    right: 0;
-    bottom: 0;
+
 }
 
 .resultsFrame a {
