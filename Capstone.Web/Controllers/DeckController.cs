@@ -29,7 +29,7 @@ namespace Capstone.Web.Controllers
         }
 
         //Search for decks by name
-        public ActionResult DeckSearchByName(string searchString)
+        public ActionResult DeckSearchByName(string searchName)
         {
             string user_id;
 
@@ -42,7 +42,7 @@ namespace Capstone.Web.Controllers
                 user_id = Session["userid"].ToString();
             }
 
-            List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchString);
+            List<Deck> decks = deckDAL.SearchDecksByName(user_id, searchName);
 
             if (decks.Count == 0)
             {
@@ -99,8 +99,15 @@ namespace Capstone.Web.Controllers
                 TempData["addedCard_ID"] = null;
             }
             Deck deck = deckDAL.GetDeckByDeckID(id.ToString());
-            Session["deck_ID"] = deck.DeckID;
-            return View(deck);
+            if (deck.UserID != Session["userid"].ToString())
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                Session["deck_ID"] = deck.DeckID;
+                return View(deck);
+            }
         }
 
         public ActionResult TagExpand(string id)

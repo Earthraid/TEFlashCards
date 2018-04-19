@@ -110,8 +110,14 @@ namespace Capstone.Web.Controllers
             }
 
             Card existingCard = cDal.GetCardByID(id);
-
-            return View("CardModify", existingCard);
+            if (existingCard.UserID != Session["userid"].ToString())
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("CardModify", existingCard);
+            }
         }
 
         public ActionResult CardModifyExpanded(string id)
@@ -122,8 +128,14 @@ namespace Capstone.Web.Controllers
             }
 
             Card existingCard = cDal.GetCardByID(id);
-
-            return View("CardModifyExpanded", existingCard);
+            if (existingCard.UserID != Session["userid"].ToString())
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("CardModifyExpanded", existingCard);
+            }
         }
 
         public ActionResult TagExpand(string id)
@@ -134,8 +146,14 @@ namespace Capstone.Web.Controllers
             }
 
             Card existingCard = cDal.GetCardByID(id);
-
-            return View("CardModifyExpanded", existingCard);
+            if (existingCard.UserID != Session["userid"].ToString())
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("CardModifyExpanded", existingCard);
+            }
         }
 
         public ActionResult TagCollapse(string id)
@@ -146,8 +164,14 @@ namespace Capstone.Web.Controllers
             }
 
             Card existingCard = cDal.GetCardByID(id);
-
-            return View("CardModify", existingCard);
+            if (existingCard.UserID != Session["userid"].ToString())
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("CardModify", existingCard);
+            }
         }
 
 
@@ -227,8 +251,6 @@ namespace Capstone.Web.Controllers
 
             List<Card> allCards = cDal.ViewCards(Session["userid"].ToString());
 
-            //List<Card> allCardswithAdmin = cDal.ViewCardsWithAdminCards(Session["userid"].ToString());
-
             return RedirectToAction(currentCard.CardID, "Card/CardModify");
         }
 
@@ -239,15 +261,24 @@ namespace Capstone.Web.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-
+            Card currentCard = cDal.GetCardByID(cardID);
             ViewBag.CardID = cardID;
-            ViewBag.CurCard = cDal.GetCardByID(cardID);
+            ViewBag.CurCard = currentCard;
 
             string userID = Session["userid"].ToString();
+
+            List<string> PublicUserCardList = cDal.PublicCardUserList;
+
             List<Deck> allDecks = dDal.GetDecksByUserID(userID);
 
-
-            return View("CardToDeck", allDecks);
+            if (currentCard.UserID != Session["userid"].ToString() && !PublicUserCardList.Contains(currentCard.UserID))
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View("CardToDeck", allDecks);
+            }
         }
 
         public ActionResult AddCardToDeck(string cardID, string deckID)

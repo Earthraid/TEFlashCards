@@ -2,8 +2,8 @@
 @model List<Deck>
 @{
     ViewBag.Title = "SelectDeck";
-    List<Deck> availableDecks = ViewBag.CurCard.AvailableDecksToAddThisCard;
-    List<Deck> decksWithCard = ViewBag.CurCard.DecksHaveThisCard;
+    List<Deck> availableDecks = ViewBag.CurCard.AvailableDecksToAddThisCard(Session["userid"].ToString());
+    List<Deck> decksWithCard = ViewBag.CurCard.DecksHaveThisCard(Session["userid"].ToString());
 }
 
 @{
