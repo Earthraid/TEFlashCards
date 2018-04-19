@@ -12,5 +12,4 @@ $(document).ready(function () {
     var tagCount = parseInt($('#tagCount').data('name'));
 
 
-
 });

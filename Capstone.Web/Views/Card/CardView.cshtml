@@ -45,14 +45,14 @@
                     }
                 </div>
 
-                <ul class="card_options">
-                    <li>
-                        @Html.ActionLink("Add card to deck", "CardToDeck", "Card", new { cardID = thisCard.CardID }, null)
-                    </li>
-                    <li>
-                        @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = thisCard.CardID }, null)
-                    </li>
-                </ul>
+                <div class="card_options">
+                    <button class="list_item btn float-left">
+                        @Html.ActionLink("Add to deck", "CardToDeck", "Card", new { cardID = thisCard.CardID }, null)
+                    </button>
+                    <button class="list_item btn float-right">
+                        @Html.ActionLink("Modify", "CardModify", "Card", new { id = thisCard.CardID }, null)
+                    </button>
+                </div>
 
             </div>
 

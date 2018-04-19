@@ -31,7 +31,9 @@
 
         @Html.HiddenFor(m => m.DeckID)
 
-        <button class="list_item btn">Change Name</button>
+        <button class="list_item btn">
+            Change Name
+        </button>
     </div>
 }
 <hr />
@@ -42,10 +44,10 @@
 <div class="allTags">
     @foreach (string tag in Model.ThisDeckTags)
     {
-        <span class="added_tag">@tag</span>
 
         using (Html.BeginForm("RemoveDeckTag", "Deck", new { deckID = Model.DeckID, tagName = tag, expanded = false }, FormMethod.Post, new { @class = "remove_tag_action" }))
         {
+            <span class="added_tag">@tag</span>
             @Html.HiddenFor(m => Model.DeckID)
 
             <span id="@tag" class="x_button remove_tag">&#x2297;</span>
@@ -86,6 +88,7 @@
         }
     }
 
+    <p></p>
     <h6 class="createtag bold_heading">Create a new tag for this deck:</h6>
 
     <div>
@@ -95,7 +98,9 @@
 
             @Html.HiddenFor(m => Model.DeckID)
 
-            <input type="submit" class="list_item btn" value="Add New Tag">
+            <button type="submit" class="list_item btn">
+                Add new tag
+            </button>
         }
     </div>
 </div>
@@ -125,14 +130,19 @@
 
                 <div class="card_back">@card.Back</div>
 
+                @using (Html.BeginForm("RemoveThisCard", "Deck", new { id = card.CardID, expanded = false }, FormMethod.Post, new { @class = "remove_card_action" }))
+                    {
+                    <span class="x_button remove_card">
+                        &#x2297;
+                    </span>
+                }
+
                 <div class="card_options">
 
-                    @using (Html.BeginForm("RemoveThisCard", "Deck", new { id = card.CardID, expanded = false }, FormMethod.Post, new { @class = "remove_card_action" }))
-                    {
-                        <span class="x_button remove_card">&#x2297;</span>
-                    }
 
-                    @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = card.CardID }, null)
+                    <button class="list_item btn">
+                        @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = card.CardID }, null)
+                    </button>
 
                 </div>
             </div>
@@ -141,7 +151,7 @@
 }
 else
 {
-    <p>There are no cards in this deck. @Html.ActionLink("Add some here >>", "CardView", "Card")</p>
+    <p>There are no cards in this deck. <button class="list_item btn"> @Html.ActionLink("Add some here >>", "CardView", "Card")</button></p>
 }
 
 
