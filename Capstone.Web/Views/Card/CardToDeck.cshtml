@@ -7,6 +7,25 @@
 }
 
 @{
+    <h2 class="title">Add card to deck:</h2>
+    if (availableDecks.Count > 0)
+    {
+        foreach (Deck thisDeck in availableDecks)
+        {
+            <p>
+                @Html.ActionLink(thisDeck.Name, "AddCardToDeck", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID })
+            </p>
+        }
+    }
+
+    if (Model.Count == 0)
+    {
+        <p>
+            You don't have any decks yet.
+            @Html.ActionLink("Create one here.", "AddDeck", "Deck")
+        </p>
+    }
+
     if (decksWithCard.Count > 0)
     {
         <h4>Your card is currently in these decks:</h4>
@@ -18,12 +37,4 @@
         }
     }
 
-    <h4>Add your card to a deck:</h4>
-    foreach (Deck thisDeck in availableDecks)
-    {
-        <p>
-            @Html.ActionLink(thisDeck.Name, "AddCardToDeck", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID })
-        </p>
-    }
 }
-
