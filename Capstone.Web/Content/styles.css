@@ -335,10 +335,12 @@ a.list_item, button.list_item, input.list_item {
 }
 
 
-.studyNavFrame {
+.markFrame div {
+    display: inline-block;
+}
 
-    width: 150px;
-    height: 100px;
+.markFrame div:hover, .finish:hover {
+    cursor: pointer;
 }
 
 .studyNav {
@@ -353,7 +355,10 @@ a.list_item, button.list_item, input.list_item {
         cursor: pointer;
     }
 
-.score {
+.score div {
+    display: inline-block;
+    background: #333;
+    color: #fff;
 
 }
 
