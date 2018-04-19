@@ -106,6 +106,17 @@ a.list_item, button.list_item, input.list_item {
     margin-bottom: 4px;
 }
 
+.x_button {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+    .x_button:hover {
+        color: #912424;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
 .left_field {
     max-width: 50%;
     margin-top: 5px;
@@ -212,7 +223,7 @@ a.list_item, button.list_item, input.list_item {
     margin-bottom: 4px;
 }
 
-.remove_tag:hover, inactive_tag:hover {
+.inactive_tag:hover {
     cursor: pointer;
 }
 

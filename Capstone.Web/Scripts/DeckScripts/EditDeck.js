@@ -12,8 +12,7 @@ $(document).ready(function () {
         $(window).scrollTop(sessionStorage.scrollTop);
     }
 
-
-    $('.add_tag_action, .remove_tag_action').click(function () {
+    $('.add_tag_action').click(function () {
         $(this).submit();
     });
 
@@ -21,6 +20,13 @@ $(document).ready(function () {
         $(this).submit();
     });
 
+    $('.remove_tag').click(function () {
+        $(this).closest($('.remove_tag_action')).submit();
+    });
+
+    $('.remove_card').click(function () {
+        $(this).closest($('.remove_card_action')).submit();
+    });
 
 
     function removeTagFromDeck(deckID, tagName) {
