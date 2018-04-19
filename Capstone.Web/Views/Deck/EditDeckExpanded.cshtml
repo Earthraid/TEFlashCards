@@ -18,7 +18,7 @@
     if (ViewBag.AddedCard != null)
     {
         <div class="successMsg">
-            <span class="checkmark">&#10003;</span> SUCCESS! Your card for <b>@ViewBag.AddedCard.Front</b> was added.
+            <span class="success_msg">&#10003; SUCCESS</span> Your card for <b>@ViewBag.AddedCard.Front</b> was added.
             <b>@Html.ActionLink("Click here", "CardView", "Card")</b> to return to card view.
         </div>
 
@@ -92,6 +92,14 @@
         @foreach (var card in Model.DeckCards)
         {
             <div class="card_bothsides">
+
+                @if (ViewBag.AddedCard != null)
+                {
+                    if (card.CardID == ViewBag.AddedCard.CardID)
+                    {
+                        <span class="success_msg">successfully added</span>
+                    }
+                }
 
                 <div class="card_front">@card.Front</div>
 

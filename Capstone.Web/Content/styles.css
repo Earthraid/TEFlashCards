@@ -153,6 +153,11 @@ a.list_item, button.list_item, input.list_item {
 .editDeck_options div {
     display: inline-block;
 }
+
+.success_msg {
+    background: #416135;
+    color: white;
+}
 /*cards*/
 
 .card_flex_container {
