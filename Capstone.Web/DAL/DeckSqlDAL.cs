@@ -28,10 +28,8 @@ namespace Capstone.Web.DAL
             "JOIN card_deck ON decks.DeckID = card_deck.DeckID " +
             "WHERE decks.UserID = @userIDValue and card_deck.CardID = @cardIDValue ORDER BY decks.DeckID ASC";
 
-        private string GetAvailableDecksToAddCardSQL = "SELECT distinct card_deck.DeckID FROM card_deck " +
-            "JOIN decks ON decks.DeckID = card_deck.DeckID " +
-            "WHERE UserID = @userIDValue and " +
-            "NOT card_deck.DeckID = ANY(SELECT Distinct DeckID FROM card_deck WHERE CardID = @cardIDValue);";
+        private string GetAvailableDecksToAddCardSQL = "SELECT DISTINCT DeckID from decks " +
+            "WHERE UserID = @userIDValue and DeckID not in (SELECT distinct DeckID from card_deck where CardID = @cardIDValue)";
 
         private string AddDeckSQL = "INSERT INTO decks (UserID, Name) VALUES (@userIDValue, @nameValue); SELECT CAST(SCOPE_IDENTITY() as int);";
 

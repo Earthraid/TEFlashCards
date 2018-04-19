@@ -2,34 +2,28 @@
 @model List<Deck>
 @{
     ViewBag.Title = "SelectDeck";
+    List<Deck> availableDecks = ViewBag.CurCard.AvailableDecksToAddThisCard;
+    List<Deck> decksWithCard = ViewBag.CurCard.DecksHaveThisCard;
 }
 
-<h2 class="title">Add card to deck</h2>
-
 @{
-    foreach (Deck thisDeck in Model)
+    if (decksWithCard.Count > 0)
     {
-        <p>
-            @Html.ActionLink(thisDeck.Name, "AddCardToDeck", "Card", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID }, null)
+        <h4>Your card is currently in these decks:</h4>
+        foreach (Deck thisDeck in decksWithCard)
+        {
+            <p>
+                @Html.Label(thisDeck.Name)
+            </p>
+        }
     }
-}
 
-@{
-    <h2 class="title">Available to Add to:</h2>
-    foreach (Deck thisDeck in ViewBag.CurCard.AvailableDecksToAddThisCard)
+    <h4>Add your card to a deck:</h4>
+    foreach (Deck thisDeck in availableDecks)
     {
         <p>
-            @Html.ActionLink(thisDeck.Name, "AddCardToDeck", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID });
+            @Html.ActionLink(thisDeck.Name, "AddCardToDeck", new { cardID = ViewBag.CardID, deckID = thisDeck.DeckID })
         </p>
     }
 }
 
-@{
-    <h2 class="title">Decks Where Card Already Exists:</h2>
-    foreach (Deck thisDeck in ViewBag.CurCard.DecksHaveThisCard)
-    {
-        <p>
-            @Html.Label(thisDeck.Name)
-        </p>
-    }
-}

@@ -1,9 +1,17 @@
 ﻿/// <reference path="../jquery-3.1.1.js" />
 
 
+$(window).scroll(function () {
+    sessionStorage.scrollTop = $(this).scrollTop();
+});
 
 
 $(document).ready(function () {
+
+    if (sessionStorage.scrollTop != "undefined") {
+        $(window).scrollTop(sessionStorage.scrollTop);
+    }
+
 
     $('.add_tag_action, .remove_tag_action').click(function () {
         $(this).submit();
