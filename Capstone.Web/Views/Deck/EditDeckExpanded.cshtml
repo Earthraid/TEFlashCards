@@ -18,7 +18,7 @@
     if (ViewBag.AddedCard != null)
     {
         <div class="successMsg">
-            <span class="checkmark">&#10003;</span> SUCCESS! Your card for <b>@ViewBag.AddedCard.Front</b> was added.
+            <span class="success_msg">&#10003; SUCCESS</span> Your card for <b>@ViewBag.AddedCard.Front</b> was added.
             <b>@Html.ActionLink("Click here", "CardView", "Card")</b> to return to card view.
         </div>
 
@@ -48,7 +48,7 @@
         {
             @Html.HiddenFor(m => Model.DeckID)
 
-            <span id="@tag" class="remove_tag">x</span>
+            <span id="@tag" class="x_button remove_tag">&#x2297;</span>
         }
     }
 
@@ -84,27 +84,37 @@
 
 <!--Lists cards in deck for review or removal-->
 <h6 class="bold_heading">Cards in this deck:</h6>
-@Html.ActionLink("Find more cards to add >>", "CardView", "Card")
 
 @if (Model.DeckCards.Count != 0)
 {
+    @Html.ActionLink("Find more cards to add >>", "CardView", "Card")
     <div class="card_flex_container">
         @foreach (var card in Model.DeckCards)
         {
             <div class="card_bothsides">
 
+                @if (ViewBag.AddedCard != null)
+                {
+                    if (card.CardID == ViewBag.AddedCard.CardID)
+                    {
+                        <span class="success_msg">successfully added</span>
+                    }
+                }
+
                 <div class="card_front">@card.Front</div>
 
                 <div class="card_back">@card.Back</div>
 
-                <ul class="card_options">
-                    <li>
-                        @Html.ActionLink("Remove Card", "RemoveThisCard", new { id = card.CardID }, null)
-                    </li>
-                    <li>
-                        @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = card.CardID }, null)
-                    </li>
-                </ul>
+                <div class="card_options">
+
+                    @using (Html.BeginForm("RemoveThisCard", "Deck", new { id = card.CardID, expanded = true }, FormMethod.Post, new { @class = "remove_card_action" }))
+                    {
+                        <span class="x_button remove_card">&#x2297;</span>
+                    }
+
+                    @Html.ActionLink("Modify this card", "CardModify", "Card", new { id = card.CardID }, null)
+
+                </div>
             </div>
         }
     </div>
