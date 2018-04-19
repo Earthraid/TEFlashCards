@@ -2,7 +2,7 @@
 -- This script contains INSERT statements for populating tables with seed data
 -- *****************************************************************************
 
-BEGIN;
+
 
 -- INSERT statements go here
 
@@ -51,4 +51,3 @@ INSERT [dbo].[deck_tag] ([DeckID], [TagID]) VALUES (1, 3)
 INSERT [dbo].[card_tag] ([CardID], [TagID]) VALUES (1, 2)
 INSERT [dbo].[card_tag] ([CardID], [TagID]) VALUES (2, 2)
 
-COMMIT;

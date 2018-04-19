@@ -67,7 +67,7 @@ namespace Capstone.Web.Tests.DAL
             List<Deck> deckList = deckSql.GetDecksByUserID("2");
 
             //Assert
-            Assert.AreEqual(numDecks + 1, deckList.Count);
+            Assert.AreEqual(numDecks, deckList.Count);
         }
 
         [TestMethod]

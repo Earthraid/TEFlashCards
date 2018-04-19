@@ -2,8 +2,6 @@
 -- This script creates all of the database objects (tables, constraints, etc) for the database
 -- *************************************************************************************************
 
-BEGIN;
-
 USE [master]
 GO
 
@@ -311,5 +309,3 @@ USE [master]
 GO
 ALTER DATABASE [HotelFlashcards] SET  READ_WRITE 
 GO
-
-COMMIT;
