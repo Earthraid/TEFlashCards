@@ -42,22 +42,16 @@ namespace Capstone.Web.Models
 
         }
 
-        public List<Deck> DecksHaveThisCard
+        public List<Deck> DecksHaveThisCard(string userID)
         {
-            get
-            {
-                DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
-                return deckSql.GetDecksByCardID(UserID, CardID);
-            }
+            DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
+            return deckSql.GetDecksByCardID(userID, CardID);
         }
 
-        public List<Deck> AvailableDecksToAddThisCard
+        public List<Deck> AvailableDecksToAddThisCard(string userID)
         {
-            get
-            {
                 DeckSqlDAL deckSql = new DeckSqlDAL(connectionString);
-                return deckSql.GetAvailableDecksToAddCard(UserID, CardID);
-            }
+                return deckSql.GetAvailableDecksToAddCard(userID, CardID);
         }
 
         /// <summary>

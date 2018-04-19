@@ -36,6 +36,14 @@ namespace Capstone.Web.DAL
             this.connectionString = connectionString;
         }
 
+        public List<string> PublicCardUserList
+        {
+            get
+            {
+                return PublicUserList();
+            }
+        }
+
         //List all cards that a user has
         public List<Card> ViewCards(string userID)
         {
@@ -210,7 +218,7 @@ namespace Capstone.Web.DAL
         public List<Card> ViewCardsWithAdminCards(string userID)
         {
             List<Card> result = new List<Card>();
-            List<string> userIDList = this.AdminCardList();
+            List<string> userIDList = this.PublicUserList();
             userIDList.Add(userID);
 
             try
@@ -256,7 +264,8 @@ namespace Capstone.Web.DAL
             return card;
         }
 
-        private List<string> AdminCardList()
+        //Returns a list of userID's to associate with Public Cards
+        private List<string> PublicUserList()
         {
             List<string> result = new List<string>();
             try
