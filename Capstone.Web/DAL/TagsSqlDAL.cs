@@ -13,12 +13,12 @@ namespace Capstone.Web.DAL
     {
         private string connectionString;
 
-        private string GetAllTagsSQL = "SELECT * FROM tags";
+        private string GetAllTagsSQL = "SELECT * FROM tags ORDER BY TagName";
 
         private string AddTagSQL = "INSERT INTO tags (TagName) VALUES (@tagNameValue);SELECT CAST(SCOPE_IDENTITY() as int);";
 
         private string AddTagToCardSQL = "INSERT INTO card_tag (CardID, TagID) VALUES (@cardIDValue, @tagIDValue);";
-        private string GetTagsByCardIDSQL = "SELECT TagName FROM tags JOIN card_tag ON tags.TagID = card_tag.TagID WHERE card_tag.CardID = @cardIDValue;";
+        private string GetTagsByCardIDSQL = "SELECT TagName FROM tags JOIN card_tag ON tags.TagID = card_tag.TagID WHERE card_tag.CardID = @cardIDValue ORDER BY TagName;";
         private string RemoveTagFromCardSQL = "DELETE FROM card_tag WHERE TagID = @tagIDValue AND CardID = @cardIDValue;";
 
         private string AddTagToDeckSQL = "INSERT INTO deck_tag (DeckID, TagID) VALUES (@deckIDValue, @tagIDValue);";
